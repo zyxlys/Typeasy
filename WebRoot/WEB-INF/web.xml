@@ -33,10 +33,21 @@
     <servlet-name>PostServlet</servlet-name>
     <servlet-class>me.imomo.typeasy.servlet.PostServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>User Login And Register Servlet</description>
+    <display-name>User Login And Register Servlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.LoginServlet</servlet-class>
+  </servlet>
+
 
   <servlet-mapping>
     <servlet-name>PostServlet</servlet-name>
     <url-pattern>/servlet/PostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/servlet/LoginServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

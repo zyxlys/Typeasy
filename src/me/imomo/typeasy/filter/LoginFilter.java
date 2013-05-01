@@ -8,8 +8,12 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import me.imomo.typeasy.commons.CookieUtil;
+import me.imomo.typeasy.vo.User;
 
 public class LoginFilter implements Filter {
 
@@ -24,8 +28,18 @@ public class LoginFilter implements Filter {
 			FilterChain arg2) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
-		if (request.getSession().getAttribute("UserSession") == null) {
-			response.sendRedirect(request.getContextPath() + "/login.jsp");
+		Cookie cookie = CookieUtil.isCookieExist("UserCookie", request);
+
+		if (request.getSession().getAttribute("user") == null) {
+			if (cookie != null) {
+				User user = CookieUtil.validateCookieLoginIdAndPassword(cookie);
+				if (user != null) {
+					request.getSession().setAttribute("user", user);
+					arg2.doFilter(arg0, arg1);
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/login.jsp");
+			}
 		} else {
 			arg2.doFilter(arg0, arg1);
 		}
