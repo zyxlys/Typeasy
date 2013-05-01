@@ -1,0 +1,126 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
+<%
+String action = request.getParameter("action");
+if(action == null) {
+	action = "login";
+}
+%>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+<link rel="stylesheet" type="text/css" href="includes/css/login.css">
+<% if(action.equals("login")) { %>
+<title>登录 - Typeasy</title>
+<% } %>
+<% if(action.equals("register")) { %>
+<title>注册 - Typeasy</title>
+<script type="text/javascript" src="includes/scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="includes/scripts/jquery.validate.min.js"></script>
+<script type="text/javascript" src="includes/scripts/messages_zh.js"></script>
+<!-- 表单验证 -->
+<script>
+$().ready(function() {
+
+	// validate signup form on keyup and submit
+	$("#registerForm").validate({
+		rules: {
+			user_login: {
+				required: true,
+				minlength: 5
+			},
+			user_pwd: {
+				required: true,
+				minlength: 6
+			},
+			user_pwd_agin: {
+				required: true,
+				minlength: 6,
+				equalTo: "#password"
+			},
+			user_email: {
+				required: true,
+				email: true
+			},
+			user_nickname: {
+				minlength: 2
+			},
+		},
+	});
+
+});
+</script>
+<% } %>
+</head>
+
+<body class="login login-action-login core-ui">
+<div id="login">
+  <h1><a href="index.jsp" title="Typeasy">Typeasy</a></h1>
+  <% if(action.equals("login")) { %>
+  <form name="loginForm" id="loginForm" action="#" method="post">
+    <p>
+      <label for="user_login">用户名<br />
+        <input type="text" name="user_login" id="user_login" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p>
+      <label for="user_pwd">密码<br />
+        <input type="password" name="user_pwd" id="user_pwd" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p class="forgetmenot">
+      <label for="rememberme">
+        <input name="rememberme" type="checkbox" id="rememberme" value="forever"  />
+        记住我</label>
+    </p>
+    <p class="submit">
+      <input type="submit" name="submit" id="submit" class="button-primary" value="登录" />
+    </p>
+  </form>
+  <p id="nav"> <a href="login.jsp?action=register" title="注册">注册一个新帐户</a> </p>
+  <p id="backtoblog"><a href="index.jsp" title="Home Page">&larr; 回到Typeasy</a></p>
+  <% } %>
+  <% if(action.equals("register")) { %>
+  <p class="message register">标记*号的为必填项</p>
+  <form name="registerForm" id="registerForm" action="#" method="post">
+    <p>
+      <label for="user_login">用户名 *<br />
+        <input type="text" name="user_login" id="user_login" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p>
+      <label for="user_pwd">密码 *<br />
+        <input type="password" name="user_pwd" id="user_pass" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p>
+      <label for="user_pwd_agin">确认密码 *<br />
+        <input type="password" name="user_pwd_agin" id="user_pwd_agin" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p>
+      <label for="user_email">邮箱 *<br />
+        <input type="text" name="user_email" id="user_email" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p>
+      <label for="user_nickname">昵称<br />
+        <input type="text" name="user_nickname" id="user_nickname" class="input" value="" size="20" />
+      </label>
+    </p>
+    <p class="submit">
+      <input type="submit" name="submit" id="submit" class="button-primary" value="注册" />
+    </p>
+  </form>
+  <p id="nav"> <a href="login.jsp" title="登录">已经有了一个帐号?点击登录</a> </p>
+  <p id="backtoblog"><a href="index.jsp" title="Home Page">&larr; 回到Typeasy</a></p>
+  <% } %>
+</div>
+<div class="clear"></div>
+</body>
+</html>
