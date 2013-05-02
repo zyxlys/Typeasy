@@ -73,6 +73,8 @@ public class LoginDao {
 					user.setMail(rs.getString("mail"));
 					user.setUrl(rs.getString("url"));
 					user.setScreenName(rs.getString("screenName"));
+					user.setCreated(rs.getString("created"));
+					user.setGroup(rs.getString("group"));
 				}
 
 			} catch (SQLException e) {

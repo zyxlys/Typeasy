@@ -1,436 +1,344 @@
-<%@page import="me.imomo.typeasy.vo.User"%>
-<%@ page contentType="text/html; charset=utf-8" language="java"
-	import="java.sql.*" errorPage=""%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	request.setAttribute("title", "管理中心");
 %>
-<%
-	User user = (User) session.getAttribute("user");
-%>
-<!doctype html>
-<html>
-<head>
-<base href="<%=basePath%>">
-<meta charset="utf-8" />
-<title>管理中心 - Typeasy</title>
-<link rel="stylesheet" href="admin/css/layout.css" type="text/css"
-	media="screen" />
-<!--[if lt IE 9]>
-	<link rel="stylesheet" href="admin/css/ie.css" type="text/css" media="screen" />
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-<script src="admin/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="admin/scripts/hideshow.js" type="text/javascript"></script>
-<script src="admin/scripts/jquery.tablesorter.min.js"
-	type="text/javascript"></script>
-<script type="text/javascript" src="admin/scripts/jquery.equalHeight.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$(".tablesorter").tablesorter();
-	});
-	$(document).ready(function() {
 
-		//When page loads...
-		$(".tab_content").hide(); //Hide all content
-		$("ul.tabs li:first").addClass("active").show(); //Activate first tab
-		$(".tab_content:first").show(); //Show first tab content
+<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="sidebar.jsp"></jsp:include>
 
-		//On Click Event
-		$("ul.tabs li").click(function() {
+<section id="main" class="column">
+	<script language="JavaScript">
+		var mess = "";
+		day = new Date()
+		hr = day.getHours()
+		if ((hr >= 0) && (hr <= 4))
+			mess = "已经夜深了，请注意休息哦！"
+		if ((hr >= 4) && (hr < 7))
+			mess = "早上好，这么早就起来了？ "
+		if ((hr >= 7) && (hr < 12))
+			mess = "上午好，祝您保持心情愉快！"
+		if ((hr >= 12) && (hr <= 13))
+			mess = "现在是午饭时间，你做什么好吃的了吗？"
+		if ((hr >= 13) && (hr <= 17))
+			mess = "该午休了，希望您能够劳逸结合！ "
+		if ((hr >= 17) && (hr <= 18))
+			mess = "今晚时分，天空好美！"
+		if ((hr >= 18) && (hr <= 19))
+			mess = "晚上好！"
+		if ((hr >= 19) && (hr <= 23))
+			mess = "一天又快过去了，你今天收获很多吧？"
+	</script>
+	<h4 class="alert_info">
+		欢迎归来！
+		<script language="JavaScript">
+			document.write(mess)
+		</script>
+	</h4>
 
-			$("ul.tabs li").removeClass("active"); //Remove any "active" class
-			$(this).addClass("active"); //Add "active" class to selected tab
-			$(".tab_content").hide(); //Hide all tab content
-
-			var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
-			$(activeTab).fadeIn(); //Fade in the active ID content
-			return false;
-		});
-
-	});
-</script>
-<script type="text/javascript">
-	$(function() {
-		$('.column').equalHeight();
-	});
-</script>
-</head>
-
-<body>
-	<header id="header">
-		<hgroup>
-			<h1 class="site_title">
-				<a href="admin/index.jsp">管理中心</a>
-			</h1>
-			<h2 class="section_title">Typeasy Control Panel</h2>
-			<div class="btn_view_site">
-				<a href="index.jsp">查看站点</a>
-			</div>
-		</hgroup>
-	</header>
-	<!-- end of header bar -->
-
-	<section id="secondary_bar">
-		<div class="user">
-			<p><%=user.getScreenName()%>
-				(<a href="#">3 条消息</a>)
-			</p>
-			<a class="logout_user" href="servlet/LoginServlet?action=logout"
-				title="安全退出" onclick="confirm('确认要安全退出吗?');">退出登录</a>
-		</div>
-		<div class="breadcrumbs_container">
-			<article class="breadcrumbs">
-				<a href="admin/index.jsp">管理中心</a>
-				<div class="breadcrumb_divider"></div>
-				<a class="current">控制面板</a>
+	<article class="module width_full">
+		<header>
+			<h3>Stats</h3>
+		</header>
+		<div class="module_content">
+			<article class="stats_graph">
+				<img
+					src="http://chart.apis.google.com/chart?chxr=0,0,3000&chxt=y&chs=520x140&cht=lc&chco=76A4FB,80C65A&chd=s:Tdjpsvyvttmiihgmnrst,OTbdcfhhggcTUTTUadfk&chls=2|2&chma=40,20,20,30"
+					width="520" height="140" alt="" />
 			</article>
+
+			<article class="stats_overview">
+				<div class="overview_today">
+					<p class="overview_day">Today</p>
+					<p class="overview_count">1,876</p>
+					<p class="overview_type">Hits</p>
+					<p class="overview_count">2,103</p>
+					<p class="overview_type">Views</p>
+				</div>
+				<div class="overview_previous">
+					<p class="overview_day">Yesterday</p>
+					<p class="overview_count">1,646</p>
+					<p class="overview_type">Hits</p>
+					<p class="overview_count">2,054</p>
+					<p class="overview_type">Views</p>
+				</div>
+			</article>
+			<div class="clear"></div>
 		</div>
-	</section>
-	<!-- end of secondary bar -->
+	</article>
+	<!-- end of stats article -->
 
-	<aside id="sidebar" class="column">
-		<form class="quick_search">
-			<input type="text" value="">
-		</form>
-		<hr />
-		<h3>文章管理</h3>
-		<ul class="toggle">
-			<li><a href="admin/write-post.jsp">发表文章</a></li>
-			<li><a href="#">所有文章</a></li>
-			<li><a href="#">分类目录</a></li>
-			<li><a href="#">文章标签</a></li>
-		</ul>
-		<h3>用户管理</h3>
-		<ul class="toggle">
-			<li><a href="#">添加用户</a></li>
-			<li><a href="#">所有用户</a></li>
-			<li><a href="#">个人资料</a></li>
-		</ul>
-		<h3>评论管理</h3>
-		<ul class="toggle">
-			<li><a href="#">File Manager</a></li>
-			<li><a href="#">Gallery</a></li>
-			<li><a href="#">Audio</a></li>
-			<li><a href="#">Video</a></li>
-		</ul>
-		<h3>站点设置</h3>
-		<ul class="toggle">
-			<li><a href="#">基本信息</a></li>
-			<li><a href="#">Security</a></li>
-			<li><a href="#">安全退出</a></li>
-		</ul>
+	<article class="module width_3_quarter">
+		<header>
+			<h3 class="tabs_involved">Content Manager</h3>
+			<ul class="tabs">
+				<li><a href="#tab1">Posts</a></li>
+				<li><a href="#tab2">Comments</a></li>
+			</ul>
+		</header>
+
+		<div class="tab_container">
+			<div id="tab1" class="tab_content">
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Entry Name</th>
+							<th>Category</th>
+							<th>Created On</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Lorem Ipsum Dolor Sit Amet</td>
+							<td>Articles</td>
+							<td>5th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Ipsum Lorem Dolor Sit Amet</td>
+							<td>Freebies</td>
+							<td>6th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Sit Amet Dolor Ipsum</td>
+							<td>Tutorials</td>
+							<td>10th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Dolor Lorem Amet</td>
+							<td>Articles</td>
+							<td>16th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Dolor Lorem Amet</td>
+							<td>Articles</td>
+							<td>16th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- end of #tab1 -->
+
+			<div id="tab2" class="tab_content">
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Comment</th>
+							<th>Posted by</th>
+							<th>Posted On</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Lorem Ipsum Dolor Sit Amet</td>
+							<td>Mark Corrigan</td>
+							<td>5th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Ipsum Lorem Dolor Sit Amet</td>
+							<td>Jeremy Usbourne</td>
+							<td>6th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Sit Amet Dolor Ipsum</td>
+							<td>Super Hans</td>
+							<td>10th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Dolor Lorem Amet</td>
+							<td>Alan Johnson</td>
+							<td>16th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>Dolor Lorem Amet</td>
+							<td>Dobby</td>
+							<td>16th April 2011</td>
+							<td><input type="image" src="images/icn_edit.png"
+								title="Edit"><input type="image"
+								src="images/icn_trash.png" title="Trash"></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+			<!-- end of #tab2 -->
+
+		</div>
+		<!-- end of .tab_container -->
+
+	</article>
+	<!-- end of content manager article -->
+
+	<article class="module width_quarter">
+		<header>
+			<h3>Messages</h3>
+		</header>
+		<div class="message_list">
+			<div class="module_content">
+				<div class="message">
+					<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+						dolor.</p>
+					<p>
+						<strong>John Doe</strong>
+					</p>
+				</div>
+				<div class="message">
+					<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+						dolor.</p>
+					<p>
+						<strong>John Doe</strong>
+					</p>
+				</div>
+				<div class="message">
+					<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+						dolor.</p>
+					<p>
+						<strong>John Doe</strong>
+					</p>
+				</div>
+				<div class="message">
+					<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+						dolor.</p>
+					<p>
+						<strong>John Doe</strong>
+					</p>
+				</div>
+				<div class="message">
+					<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+						dolor.</p>
+					<p>
+						<strong>John Doe</strong>
+					</p>
+				</div>
+			</div>
+		</div>
 		<footer>
-			<hr />
-			<p>
-				<strong>Copyright &copy; 2013 Typeasy</strong>
-			</p>
-			<p>
-				Powered by <a href="http://imomo.me" target="_blank">Acris Liu</a>
-			</p>
+			<form class="post_message">
+				<input type="text" value="Message"
+					onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+				<input type="submit" class="btn_post_message" value="" />
+			</form>
 		</footer>
-	</aside>
-	<!-- end of sidebar -->
+	</article>
+	<!-- end of messages article -->
 
-	<section id="main" class="column">
-		<h4 class="alert_info">欢迎归来，这里还可显示其他信息。</h4>
-		<article class="module width_full">
-			<header>
-				<h3>状态</h3>
-			</header>
-			<div class="module_content">
-				<article class="stats_graph">
-					<img
-						src="http://chart.apis.google.com/chart?chxr=0,0,3000&chxt=y&chs=520x140&cht=lc&chco=76A4FB,80C65A&chd=s:Tdjpsvyvttmiihgmnrst,OTbdcfhhggcTUTTUadfk&chls=2|2&chma=40,20,20,30"
-						width="520" height="140" alt="" />
-				</article>
-				<article class="stats_overview">
-					<div class="overview_today">
-						<p class="overview_day">Today</p>
-						<p class="overview_count">1,876</p>
-						<p class="overview_type">Hits</p>
-						<p class="overview_count">2,103</p>
-						<p class="overview_type">Views</p>
-					</div>
-					<div class="overview_previous">
-						<p class="overview_day">Yesterday</p>
-						<p class="overview_count">1,646</p>
-						<p class="overview_type">Hits</p>
-						<p class="overview_count">2,054</p>
-						<p class="overview_type">Views</p>
-					</div>
-				</article>
-				<div class="clear"></div>
+	<div class="clear"></div>
+
+	<article class="module width_full">
+		<header>
+			<h3>Post New Article</h3>
+		</header>
+		<div class="module_content">
+			<fieldset>
+				<label>Post Title</label> <input type="text">
+			</fieldset>
+			<fieldset>
+				<label>Content</label>
+				<textarea rows="12"></textarea>
+			</fieldset>
+			<fieldset style="width:48%; float:left; margin-right: 3%;">
+				<!-- to make two field float next to one another, adjust values accordingly -->
+				<label>Category</label> <select style="width:92%;">
+					<option>Articles</option>
+					<option>Tutorials</option>
+					<option>Freebies</option>
+				</select>
+			</fieldset>
+			<fieldset style="width:48%; float:left;">
+				<!-- to make two field float next to one another, adjust values accordingly -->
+				<label>Tags</label> <input type="text" style="width:92%;">
+			</fieldset>
+			<div class="clear"></div>
+		</div>
+		<footer>
+			<div class="submit_link">
+				<select>
+					<option>Draft</option>
+					<option>Published</option>
+				</select> <input type="submit" value="Publish" class="alt_btn"> <input
+					type="submit" value="Reset">
 			</div>
-		</article>
-		<!-- end of stats article -->
+		</footer>
+	</article>
+	<!-- end of post new article -->
 
-		<article class="module width_3_quarter">
-			<header>
-				<h3 class="tabs_involved">Content Manager</h3>
-				<ul class="tabs">
-					<li><a href="#tab1">Posts</a></li>
-					<li><a href="#tab2">Comments</a></li>
-				</ul>
-			</header>
-			<div class="tab_container">
-				<div id="tab1" class="tab_content">
-					<table class="tablesorter" cellspacing="0">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Entry Name</th>
-								<th>Category</th>
-								<th>Created On</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Lorem Ipsum Dolor Sit Amet</td>
-								<td>Articles</td>
-								<td>5th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Ipsum Lorem Dolor Sit Amet</td>
-								<td>Freebies</td>
-								<td>6th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Sit Amet Dolor Ipsum</td>
-								<td>Tutorials</td>
-								<td>10th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Dolor Lorem Amet</td>
-								<td>Articles</td>
-								<td>16th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Dolor Lorem Amet</td>
-								<td>Articles</td>
-								<td>16th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<!-- end of #tab1 -->
+	<h4 class="alert_warning">A Warning Alert</h4>
 
-				<div id="tab2" class="tab_content">
-					<table class="tablesorter" cellspacing="0">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Comment</th>
-								<th>Posted by</th>
-								<th>Posted On</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Lorem Ipsum Dolor Sit Amet</td>
-								<td>Mark Corrigan</td>
-								<td>5th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Ipsum Lorem Dolor Sit Amet</td>
-								<td>Jeremy Usbourne</td>
-								<td>6th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Sit Amet Dolor Ipsum</td>
-								<td>Super Hans</td>
-								<td>10th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Dolor Lorem Amet</td>
-								<td>Alan Johnson</td>
-								<td>16th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>Dolor Lorem Amet</td>
-								<td>Dobby</td>
-								<td>16th April 2011</td>
-								<td><input type="image" src="admin/images/icn_edit.png"
-									title="Edit"> <input type="image"
-									src="admin/images/icn_trash.png" title="Trash"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<!-- end of #tab2 -->
+	<h4 class="alert_error">An Error Message</h4>
 
-			</div>
-			<!-- end of .tab_container -->
+	<h4 class="alert_success">A Success Message</h4>
 
-		</article>
-		<!-- end of content manager article -->
+	<article class="module width_full">
+		<header>
+			<h3>Basic Styles</h3>
+		</header>
+		<div class="module_content">
+			<h1>Header 1</h1>
+			<h2>Header 2</h2>
+			<h3>Header 3</h3>
+			<h4>Header 4</h4>
+			<p>Cum sociis natoque penatibus et magnis dis parturient montes,
+				nascetur ridiculus mus. Cras mattis consectetur purus sit amet
+				fermentum. Maecenas faucibus mollis interdum. Maecenas faucibus
+				mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas
+				eget quam.</p>
 
-		<article class="module width_quarter">
-			<header>
-				<h3>Messages</h3>
-			</header>
-			<div class="message_list">
-				<div class="module_content">
-					<div class="message">
-						<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-							dolor.</p>
-						<p>
-							<strong>John Doe</strong>
-						</p>
-					</div>
-					<div class="message">
-						<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-							dolor.</p>
-						<p>
-							<strong>John Doe</strong>
-						</p>
-					</div>
-					<div class="message">
-						<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-							dolor.</p>
-						<p>
-							<strong>John Doe</strong>
-						</p>
-					</div>
-					<div class="message">
-						<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-							dolor.</p>
-						<p>
-							<strong>John Doe</strong>
-						</p>
-					</div>
-					<div class="message">
-						<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-							dolor.</p>
-						<p>
-							<strong>John Doe</strong>
-						</p>
-					</div>
-				</div>
-			</div>
-			<footer>
-				<form class="post_message">
-					<input type="text" value="Message"
-						onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
-					<input type="submit" class="btn_post_message" value="" />
-				</form>
-			</footer>
-		</article>
-		<!-- end of messages article -->
+			<p>
+				Donec id elit non mi porta <a href="#">link text</a> gravida at eget
+				metus. Donec ullamcorper nulla non metus auctor fringilla. Cras
+				mattis consectetur purus sit amet fermentum. Aenean eu leo quam.
+				Pellentesque ornare sem lacinia quam venenatis vestibulum.
+			</p>
 
-		<div class="clear"></div>
-		<article class="module width_full">
-			<header>
-				<h3>Post New Article</h3>
-			</header>
-			<div class="module_content">
-				<fieldset>
-					<label>Post Title</label> <input type="text">
-				</fieldset>
-				<fieldset>
-					<label>Content</label>
-					<textarea rows="12"></textarea>
-				</fieldset>
-				<fieldset style="width:48%; float:left; margin-right: 3%;">
-					<!-- to make two field float next to one another, adjust values accordingly -->
-					<label>Category</label> <select style="width:92%;">
-						<option>Articles</option>
-						<option>Tutorials</option>
-						<option>Freebies</option>
-					</select>
-				</fieldset>
-				<fieldset style="width:48%; float:left;">
-					<!-- to make two field float next to one another, adjust values accordingly -->
-					<label>Tags</label> <input type="text" style="width:92%;">
-				</fieldset>
-				<div class="clear"></div>
-			</div>
-			<footer>
-				<div class="submit_link">
-					<select>
-						<option>Draft</option>
-						<option>Published</option>
-					</select> <input type="submit" value="Publish" class="alt_btn"> <input
-						type="submit" value="Reset">
-				</div>
-			</footer>
-		</article>
-		<!-- end of post new article -->
+			<ul>
+				<li>Donec ullamcorper nulla non metus auctor fringilla.</li>
+				<li>Cras mattis consectetur purus sit amet fermentum.</li>
+				<li>Donec ullamcorper nulla non metus auctor fringilla.</li>
+				<li>Cras mattis consectetur purus sit amet fermentum.</li>
+			</ul>
+		</div>
+	</article>
+	<!-- end of styles article -->
+	<div class="spacer"></div>
+</section>
 
-		<h4 class="alert_warning">A Warning Alert</h4>
-		<h4 class="alert_error">An Error Message</h4>
-		<h4 class="alert_success">A Success Message</h4>
-		<article class="module width_full">
-			<header>
-				<h3>Basic Styles</h3>
-			</header>
-			<div class="module_content">
-				<h1>Header 1</h1>
-				<h2>Header 2</h2>
-				<h3>Header 3</h3>
-				<h4>Header 4</h4>
-				<p>Cum sociis natoque penatibus et magnis dis parturient montes,
-					nascetur ridiculus mus. Cras mattis consectetur purus sit amet
-					fermentum. Maecenas faucibus mollis interdum. Maecenas faucibus
-					mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas
-					eget quam.</p>
-				<p>
-					Donec id elit non mi porta <a href="#">link text</a> gravida at
-					eget metus. Donec ullamcorper nulla non metus auctor fringilla.
-					Cras mattis consectetur purus sit amet fermentum. Aenean eu leo
-					quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
-				</p>
-				<ul>
-					<li>Donec ullamcorper nulla non metus auctor fringilla.</li>
-					<li>Cras mattis consectetur purus sit amet fermentum.</li>
-					<li>Donec ullamcorper nulla non metus auctor fringilla.</li>
-					<li>Cras mattis consectetur purus sit amet fermentum.</li>
-				</ul>
-			</div>
-		</article>
-		<!-- end of styles article -->
-		<div class="spacer"></div>
-	</section>
-</body>
-</html>
+<jsp:include page="footer.jsp"></jsp:include>

@@ -48,7 +48,7 @@
 %>
 <title>注册 - Typeasy</title>
 <script type="text/javascript"
-	src="includes/scripts/jquery-1.9.1.min.js"></script>
+	src="includes/scripts/jquery-1.5.2.min.js"></script>
 <script type="text/javascript"
 	src="includes/scripts/jquery.validate.min.js"></script>
 <script type="text/javascript" src="includes/scripts/messages_zh.js"></script>
