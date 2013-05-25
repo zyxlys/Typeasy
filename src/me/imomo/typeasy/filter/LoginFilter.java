@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import me.imomo.typeasy.commons.CookieUtil;
-import me.imomo.typeasy.vo.User;
+import me.imomo.typeasy.vo.Users;
 
 public class LoginFilter implements Filter {
 
@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
 
 		if (request.getSession().getAttribute("user") == null) {
 			if (cookie != null) {
-				User user = CookieUtil.validateCookieLoginIdAndPassword(cookie);
+				Users user = CookieUtil.validateCookieLoginIdAndPassword(cookie);
 				if (user != null) {
 					request.getSession().setAttribute("user", user);
 					arg2.doFilter(arg0, arg1);

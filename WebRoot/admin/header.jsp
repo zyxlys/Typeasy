@@ -1,36 +1,34 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-
-
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!doctype html>
 <html>
 
 <head>
+<base href="<%=basePath%>">
 <meta charset="utf-8" />
-<title>${requestScope.title} - Typeasy</title>
 
-<link rel="stylesheet" href="css/layout.css" type="text/css"
+<title>${title} - Typeasy</title>
+<link rel="shortcut icon" href="favicon.ico"
+	type="image/vnd.microsoft.icon">
+<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" href="css/admin-layout.css" type="text/css"
 	media="screen" />
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/admin-ie.css" type="text/css" media="screen" />
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-<%
-	if (request.getAttribute("title").equals("发表文章")) {
-%>
-<link rel="stylesheet"
-	href="../includes/kindeditor/themes/default/default.css" />
-<link rel="stylesheet"
-	href="../includes/kindeditor/plugins/code/prettify.css" />
-<script charset="utf-8"
-	src="../includes/kindeditor/plugins/code/prettify.js"></script>
-<script src="../includes/kindeditor/kindeditor.js"
-	type="text/javascript"></script>
-<script src="../includes/kindeditor/lang/zh_CN.js"
-	type="text/javascript"></script>
-<%
-	}
-%>
+
+<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="kindeditor/plugins/code/prettify.js"></script>
+<script src="kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+
 <script src="js/jquery-1.5.2.min.js" type="text/javascript"></script>
 <script src="js/hideshow.js" type="text/javascript"></script>
 <script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
@@ -74,12 +72,11 @@
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title">
-				<a href="index.jsp">控制面板</a>
+				<a href="admin/index.jsp">控制面板</a>
 			</h1>
-			<h2 class="section_title">${requestScope.title}</h2>
+			<h2 class="section_title">${title}</h2>
 			<div class="btn_view_site">
-				<a href="../index.jsp">查看站点</a>
+				<a href="index.jsp">查看站点</a>
 			</div>
 		</hgroup>
 	</header>
-	<!-- end of header bar -->

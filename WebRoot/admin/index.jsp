@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-	request.setAttribute("title", "管理中心");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:set var="title" scope="request" value="首页"></c:set>
 
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="sidebar.jsp"></jsp:include>

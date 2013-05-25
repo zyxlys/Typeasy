@@ -4,6 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
+<filter>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+</filter-mapping>
+
+
   <filter>
   	<filter-name>LoginFilter</filter-name>
   	<filter-class>me.imomo.typeasy.filter.LoginFilter</filter-class>
@@ -26,12 +38,25 @@
 	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
-
   <servlet>
-    <description>Post Manage Servlet</description>
-    <display-name>Post Manage Servlet</display-name>
-    <servlet-name>PostServlet</servlet-name>
-    <servlet-class>me.imomo.typeasy.servlet.PostServlet</servlet-class>
+    <description>UpLoad User Head Image</description>
+    <display-name>UpLoad User Head Image</display-name>
+    <servlet-name>UpLoadUserHeadImage</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.UpLoadUserHeadImage</servlet-class>
+  </servlet>
+  <servlet>
+    <description>Zoom Image</description>
+    <display-name>Zoom Image</display-name>
+    <servlet-name>ZoomImage</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.ZoomImage</servlet-class>
+  </servlet>
+  
+  
+  <servlet>
+    <description>Comments Servlet</description>
+    <display-name>Comments Servlet</display-name>
+    <servlet-name>CommentsServlet</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.CommentsServlet</servlet-class>
   </servlet>
   <servlet>
     <description>User Login And Register Servlet</description>
@@ -39,15 +64,89 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>me.imomo.typeasy.servlet.LoginServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>Users Servlet</description>
+    <display-name>Users Servlet</display-name>
+    <servlet-name>UsersServlet</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.UsersServlet</servlet-class>
+  </servlet> 
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>OptionsServlet</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.OptionsServlet</servlet-class>
+  </servlet>
 
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>Contents Servlet</display-name>
+    <servlet-name>ContentsServlet</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.ContentsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>Index Servlet</description>
+    <display-name>Index Servlet</display-name>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>me.imomo.typeasy.servlet.IndexServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>Metas Servlet</description>
+    <display-name>Metas Servlet</display-name>
+    <servlet-name>MetasServlet</servlet-name>
+  	<servlet-class>me.imomo.typeasy.servlet.MetasServlet</servlet-class>
+  </servlet>
+
+  
+  
+  <servlet-mapping>
+    <servlet-name>UpLoadUserHeadImage</servlet-name>
+    <url-pattern>/servlet/UpLoadUserHeadImage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ZoomImage</servlet-name>
+    <url-pattern>/servlet/ZoomImage</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>PostServlet</servlet-name>
-    <url-pattern>/servlet/PostServlet</url-pattern>
+    <servlet-name>CommentsServlet</servlet-name>
+    <url-pattern>/servlet/CommentsServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/servlet/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UsersServlet</servlet-name>
+    <url-pattern>/servlet/UsersServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OptionsServlet</servlet-name>
+    <url-pattern>/servlet/OptionsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ContentsServlet</servlet-name>
+    <url-pattern>/servlet/ContentsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern>/servlet/IndexServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>MetasServlet</servlet-name>
+	<url-pattern>/servlet/MetasServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/index.jsp?error=404</location>
+  </error-page>
+  
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/index.jsp?error=500</location>
+  </error-page>
+
 
 </web-app>

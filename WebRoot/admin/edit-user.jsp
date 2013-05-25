@@ -1,0 +1,78 @@
+<%@ page language="java" import="java.util.*,me.imomo.typeasy.vo.*"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:set var="title" scope="request" value="编辑用户信息"></c:set>
+
+
+<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="sidebar.jsp"></jsp:include>
+<section id="main" class="column">
+	<h4 class="alert_info">管理员拥有在后台编辑用户信息的权限。</h4>
+	<article class="module width_full">
+		<header>
+			<h3>编辑用户信息</h3>
+		</header>
+		<div class="module_content">
+			<form id="edit-user"
+				action="servlet/UserServlet?action=edit&uid=${user.uid }"
+				method="post">
+				<div class="padding-box">
+					<h2>基本资料</h2>
+					<table class="form-table">
+
+						<tr>
+							<th><label for="name">用户名 <span class="description">(必填项
+										，用户名唯一，不可重复)</span></label></th>
+							<td><input type="text" name="name" id="name"
+								value="${user.name }" class="regular-text" /></td>
+						</tr>
+						<br>
+						<br>
+						<tr>
+							<th><label for="screenName">用户昵称</label></th>
+							<td><input type="text" name="screenName" id="screenName"
+								value="${user.screenName }" class="regular-text" /></td>
+						</tr>
+					</table>
+					<br> <br>
+					<h2>联系信息</h2>
+					<table class="form-table">
+						<tr>
+							<th><label for="mail">电子邮箱 <span class="description">(必填项
+										，邮箱唯一，不可重复)</span></label></th>
+							<td><input type="text" name="mail" id="mail"
+								value="${user.mail }" class="regular-text" /></td>
+						</tr>
+						<tr>
+							<th><label for="url">个人主页</label></th>
+							<td><input type="text" name="url" id="url"
+								value="${user.url }" class="regular-text" /></td>
+						</tr>
+					</table>
+					<br> <br>
+					<h2>密码</h2>
+					<table class="form-table">
+						<tr>
+							<th><label for="password">密码</label></th>
+							<td><input type="password" name="password" id="password"
+								value="" class="regular-text" /></td>
+						</tr>
+						<tr>
+							<th><label for="password_agin">确认密码</label></th>
+							<td><input type="password" name="password_again"
+								id="password_again" value="" class="regular-text" /></td>
+						</tr>
+					</table>
+					<br> <br>
+					<p align="right">
+						<input name="submit" type="submit" value="修改用户信息" />
+					</p>
+				</div>
+			</form>
+		</div>
+	</article>
+
+	<div class="spacer"></div>
+</section>
+<jsp:include page="footer.jsp"></jsp:include>

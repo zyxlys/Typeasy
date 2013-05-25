@@ -1,11 +1,12 @@
-<%@ page contentType="text/html; charset=utf-8" language="java"
-	import="java.sql.*" errorPage=""%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+
 <%
 	String loginMessage = (String) request.getAttribute("loginMessage");
 	String registerMessage = (String) request
@@ -20,11 +21,13 @@
 		action = "login";
 	}
 %>
-<%
-	if (session.getAttribute("user") != null) {
-		response.sendRedirect("admin/index.jsp");
-	}
-%>
+
+
+
+<c:if test="${user!=null }">
+	<jsp:forward page="admin/index.jsp"></jsp:forward>
+</c:if>
+
 <!doctype html>
 <html>
 <head>
@@ -35,7 +38,7 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<link rel="stylesheet" type="text/css" href="includes/css/login.css">
+<link rel="stylesheet" type="text/css" href="css/login.css">
 <%
 	if (action.equals("login")) {
 %>
@@ -48,10 +51,10 @@
 %>
 <title>注册 - Typeasy</title>
 <script type="text/javascript"
-	src="includes/scripts/jquery-1.5.2.min.js"></script>
+	src="js/jquery-1.5.2.min.js"></script>
 <script type="text/javascript"
-	src="includes/scripts/jquery.validate.min.js"></script>
-<script type="text/javascript" src="includes/scripts/messages_zh.js"></script>
+	src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
 <!-- 表单验证 -->
 <script>
 	$().ready(function() {
@@ -70,7 +73,7 @@
 				user_pwd_agin : {
 					required : true,
 					minlength : 6,
-					equalTo : "#password"
+					equalTo : "#user_pwd"
 				},
 				user_email : {
 					required : true,
@@ -142,7 +145,7 @@
 			</p>
 			<p>
 				<label for="user_pwd">密码 *<br /> <input type="password"
-					name="user_pwd" id="user_pass" class="input" value="" size="20" />
+					name="user_pwd" id="user_pwd" class="input" value="" size="20" />
 				</label>
 			</p>
 			<p>
