@@ -2,8 +2,8 @@ package me.imomo.typeasy.service;
 
 import java.util.List;
 
-import me.imomo.typeasy.dao.OptionsDao;
-import me.imomo.typeasy.vo.Options;
+import me.imomo.typeasy.dao.OptionsDAO;
+import me.imomo.typeasy.vo.OptionsVO;
 
 /**
  * Options Service
@@ -14,43 +14,26 @@ import me.imomo.typeasy.vo.Options;
  */
 public class OptionsService {
 
-	private OptionsDao od = new OptionsDao();
+	private OptionsDAO od = new OptionsDAO();
 	
-	/*public boolean Add(Options op){
-		Options name = od.FindByName(op.getName());
-		boolean flag = false;
-		if(name.getValue()==null)
-		{
-			od.Insert(op);
-			flag = true;
-		} else {
-			flag = false;
-		}
-		return flag;
-	}
 	
-	public void delete(String name)
+	public boolean edit(OptionsVO option)
 	{
-		od.Delete(name);
-	}*/
-	
-	public boolean Modify(Options op)
-	{
-		if(op!=null)
+		if(option!=null)
 		{
-			od.Modify(op);
-			return true;
+			od.edit(option);
+			return true;	
 		}else{
 			return false;
 		}
 	}
 	
-	public List<Options> findAll(){
-		List<Options> list = od.findAll();
-		return list;
+	
+	public OptionsVO findByName(String name){
+		return od.findByName(name);
 	}
 	
-	public Options findOne(String name){
-		return od.FindByName(name);
+	public List<OptionsVO> list() {
+		return od.list();
 	}
 }

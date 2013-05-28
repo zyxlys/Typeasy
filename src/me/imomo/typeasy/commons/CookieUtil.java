@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import me.imomo.typeasy.service.LoginService;
-import me.imomo.typeasy.vo.Users;
+import me.imomo.typeasy.vo.UsersVO;
 
 /**
  * Cookie Utility
@@ -61,8 +61,8 @@ public class CookieUtil {
 	/**
 	 * 验证cookie中的用户名和密码，如果验证成功返回user对象、否则返回null
 	 */
-	public static Users validateCookieLoginIdAndPassword(Cookie cookie){
-		Users user = new Users();
+	public static UsersVO validateCookieLoginIdAndPassword(Cookie cookie){
+		UsersVO user = new UsersVO();
 		LoginService ls = new LoginService();
 		String cookieStr = cookie.getValue();
 		if(cookieStr != null){
@@ -70,7 +70,7 @@ public class CookieUtil {
 			if(values.length == 2){
 				user.setName(values[0]);
 				user.setPassword(values[1]);
-				Users u = ls.login(user);
+				UsersVO u = ls.login(user);
 				if(u != null){
 					return u;
 				}

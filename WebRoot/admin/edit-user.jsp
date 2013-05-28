@@ -15,7 +15,7 @@
 		</header>
 		<div class="module_content">
 			<form id="edit-user"
-				action="servlet/UserServlet?action=edit&uid=${user.uid }"
+				action="servlet/UsersServlet?action=edit&uid=${user.uid }"
 				method="post">
 				<div class="padding-box">
 					<h2>基本资料</h2>
@@ -50,20 +50,7 @@
 								value="${user.url }" class="regular-text" /></td>
 						</tr>
 					</table>
-					<br> <br>
-					<h2>密码</h2>
-					<table class="form-table">
-						<tr>
-							<th><label for="password">密码</label></th>
-							<td><input type="password" name="password" id="password"
-								value="" class="regular-text" /></td>
-						</tr>
-						<tr>
-							<th><label for="password_agin">确认密码</label></th>
-							<td><input type="password" name="password_again"
-								id="password_again" value="" class="regular-text" /></td>
-						</tr>
-					</table>
+					
 					<br> <br>
 					<p align="right">
 						<input name="submit" type="submit" value="修改用户信息" />

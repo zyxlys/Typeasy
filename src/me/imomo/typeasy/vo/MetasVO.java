@@ -1,6 +1,8 @@
 package me.imomo.typeasy.vo;
 
-public class Metas {
+import java.io.Serializable;
+
+public class MetasVO implements Serializable {
 	private Integer mid;
 	private String name;
 	private String slug;
@@ -51,7 +53,7 @@ public class Metas {
 		this.order = order;
 	}
 	
-	public Metas() {
+	public MetasVO() {
 		super();
 	}
 	

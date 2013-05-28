@@ -10,14 +10,14 @@
 <section id="main" class="column">
 	<h4 class="alert_info">页面比文字更适合展示独立的信息。</h4>
 	<article class="module width_full">
-		<form id="edit-page"
-			action="servlet/ContentsServlet?action=add&type=page" method="post">
+		<form id="add-page"
+			action="servlet/ContentsServlet?action=add&type=page&authorId=${user.uid }" method="post">
 			<header>
 				<h3>发表页面</h3>
 			</header>
 			<div class="module_content">
 				<fieldset>
-					<label>页面标题</label> <input type="text" is="title" name="title">
+					<label>页面标题</label> <input type="text" id="title" name="title">
 				</fieldset>
 				<fieldset>
 					<label>页面内容</label>

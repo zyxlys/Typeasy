@@ -8,7 +8,7 @@
 <jsp:include page="sidebar.jsp"></jsp:include>
 
 <section id="main" class="column">
-	<h4 class="alert_info">在此处修改文章的内容。该文章最后修改于：${content.modified }。</h4>
+	<h4 class="alert_info">在此处修改文章的内容。</h4>
 
 	<article class="module width_full">
 		<form id="edit-post"

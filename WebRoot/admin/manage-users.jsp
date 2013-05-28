@@ -34,7 +34,7 @@
 			<option>删除选中的用户</option>
 		</select> <input type="submit" value="应用"> <input type="submit"
 			value="添加用户" class="alt_btn"
-			onclick="window.location.href='admin/add-user.jsp';">
+			onclick="window.location.href='add-user.jsp';">
 	</fieldset>
 
 	<article class="module width_full">
@@ -65,7 +65,7 @@
 						<td><a
 							href="servlet/UsersServlet?action=find&uid=${user.uid}"><img
 								src="images/icn_edit.png" title="编辑" style="border:0px;"></a>
-							<a href="servlet/ContentsServlet?action=del&uid=${user.uid}"><img
+							<a href="servlet/UsersServlet?action=del&uid=${user.uid}" onclick="return confirm('确认删除吗？')"><img
 								src="images/icn_trash.png" alt="删除" style="border:0px;" /></a></td>
 					</tr>
 				</c:forEach>

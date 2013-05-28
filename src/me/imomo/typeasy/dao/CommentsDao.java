@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import me.imomo.typeasy.commons.DBConnection;
-import me.imomo.typeasy.vo.Comments;
 
-public class CommentsDao {
-	private Connection conn = null;
+import me.imomo.typeasy.commons.DBConnection;
+import me.imomo.typeasy.vo.CommentsVO;
+
+public class CommentsDAO {
 
 	/**
 	 * 增加评论
@@ -19,27 +19,20 @@ public class CommentsDao {
 	 * @param c
 	 * @return
 	 */
-	public boolean add(Comments c) {
-		conn = DBConnection.getConnection();
-		String sql = "INSERT INTO comments(coid,cid,created,author,authorId,ownerId,mail,url,ip,agent,text,type,status,parent)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	public void add(CommentsVO c) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "INSERT INTO comments(cid,created,author,authorId,ownerId,mail,url,text) VALUES(?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, c.getCoid());
-			pstmt.setInt(2, c.getCid());
-			pstmt.setString(3, c.getCreated());
-			pstmt.setString(4, c.getAuthor());
-			pstmt.setInt(5, c.getAuthorId());
-			pstmt.setInt(6, c.getOwnerId());
-			pstmt.setString(7, c.getMail());
-			pstmt.setString(8, c.getUrl());
-			pstmt.setString(9, c.getIp());
-			pstmt.setString(10, c.getAgent());
-			pstmt.setString(11, c.getText());
-			pstmt.setString(12, c.getType());
-			pstmt.setString(13, c.getStatus());
-			pstmt.setInt(14, c.getParent());
+			pstmt.setInt(1, c.getCid());
+			pstmt.setString(2, c.getCreated());
+			pstmt.setString(3, c.getAuthor());
+			pstmt.setInt(4, c.getAuthorId());
+			pstmt.setInt(5, c.getOwnerId());
+			pstmt.setString(6, c.getMail());
+			pstmt.setString(7, c.getUrl());
+			pstmt.setString(8, c.getText());
 			pstmt.executeUpdate();
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -51,8 +44,6 @@ public class CommentsDao {
 				}
 			}
 		}
-
-		return false;
 
 	}
 
@@ -62,14 +53,13 @@ public class CommentsDao {
 	 * @param coid
 	 * @return
 	 */
-	public boolean del(int coid) {
+	public void del(int coid) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "DELETE FROM comments WHERE coid=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, coid);
 			pstmt.executeUpdate();
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -81,7 +71,6 @@ public class CommentsDao {
 				}
 			}
 		}
-		return false;
 
 	}
 
@@ -91,15 +80,17 @@ public class CommentsDao {
 	 * @param c
 	 * @return
 	 */
-	public boolean edit(Comments c) {
+	public void edit(CommentsVO c) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATAE comments SET text=?,staus=?WHERE coid=?";
+		String sql = "UPDATE comments SET author=?,mail=?,url=?,text=? WHERE coid=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(11, c.getText());
-			pstmt.setString(13, c.getStatus());
+			pstmt.setString(1, c.getAuthor());
+			pstmt.setString(2, c.getMail());
+			pstmt.setString(3, c.getUrl());
+			pstmt.setString(4, c.getText());
+			pstmt.setInt(5, c.getCoid());
 			pstmt.executeUpdate();
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -111,7 +102,6 @@ public class CommentsDao {
 				}
 			}
 		}
-		return false;
 	}
 
 	/**
@@ -119,31 +109,31 @@ public class CommentsDao {
 	 * 
 	 * @return
 	 */
-	public List<Comments> list() {
-		List<Comments> list = new ArrayList<Comments>();
-		Comments c = null;
+	public List<CommentsVO> list() {
+		List<CommentsVO> comments = new ArrayList<CommentsVO>();
+		CommentsVO comment = null;
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM comments ";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				c = new Comments();
-				c.setCoid(rs.getInt("coid"));
-				c.setCid(rs.getInt("cid"));
-				c.setCreated(rs.getString("created"));
-				c.setAuthor(rs.getString("author"));
-				c.setAuthorId(rs.getInt("authorId"));
-				c.setOwnerId(rs.getInt("ownerId"));
-				c.setMail(rs.getString("mail"));
-				c.setUrl(rs.getString("url"));
-				c.setIp(rs.getString("ip"));
-				c.setAgent(rs.getString("agent"));
-				c.setText(rs.getString("text"));
-				c.setType(rs.getString("type"));
-				c.setStatus(rs.getString("status"));
-				c.setParent(rs.getInt("parent"));
-				list.add(c);
+				comment = new CommentsVO();
+				comment.setCoid(rs.getInt("coid"));
+				comment.setCid(rs.getInt("cid"));
+				comment.setCreated(rs.getString("created"));
+				comment.setAuthor(rs.getString("author"));
+				comment.setAuthorId(rs.getInt("authorId"));
+				comment.setOwnerId(rs.getInt("ownerId"));
+				comment.setMail(rs.getString("mail"));
+				comment.setUrl(rs.getString("url"));
+				comment.setIp(rs.getString("ip"));
+				comment.setAgent(rs.getString("agent"));
+				comment.setText(rs.getString("text"));
+				comment.setType(rs.getString("type"));
+				comment.setStatus(rs.getString("status"));
+				comment.setParent(rs.getInt("parent"));
+				comments.add(comment);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,23 +146,29 @@ public class CommentsDao {
 				}
 			}
 		}
-		return list;
+		return comments;
 	}
 
-	public Comments find(int coid) {
+	/**
+	 * 通过coid查找评论
+	 * 
+	 * @param coid
+	 * @return
+	 */
+	public CommentsVO find(int coid) {
 		Connection conn = DBConnection.getConnection();
-		Comments c = new Comments();
+		CommentsVO comment = new CommentsVO();
 		String sql = "SELECT * FROM comments  WHERE coid =?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, coid);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				c.setCoid(rs.getInt("coid"));
-				c.setAuthor(rs.getString("author"));
-				c.setCid(rs.getInt("cid"));
-				c.setCreated(rs.getString("created"));
-				c.setText(rs.getString("text"));
+				comment.setCoid(rs.getInt("coid"));
+				comment.setAuthor(rs.getString("author"));
+				comment.setCid(rs.getInt("cid"));
+				comment.setCreated(rs.getString("created"));
+				comment.setText(rs.getString("text"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -186,8 +182,7 @@ public class CommentsDao {
 
 			}
 		}
-		return c;
-
+		return comment;
 	}
 
 }

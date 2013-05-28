@@ -1,6 +1,8 @@
 package me.imomo.typeasy.vo;
 
-public class Options {
+import java.io.Serializable;
+
+public class OptionsVO implements Serializable {
 	private String name;
 	private Integer user = 0;
 	private String value;
@@ -23,7 +25,7 @@ public class Options {
 		this.value = value;
 	}
 	
-	public Options() {
+	public OptionsVO() {
 		super();
 	}
 

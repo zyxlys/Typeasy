@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.imomo.typeasy.commons.DBConnection;
-import me.imomo.typeasy.vo.Users;
+import me.imomo.typeasy.vo.UsersVO;
 
 /**
  * User Data Access Object
@@ -18,24 +18,24 @@ import me.imomo.typeasy.vo.Users;
  * @author Mo
  * 
  */
-public class UsersDao {
-	private Connection conn = null;
+public class UsersDAO {
 
 	/**
 	 * 添加用户
 	 * 
 	 * @param u
 	 */
-	public void add(Users user) {
+	public void add(UsersVO user) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO users(name,password,mail,screenName,created) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO users(name,password,mail,url,screenName,created) VALUES(?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getName());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getMail());
-			pstmt.setString(4, user.getScreenName());
-			pstmt.setString(5, user.getCreated());
+			pstmt.setString(4, user.getUrl());
+			pstmt.setString(5, user.getScreenName());
+			pstmt.setString(6, user.getCreated());
 			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,16 +56,16 @@ public class UsersDao {
 	 * 
 	 * @return List<User>
 	 */
-	public List<Users> list() {
-		List<Users> users = new ArrayList<Users>();
-		Users user = null;
+	public List<UsersVO> list() {
+		List<UsersVO> users = new ArrayList<UsersVO>();
+		UsersVO user = null;
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM users";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				user = new Users();
+				user = new UsersVO();
 				user.setUid(rs.getInt("uid"));
 				user.setName(rs.getString("name"));
 				user.setPassword("password");
@@ -97,7 +97,7 @@ public class UsersDao {
 	 * 
 	 * @param user
 	 */
-	public void edit(Users user) {
+	public void edit(UsersVO user) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "UPDATE users SET name=?,password=?,mail=?,url=?,screenName=?,avatar=?,group=? WHERE uid=?";
 		try {
@@ -131,16 +131,16 @@ public class UsersDao {
 	 * @param name
 	 * @return User
 	 */
-	public Users find(int uid) {
-		Users user = null;
-		conn = DBConnection.getConnection();
+	public UsersVO find(int uid) {
+		UsersVO user = null;
+		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM users WHERE uid=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, uid);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs != null && rs.next()) {
-				user = new Users();
+				user = new UsersVO();
 				user.setUid(rs.getInt("uid"));
 				user.setName(rs.getString("name"));
 				user.setPassword(rs.getString("password"));

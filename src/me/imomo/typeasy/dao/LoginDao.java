@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import me.imomo.typeasy.commons.DBConnection;
-import me.imomo.typeasy.vo.Users;
+import me.imomo.typeasy.vo.UsersVO;
 
 /**
  * User Log In Data Access Object
@@ -16,8 +16,7 @@ import me.imomo.typeasy.vo.Users;
  * @author Mo
  * 
  */
-public class LoginDao {
-	private Connection conn = null;
+public class LoginDAO {
 
 	/**
 	 * 用户登录 若登录成功,返回数据库中对应的User对象
@@ -25,9 +24,9 @@ public class LoginDao {
 	 * @param u
 	 * @return User
 	 */
-	public Users login(Users u) {
-		conn = DBConnection.getConnection();
-		Users user = new Users();
+	public UsersVO login(UsersVO u) {
+		Connection conn = DBConnection.getConnection();
+		UsersVO user = new UsersVO();
 		if (u != null) {
 			String sql = "SELECT * FROM users WHERE name=? AND password=?";
 			ResultSet rs;
@@ -70,7 +69,7 @@ public class LoginDao {
 	 * 
 	 * @param u
 	 */
-	public void register(Users u) {
+	public void register(UsersVO u) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "INSERT INTO users(name,password,mail,screenName) VALUES(?,?,?,?)";
 		try {
@@ -100,9 +99,9 @@ public class LoginDao {
 	 * @param name
 	 * @return User
 	 */
-	public Users getUserByName(String name) {
-		Users user = new Users();
-		conn = DBConnection.getConnection();
+	public UsersVO getUserByName(String name) {
+		UsersVO user = new UsersVO();
+		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM users WHERE name='" + name + "'";
 		try {
 			Statement stmt = conn.createStatement();
@@ -140,9 +139,9 @@ public class LoginDao {
 	 * @param name
 	 * @return User
 	 */
-	public Users getUserByMail(String mail) {
-		Users user = new Users();
-		conn = DBConnection.getConnection();
+	public UsersVO getUserByMail(String mail) {
+		UsersVO user = new UsersVO();
+		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM users WHERE mail='" + mail + "'";
 		try {
 			Statement stmt = conn.createStatement();

@@ -11,8 +11,8 @@
 	<h4 class="alert_info">记录下生活中的点点滴滴。</h4>
 
 	<article class="module width_full">
-		<form id="edit-post"
-			action="servlet/ContentsServlet?action=add&type=post"
+		<form id="add-post"
+			action="servlet/ContentsServlet?action=add&type=post&authorId=${sessionScope.user.uid }"
 			method="post">
 			<header>
 				<h3>发表文章</h3>
@@ -44,10 +44,10 @@
 					</script>
 				</fieldset>
 				<fieldset style="width:48%; float:left; margin-right: 3%;">
-					<label>分类目录</label> <select style="width:92%;" name="type">
-						<c:forEach var="post" items="${seesionScope.metas }">
-							<c:if test="${post.type == category}">
-								<option>${metas.name }</option>
+					<label>分类目录</label> <select style="width:92%;" name="category">
+						<c:forEach var="meta" items="${metas }">
+							<c:if test="${meta.type == 'category'}">
+								<option value="${meta.mid }">${meta.name }</option>
 							</c:if>
 						</c:forEach>
 					</select>

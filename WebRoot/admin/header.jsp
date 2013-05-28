@@ -13,9 +13,6 @@
 <meta charset="utf-8" />
 
 <title>${title} - Typeasy</title>
-<link rel="shortcut icon" href="favicon.ico"
-	type="image/vnd.microsoft.icon">
-<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 <link rel="stylesheet" href="css/admin-layout.css" type="text/css"
 	media="screen" />
 <!--[if lt IE 9]>
@@ -64,6 +61,9 @@
 	});
 </script>
 
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
 </head>
 
 
@@ -76,7 +76,7 @@
 			</h1>
 			<h2 class="section_title">${title}</h2>
 			<div class="btn_view_site">
-				<a href="index.jsp">查看站点</a>
+				<a href="index.jsp" target="_blank">查看站点</a>
 			</div>
 		</hgroup>
 	</header>

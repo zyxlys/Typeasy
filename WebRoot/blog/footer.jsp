@@ -1,16 +1,15 @@
-<div id="footer">
-	<form method="post" action="">
-		<div id="search"><input type="text" name="s" class="text" size="32" value="Search..." onfocus="this.value = this.value == this.defaultValue ? '' : this.value" onblur="this.value = this.value == '' ? this.defaultValue : this.value"/></div>
-	</form>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-	&copy; 2013 <a href="http://github.com/Acris/Typeasy/">Typeasy</a>, All rights reserved.
-</div><!-- end #footer -->
-
-</div><!-- end #wrap -->
-
-<script type='text/javascript' src='js/jquery.js'></script>
-<script type='text/javascript' src='js/slimbox.js'></script>
-<script type='text/javascript' src='js/all.js'></script>
+	</div>
+	
+	<div id="footer">
+		<p align="center">
+			Copyright &copy; 2013 Typeasy, All right reserved. 
+			Follow me on <a href="https://twitter.com/acrisliu" target="_blank">Twitter</a> • <a href="https://www.facebook.com/acrisliu" target="_blank">Facebook</a> • <a href="http://weibo.com/acris" target="_blank">Sina Weibo</a> • <a href="http://acris.github.io/Typeasy/" target="_blank">Github</a>
+		</p>
+	</div>
+</div>
 
 </body>
 </html>

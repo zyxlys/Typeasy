@@ -16,7 +16,7 @@
 		</header>
 		<div class="module_content">
 			<form id="edit-comment"
-				action="./servlet/CommentsServlet?action=edit" method="post">
+				action="./servlet/CommentsServlet?action=edit&coid=${comment.coid }" method="post">
 				<div class="padding-box">
 				<table class="form-table">
 					<tr>

@@ -23,7 +23,6 @@
 	};
 </script>
 
-<div id="category_left"  style="width:95%; float:right; margin-right:3px;">
 	 <fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 		<input type="checkbox" name="all" onclick="selectAll();"/>
 		<select style="width: 70%;">
@@ -31,7 +30,7 @@
 			<option>删除选中的标签</option>
 		</select> <input type="submit" value="应用">  <input type="submit"
 			value="添加标签" class="alt_btn"
-			onclick="window.location.href='admin/add-tag.jsp';">
+			onclick="window.location.href='add-tag.jsp';">
 	 </fieldset>
 
 	<article class="module width_full">
@@ -53,6 +52,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="meta" items="${metas }">
+					<c:if test="${meta.type == 'tag' }">
 						<tr>
 							<td><input type="checkbox" name="id">${meta.name }</td>
 							<td>${meta.slug }</td>
@@ -62,9 +62,10 @@
 								href="servlet/MetasServlet?action=find&type=tag&mid=${meta.mid}"><img
 									src="images/icn_edit.png" title="编辑" style="border:0px;"></a>
 								<a
-								href="servlet/MetasServlet?action=del&type=tag&mid=${meta.mid}"><img
+								href="servlet/MetasServlet?action=del&type=tag&mid=${meta.mid}" onclick="return confirm('确认删除吗？')"><img
 									src="images/icn_trash.png" alt="删除" style="border:0px;" /></a></td>
 						</tr>
+						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>

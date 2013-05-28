@@ -1,12 +1,14 @@
 package me.imomo.typeasy.vo;
 
+import java.io.Serializable;
+
 /**
  * User Value Bean
  * @version 1.0	2013/05/01
  * @author Mo
  *
  */
-public class Users {
+public class UsersVO implements Serializable {
 	private Integer uid;
 	private String name;
 	private String password;
@@ -91,7 +93,7 @@ public class Users {
 	public void setAuthCode(String authCode) {
 		this.authCode = authCode;
 	}
-	public Users() {
+	public UsersVO() {
 		super();
 	}
 

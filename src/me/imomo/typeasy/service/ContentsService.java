@@ -2,55 +2,63 @@ package me.imomo.typeasy.service;
 
 import java.util.List;
 
-import me.imomo.typeasy.dao.ContentsDao;
-import me.imomo.typeasy.vo.Contents;
+import me.imomo.typeasy.dao.ContentsDAO;
+import me.imomo.typeasy.vo.ContentsVO;
 
 public class ContentsService {
 
-	private ContentsDao cd = new ContentsDao();
+	private ContentsDAO contentsDao = new ContentsDAO();
 	/**
 	 * 发表文章
-	 * @param c
-	 * @return
+	 * @param content
 	 */
-	public boolean add(Contents c){
-		boolean cs = cd.addArticle(c);
-		return cs;
+	public void add(ContentsVO content){
+		contentsDao.add(content);
 	}
 	/**
 	 * 显示文章列表
 	 * @return
 	 */
-	public List<Contents> findAll(){
-		List<Contents> cs = cd.findAll();
+	public List<ContentsVO> list(){
+		List<ContentsVO> cs = contentsDao.list();
 		return cs;
 	}
 	/**
 	 * 根据id删除文章
 	 * @param id
-	 * @return
 	 */
-	public boolean delete(int id){
-		boolean cs = cd.deleteArticle(id);
-		return cs;
+	public void del(int id){
+		contentsDao.del(id);
 	}
 	/**
 	 * 根据id修改文章
-	 * @param article
-	 * @return
+	 * @param content
+	 * @return 
 	 */
-	public boolean modify(Contents article){
-		Contents c = cd.selectById(article.getCid());
+	public boolean edit(ContentsVO content){
+		ContentsVO c = contentsDao.find(content.getCid());
 		if(c!=null){
-			cd.modify(article);
+			contentsDao.edit(content);
 			return true;
 		}
 		return false;
 	}
-	public Contents selectById(int id){
-		Contents c = cd.selectById(id);
-		
-		return c;
-		
+	/**
+	 * 根据id查询文章
+	 * @param id
+	 * @return
+	 */
+	public ContentsVO find(int id){
+		ContentsVO content = contentsDao.find(id);
+		return content;
+	}
+	
+	/**
+	 * 更改评论数
+	 * @param cid
+	 * @param o
+	 */
+	public void editCommentsNum(int cid, String o) {
+		contentsDao.editCommentsNum(cid,o);
 	}
 }

@@ -16,18 +16,19 @@ import javax.servlet.http.HttpSession;
 
 import me.imomo.typeasy.commons.CookieUtil;
 import me.imomo.typeasy.commons.MD5;
-import me.imomo.typeasy.dao.LoginDao;
+import me.imomo.typeasy.dao.LoginDAO;
 import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
 import me.imomo.typeasy.service.LoginService;
 import me.imomo.typeasy.service.MetasService;
 import me.imomo.typeasy.service.OptionsService;
 import me.imomo.typeasy.service.UsersService;
-import me.imomo.typeasy.vo.Comments;
-import me.imomo.typeasy.vo.Contents;
-import me.imomo.typeasy.vo.Metas;
-import me.imomo.typeasy.vo.Options;
-import me.imomo.typeasy.vo.Users;
+import me.imomo.typeasy.vo.CommentsVO;
+import me.imomo.typeasy.vo.ContentsVO;
+import me.imomo.typeasy.vo.MetasVO;
+import me.imomo.typeasy.vo.OptionsVO;
+import me.imomo.typeasy.vo.RelationshipsVO;
+import me.imomo.typeasy.vo.UsersVO;
 
 /**
  * 用户登录相关的Servlet
@@ -37,6 +38,7 @@ import me.imomo.typeasy.vo.Users;
  */
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
+	private RelationshipsVO rs = new RelationshipsVO();
 	private LoginService ls = new LoginService();
 	private ContentsService cs = new ContentsService();
 	private CommentsService cos = new CommentsService();
@@ -70,23 +72,20 @@ public class LoginServlet extends HttpServlet {
 		/*获取相关session*/
 		HttpSession session=request.getSession();
 		
-		List<Contents> contents = cs.findAll();
+		List<ContentsVO> contents = cs.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
 		
-		List<Comments> comments = cos.list();
+		List<CommentsVO> comments = cos.list();
 		Collections.reverse(comments);
 		session.setAttribute("comments", comments);
 		
-		List<Users> users = us.list();
+		List<UsersVO> users = us.list();
 		Collections.reverse(users);
 		session.setAttribute("users", users);
 		
-		List<Options> options = os.findAll();
-		Collections.reverse(options);
-		session.setAttribute("options", options);
 		
-		List<Metas> metas = ms.listAll();
+		List<MetasVO> metas = ms.listAll();
 		Collections.reverse(metas);
 		session.setAttribute("metas", metas);
 		
@@ -152,13 +151,13 @@ public class LoginServlet extends HttpServlet {
 		boolean flag = validateLogin(request, response);
 		RequestDispatcher rd = null;
 		if (flag) {
-			Users user = new Users();
+			UsersVO user = new UsersVO();
 			String name = request.getParameter("user_login");
 			String password = md5.getMD5ofStr(request.getParameter("user_pwd"));
 			user.setName(name);
 			user.setPassword(password);
 			String rememberMe = request.getParameter("rememberMe");
-			Users u = ls.login(user);
+			UsersVO u = ls.login(user);
 			if (u.getUid() == null) {
 				request.setAttribute("loginMessage", "用户名或密码错误");
 				rd = request.getRequestDispatcher("/login.jsp");
@@ -213,14 +212,14 @@ public class LoginServlet extends HttpServlet {
 		String password = md5.getMD5ofStr(request.getParameter("user_pwd"));
 		String mail = request.getParameter("user_email");
 		String screenName = request.getParameter("user_nickname");
-		Users user = new Users();
+		UsersVO user = new UsersVO();
 		user.setName(name);
 		user.setPassword(password);
 		user.setMail(mail);
 		user.setScreenName(screenName);
 		boolean flag = ls.register(user);
 		if (flag) {
-			Users u = ls.login(user);
+			UsersVO u = ls.login(user);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			response.sendRedirect("../login.jsp");

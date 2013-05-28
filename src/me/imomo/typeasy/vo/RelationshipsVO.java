@@ -1,6 +1,8 @@
 package me.imomo.typeasy.vo;
 
-public class Relationships {
+import java.io.Serializable;
+
+public class RelationshipsVO implements Serializable {
 	private Integer cid;
 	private Integer mid;
 	public Integer getCid() {
@@ -16,7 +18,7 @@ public class Relationships {
 		this.mid = mid;
 	}
 	
-	public Relationships() {
+	public RelationshipsVO() {
 		super();
 	}
 

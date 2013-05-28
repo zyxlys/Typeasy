@@ -3,51 +3,50 @@ package me.imomo.typeasy.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.imomo.typeasy.commons.DBConnection;
-import me.imomo.typeasy.vo.Options;
+import me.imomo.typeasy.vo.OptionsVO;
 
 /**
  * Options Data Access Object
- * @version 1.0	2013/05/12
+ * 
+ * @version 1.0 2013/05/12
  * @author YL
- *
+ * 
  */
 
-public class OptionsDao {
-	private Connection conn = null;
-	
+public class OptionsDAO {
+
 	/**
 	 * 根据配置名称查找
+	 * 
 	 * @param name
 	 * @return options
 	 */
-	public Options FindByName(String name){
-		Options options = new Options();
-		conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM options WHERE name='"+name+"'";
-		
+	public OptionsVO findByName(String name) {
+		OptionsVO option = new OptionsVO();
+		Connection conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM options WHERE name=?";
+
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
-			while(rs!=null && rs.next())
-			{
-				options.setName(rs.getString("name"));
-				options.setUser(rs.getInt("user"));
-				options.setValue(rs.getString("value"));
+			while (rs != null && rs.next()) {
+				option.setName(rs.getString("name"));
+				option.setUser(rs.getInt("user"));
+				option.setValue(rs.getString("value"));
 			}
-			rs.close();
-			ps.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(conn!=null)
-			{
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -56,30 +55,28 @@ public class OptionsDao {
 				}
 			}
 		}
-		
-		return options;
+
+		return option;
 	}
-	
+
 	/**
 	 * 插入操作
+	 * 
 	 * @param options
 	 */
-	public boolean Insert(Options options)
-	{
-		conn = DBConnection.getConnection();
-		String sql = "INSERT INTO Options(name,value) VALUES(?,?)";
+	public void add(OptionsVO option) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "INSERT INTO options(name,value) VALUES(?,?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, options.getName());
-			ps.setString(2, options.getValue());
+			ps.setString(1, option.getName());
+			ps.setString(2, option.getValue());
 			ps.executeUpdate();
-			return true;
-			
+
 		} catch (Exception e) {
-			e.printStackTrace();		
+			e.printStackTrace();
 		} finally {
-			if(conn!=null)
-			{
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -87,27 +84,24 @@ public class OptionsDao {
 				}
 			}
 		}
-		return false;
 	}
-	
+
 	/**
 	 * 根据user删除操作
+	 * 
 	 * @param name
 	 */
-	public boolean Delete(String name)
-	{
-		conn = DBConnection.getConnection();
-		String sql = "DELETE FROM Options WHERE name=?";
+	public void del(String name) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "DELETE FROM options WHERE name=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.executeUpdate();
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(conn!=null)
-			{
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -115,30 +109,27 @@ public class OptionsDao {
 				}
 			}
 		}
-		return false;
 	}
-	
+
 	/**
 	 * 修改操作
+	 * 
 	 * @param options
 	 * @return options
 	 */
-	public boolean Modify(Options options)
-	{
-		conn = DBConnection.getConnection();
-		String sql = "UPDATE Options SET value=? WHERE name=?";
+	public void edit(OptionsVO options) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "UPDATE options SET value=? WHERE name=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, options.getName());
-			ps.setString(2, options.getValue());
+			ps.setString(1, options.getValue());
+			ps.setString(2, options.getName());
 			ps.executeUpdate();
-			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(conn!=null)
-			{
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -146,42 +137,39 @@ public class OptionsDao {
 				}
 			}
 		}
-		return false;
 	}
 	
-	public List<Options> findAll()
-	{
-		List<Options> list = new ArrayList<Options>();
-		
-		conn = DBConnection.getConnection(); 
-		Options op = null;
-		String sql = "SELECT * FROM Options";
+	public List<OptionsVO> list() {
+		List<OptionsVO> options = new ArrayList<OptionsVO>();
+		OptionsVO option = null;
+		Connection conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM options";
+
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next())
-			{
-				op = new Options();
-				op.setName(rs.getString(1));
-				op.setUser(rs.getInt(2));
-				op.setValue(rs.getString(3));
-				list.add(op);
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				option = new OptionsVO();
+				option.setName(rs.getString("name"));
+				option.setUser(rs.getInt("user"));
+				option.setValue(rs.getString("value"));
+				options.add(option);
 			}
-			rs.close();
-			ps.close();
-		} catch (SQLException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
-			if(conn!=null)
-			{
+		} finally {
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-		
-		return list;
+
+		return options;
 	}
+
 }

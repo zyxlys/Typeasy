@@ -50,22 +50,12 @@
 						</tr>
 					</table>
 					<br> <br>
-					<h2>安全</h2>
+					<h2>密码</h2>
 					<table class="form-table">
 						<tr>
-							<th><label for="group">用户组 <span class="description">(visitor为普通会员,admin为管理员)</span></label></th>
-							<td><input type="text" name="group" id="group"
-								value="visitor" class="regular-text" /></td>
-						</tr>
-						<tr>
-							<th><label for="password">密码</label></th>
+							<th><label for="password">用户密码</label></th>
 							<td><input type="password" name="password" id="password"
 								value="" class="regular-text" /></td>
-						</tr>
-						<tr>
-							<th><label for="password_agin">确认密码</label></th>
-							<td><input type="password" name="password_again"
-								id="password_again" value="" class="regular-text" /></td>
 						</tr>
 					</table>
 					<br> <br>

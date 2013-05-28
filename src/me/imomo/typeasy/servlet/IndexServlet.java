@@ -1,7 +1,7 @@
 package me.imomo.typeasy.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,11 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
-import me.imomo.typeasy.vo.Contents;
+import me.imomo.typeasy.service.MetasService;
+import me.imomo.typeasy.service.OptionsService;
+import me.imomo.typeasy.service.UsersService;
+import me.imomo.typeasy.vo.CommentsVO;
+import me.imomo.typeasy.vo.ContentsVO;
+import me.imomo.typeasy.vo.MetasVO;
+import me.imomo.typeasy.vo.OptionsVO;
+import me.imomo.typeasy.vo.RelationshipsVO;
+import me.imomo.typeasy.vo.UsersVO;
 
 @SuppressWarnings("serial")
 public class IndexServlet extends HttpServlet {
+	private RelationshipsVO rs = new RelationshipsVO();
+	private ContentsService cs = new ContentsService();
+	private CommentsService cos = new CommentsService();
+	private MetasService ms = new MetasService();
+	private OptionsService os = new OptionsService();
+	private UsersService us = new UsersService();
 
 	/**
 	 * Constructor of the object.
@@ -70,15 +85,34 @@ public class IndexServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String code = request.getParameter("error");
+		
 
-		HttpSession session = request.getSession();
+		/*获取相关session*/
+		HttpSession session=request.getSession();
 
-		ContentsService cs = new ContentsService();
-		List<Contents> contents = cs.findAll();
+		
+		List<ContentsVO> contents = cs.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
+		
+		List<CommentsVO> comments = cos.list();
+		Collections.reverse(comments);
+		session.setAttribute("comments", comments);
+		
+		List<UsersVO> users = us.list();
+		Collections.reverse(users);
+		session.setAttribute("users", users);
+		
+		
+		List<MetasVO> metas = ms.listAll();
+		Collections.reverse(metas);
+		session.setAttribute("metas", metas);
+		
+		List<OptionsVO> options = os.list();
+		Collections.reverse(options);
+		session.setAttribute("options", options);
 
+		String code = request.getParameter("error");
 		if (code != null) {
 			if (code.equals("404"))
 				response.sendRedirect("blog/404.jsp");

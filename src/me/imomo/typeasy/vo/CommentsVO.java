@@ -1,6 +1,8 @@
 package me.imomo.typeasy.vo;
 
-public class Comments {
+import java.io.Serializable;
+
+public class CommentsVO implements Serializable {
 	private Integer coid;
 	private Integer cid;
 	private String created;
@@ -99,7 +101,7 @@ public class Comments {
 	public void setParent(Integer parent) {
 		this.parent = parent;
 	}
-	public Comments() {
+	public CommentsVO() {
 		super();
 	}
 

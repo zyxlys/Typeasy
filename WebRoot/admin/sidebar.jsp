@@ -1,15 +1,18 @@
-<%@page import="me.imomo.typeasy.vo.Users"%>
+<%@page import="me.imomo.typeasy.vo.UsersVO"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <section id="secondary_bar">
 	<div class="user">
 		<p>
-			<a href="admin/my-profiles.jsp">
-				<c:if test="${user.screenName == null }">新用户${user.uid }</c:if><c:if test="${user.screenName != null }">新用户${user.screenName }</c:if>
+			<a href="admin/my-profiles.jsp"> <c:choose>
+					<c:when test="${user.screenName == '' }">新用户${user.uid }</c:when>
+					<c:otherwise>${user.screenName }</c:otherwise>
+				</c:choose>
 			</a>
 		</p>
-		<a class="logout_user" href="servlet/LoginServlet?action=logout" onclick="return confirm('确认要安全退出吗?')">安全退出</a>
+		<a class="logout_user" href="servlet/LoginServlet?action=logout"
+			onclick="return confirm('确认要安全退出吗?')">安全退出</a>
 	</div>
 	<div class="breadcrumbs_container">
 		<article class="breadcrumbs">
@@ -31,7 +34,8 @@
 	<ul class="toggle">
 		<li class="icn_new_post"><a href="admin/add-post.jsp">发表文章</a></li>
 		<li class="icn_manage_posts"><a href="admin/manage-posts.jsp">管理文章</a></li>
-		<li class="icn_manage_categories"><a href="admin/manage-categories.jsp">分类目录</a></li>
+		<li class="icn_manage_categories"><a
+			href="admin/manage-categories.jsp">分类目录</a></li>
 		<li class="icn_manage_tags"><a href="admin/manage-tags.jsp">文章标签</a></li>
 	</ul>
 	<h3>页面</h3>
@@ -41,7 +45,8 @@
 	</ul>
 	<h3>评论</h3>
 	<ul class="toggle">
-		<li class="icn_manage_comments"><a href="admin/manage-comments.jsp">管理评论</a></li>
+		<li class="icn_manage_comments"><a
+			href="admin/manage-comments.jsp">管理评论</a></li>
 	</ul>
 	<h3>用户</h3>
 	<ul class="toggle">
@@ -53,7 +58,8 @@
 	<ul class="toggle">
 		<li class="icn_options"><a href="admin/options.jsp">基本设置</a></li>
 		<li class="icn_security"><a href="admin/security.jsp">安全设置</a></li>
-		<li class="icn_jump_back"><a class="logout_user" href="servlet/LoginServlet?action=logout"
+		<li class="icn_jump_back"><a class="logout_user"
+			href="servlet/LoginServlet?action=logout"
 			onclick="return confirm('确认要安全退出吗?')">安全退出</a></li>
 	</ul>
 
@@ -61,7 +67,7 @@
 		<hr />
 		<p>
 			<strong>Copyright &copy; 2013 <a
-				href="http://github.com/Acris/Typeasy" target="_blank">Typeasy</a></strong>
+				href="http://acris.github.io/Typeasy/" target="_blank">Typeasy</a></strong>
 		</p>
 		<p>
 			Powered by <a href="http://imomo.me" target="_blank">Acris</a> |

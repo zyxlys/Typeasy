@@ -2,40 +2,36 @@ package me.imomo.typeasy.service;
 
 import java.util.List;
 
-import me.imomo.typeasy.dao.MetasDao;
-import me.imomo.typeasy.vo.Metas;
+import me.imomo.typeasy.dao.MetasDAO;
+import me.imomo.typeasy.vo.MetasVO;
 
 public class MetasService {
 
-	MetasDao metasDao=new MetasDao();
-	public boolean insert(Metas me){
-		if(me==null){
-			metasDao.insert(me);
-			return true;
-		}else{
-			return false;
-		}
+	MetasDAO metasDao=new MetasDAO();
+	public void add(MetasVO meta){
+		  metasDao.add(meta);
 	}
 	
-	
-	public void  delete(int mid){
-	      metasDao.delete(mid);
+
+	public void  del(int mid){
+	      metasDao.del(mid);
 	}
 	
 	
 	
-	public boolean modify(Metas me){
-		if(me!=null){
-			metasDao.modify(me);
-			return true;
-		}else{
-			return false;
-		}
+	public void edit(MetasVO meta){
+			metasDao.edit(meta);
 	}
 	
 	
-	public List<Metas> listAll(){
-		return metasDao.findAll();
+	public List<MetasVO> listAll(){
+		return metasDao.find();
 	}
+
+
+	public MetasVO findMid(int mid) {
+		return metasDao.findMid(mid);
+	}
+
 	
 }

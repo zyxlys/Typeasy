@@ -1,10 +1,13 @@
 package me.imomo.typeasy.vo;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author Mo
  *
  */
-public class Contents {
+public class ContentsVO implements Serializable {
 	private Integer cid;
 	private String title;
 	private String slug;
@@ -117,7 +120,7 @@ public class Contents {
 	public void setAllowFeed(String allowFeed) {
 		this.allowFeed = allowFeed;
 	}
-	public Contents() {
+	public ContentsVO() {
 		super();
 	}
 

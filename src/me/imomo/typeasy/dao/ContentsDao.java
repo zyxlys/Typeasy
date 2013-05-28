@@ -1,183 +1,223 @@
 package me.imomo.typeasy.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.resource.cci.ResultSet;
+import java.util.Queue;
 
 import me.imomo.typeasy.commons.DBConnection;
-import me.imomo.typeasy.vo.Contents;
-import me.imomo.typeasy.vo.Users;
+import me.imomo.typeasy.vo.ContentsVO;
+import me.imomo.typeasy.vo.UsersVO;
 
-public class ContentsDao {
-	
-	//发表文章
-	public boolean addArticle(Contents article){
+public class ContentsDAO {
+
+	/**
+	 * 发表文章
+	 * 
+	 * @param article
+	 */
+	public void add(ContentsVO article) {
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO contents(title,created,text,type) VALUES(?,?,?,?)");
-			ps.setString(1,article.getTitle());
-			ps.setString(2,article.getCreated());
-			ps.setString(3,article.getText());
-			ps.setString(4,article.getType());
+			PreparedStatement ps = conn
+					.prepareStatement("INSERT INTO contents(title,created,text,type,authorId,slug) VALUES(?,?,?,?,?,?)");
+			ps.setString(1, article.getTitle());
+			ps.setString(2, article.getCreated());
+			ps.setString(3, article.getText());
+			ps.setString(4, article.getType());
+			ps.setInt(5, article.getAuthorId());
+			ps.setString(6, article.getTitle());
 			ps.executeUpdate();
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return false;
 	}
-	//根据cid删除文章
-	public boolean deleteArticle(int id){
+
+	/**
+	 * 根据id删除文章
+	 * 
+	 * @param id
+	 */
+	public void del(int id) {
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM contents WHERE cid = ?");
-			ps.setInt(1,id);
+			PreparedStatement ps = conn
+					.prepareStatement("DELETE FROM contents WHERE cid = ?");
+			ps.setInt(1, id);
 			ps.executeUpdate();
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return false;
 	}
-	//根据cid修改文章
-	public boolean modify(Contents article){
+
+	/**
+	 * 根据id修改文章
+	 */
+	public void edit(ContentsVO article) {
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("UPDATE contents SET title =?,text =?,modified = ?,type =? WHERE cid =?");
-			ps.setString(1,article.getTitle());
-			ps.setString(2,article.getText());
-			ps.setString(3,article.getModified());
-			ps.setString(4,article.getType());
-			ps.setInt(5,article.getCid());
+			PreparedStatement ps = conn
+					.prepareStatement("UPDATE contents SET title =?,text =?,modified = ?,type =? WHERE cid =?");
+			ps.setString(1, article.getTitle());
+			ps.setString(2, article.getText());
+			ps.setString(3, article.getModified());
+			ps.setString(4, article.getType());
+			ps.setInt(5, article.getCid());
 			ps.executeUpdate();
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return false;
 	}
-	//根据cid修改评论次数
-	public boolean updateArticle(int commentsNum,int cid){
+
+	/**
+	 * 根据cid查询文章
+	 * 
+	 * @param cid
+	 * @return
+	 */
+	public ContentsVO find(int cid) {
+		ContentsVO content = null;
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("UPDATE contents SET commentsNum =? where cid =?");
-			ps.setInt(1,commentsNum);
-			ps.setInt(2,cid);
-			ps.executeUpdate();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
-		
-	}
-	//根据cid查询文章
-	public Contents selectById(int cid){
-		Contents ret = null;
-		Connection conn = DBConnection.getConnection();
-		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM contents WHERE cid = ?");
-			ps.setInt(1,cid);
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM contents WHERE cid = ?");
+			ps.setInt(1, cid);
 			java.sql.ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				ret = new Contents();
-				ret.setCid(rs.getInt(1));
-				ret.setTitle(rs.getString(2));
-				ret.setSlug(rs.getString(3));
-				ret.setCreated(rs.getString(4));
-				ret.setModified(rs.getString(5));
-				ret.setText(rs.getString(6));
-				ret.setOrder(rs.getInt(7));
-				ret.setAuthorId(rs.getInt(8));
-				ret.setTemplate(rs.getString(9));
-				ret.setType(rs.getString(10));
-				ret.setStatus(rs.getString(11));
-				ret.setPassword(rs.getString(12));
-				ret.setCommentsNum(rs.getInt(13));
-				ret.setAllowComment(rs.getString(14));
-				ret.setAllowPing(rs.getString(15));
+			while (rs.next()) {
+				content = new ContentsVO();
+				content.setCid(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setSlug(rs.getString(3));
+				content.setCreated(rs.getString(4));
+				content.setModified(rs.getString(5));
+				content.setText(rs.getString(6));
+				content.setOrder(rs.getInt(7));
+				content.setAuthorId(rs.getInt(8));
+				content.setTemplate(rs.getString(9));
+				content.setType(rs.getString(10));
+				content.setStatus(rs.getString(11));
+				content.setPassword(rs.getString(12));
+				content.setCommentsNum(rs.getInt(13));
+				content.setAllowComment(rs.getString(14));
+				content.setAllowPing(rs.getString(15));
 			}
-			rs.close();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return ret;
+		return content;
 	}
-	
-	//查询所有文章 
-	public List<Contents> findAll(){
-		List<Contents> list = new ArrayList<Contents>();
-		Contents ret = null;
+
+	/**
+	 * 查询所有文章
+	 * 
+	 * @return
+	 */
+	public List<ContentsVO> list() {
+		List<ContentsVO> contents = new ArrayList<ContentsVO>();
+		ContentsVO content = null;
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM contents");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM contents");
 			java.sql.ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				ret = new Contents();
-				ret.setCid(rs.getInt(1));
-				ret.setTitle(rs.getString(2));
-				ret.setSlug(rs.getString(3));
-				ret.setCreated(rs.getString(4));
-				ret.setModified(rs.getString(5));
-				ret.setText(rs.getString(6));
-				ret.setOrder(rs.getInt(7));
-				ret.setAuthorId(rs.getInt(8));
-				ret.setTemplate(rs.getString(9));
-				ret.setType(rs.getString(10));
-				ret.setStatus(rs.getString(11));
-				ret.setPassword(rs.getString(12));
-				ret.setCommentsNum(rs.getInt(13));
-				ret.setAllowComment(rs.getString(14));
-				ret.setAllowPing(rs.getString(15));
-				list.add(ret);
+			while (rs.next()) {
+				content = new ContentsVO();
+				content.setCid(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setSlug(rs.getString(3));
+				content.setCreated(rs.getString(4));
+				content.setModified(rs.getString(5));
+				content.setText(rs.getString(6));
+				content.setOrder(rs.getInt(7));
+				content.setAuthorId(rs.getInt(8));
+				content.setTemplate(rs.getString(9));
+				content.setType(rs.getString(10));
+				content.setStatus(rs.getString(11));
+				content.setPassword(rs.getString(12));
+				content.setCommentsNum(rs.getInt(13));
+				content.setAllowComment(rs.getString(14));
+				content.setAllowPing(rs.getString(15));
+				contents.add(content);
 			}
-			rs.close();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return list;
+		return contents;
+	}
+
+	/**
+	 * 更改评论数
+	 * @param cid
+	 * @param o
+	 */
+	public void editCommentsNum(int cid, String o) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "";
+		if(o == null)
+			o = "";
+		if(o.equals("+"))
+			sql = "UPDATE contents SET commentsNum=commentsNum+1 WHERE cid = ?";
+		else if(o.equals("-"))
+			sql = "UPDATE contents SET commentsNum=commentsNum-1 WHERE cid = ?";
+		else
+			sql = "UPDATE contents SET commentsNum=commentsNum WHERE cid = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, cid);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

@@ -1,8 +1,8 @@
 package me.imomo.typeasy.service;
 
-import me.imomo.typeasy.dao.LoginDao;
-import me.imomo.typeasy.dao.UsersDao;
-import me.imomo.typeasy.vo.Users;
+import me.imomo.typeasy.dao.LoginDAO;
+import me.imomo.typeasy.dao.UsersDAO;
+import me.imomo.typeasy.vo.UsersVO;
 
 /**
  * Login Service
@@ -12,15 +12,15 @@ import me.imomo.typeasy.vo.Users;
  * 
  */
 public class LoginService {
-	private LoginDao ld = new LoginDao();
+	private LoginDAO ld = new LoginDAO();
 
 	/**
 	 * User Log In
 	 * @param u
 	 * @return
 	 */
-	public Users login(Users u) {
-		Users user = ld.login(u);
+	public UsersVO login(UsersVO u) {
+		UsersVO user = ld.login(u);
 		return user;
 	}
 
@@ -29,9 +29,9 @@ public class LoginService {
 	 * @param u
 	 * @return boolean
 	 */
-	public boolean register(Users u) {
-		Users user1 = ld.getUserByName(u.getName());
-		Users user2 = ld.getUserByMail(u.getMail());
+	public boolean register(UsersVO u) {
+		UsersVO user1 = ld.getUserByName(u.getName());
+		UsersVO user2 = ld.getUserByMail(u.getMail());
 		boolean flag = false;
 		if (user1.getUid() == null && user2.getUid() == null) {
 			ld.register(u);

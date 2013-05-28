@@ -1,4 +1,4 @@
-<%@page import="me.imomo.typeasy.vo.Users"%>
+<%@page import="me.imomo.typeasy.vo.UsersVO"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -35,7 +35,7 @@
 				<p>${user.group }</p>
 			</div>
 			<input type="submit" value="点击修改我的资料" class="alt_btn"
-				onclick="window.location.href='servlet/UsersServlet?action=edit&uid=${user.uid}';">
+				onclick="window.location.href='../servlet/UsersServlet?action=edit&uid=${user.uid}';">
 
 		</div>
 
