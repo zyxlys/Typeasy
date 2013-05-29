@@ -3,6 +3,7 @@ package me.imomo.typeasy.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -77,15 +78,16 @@ public class CommentsServlet extends HttpServlet {
 	public void add(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CommentsVO comment = new CommentsVO();
-		SimpleDateFormat fomater=new SimpleDateFormat("yyyy'-'MM'-'dd HH:mm:ss");	
-		String nowtime=fomater.format(new Date());
+		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(Calendar.getInstance().getTime());
 		int cid = Integer.valueOf(request.getParameter("cid"));
 		comment.setCid(cid);
 		comment.setCreated(nowtime);
 		comment.setText(request.getParameter("text"));
 		comment.setAuthor(request.getParameter("author"));
-		if(request.getParameter("authorId") != null)
-			comment.setAuthorId(Integer.valueOf(request.getParameter("authorId")));
+		if (request.getParameter("authorId") != null)
+			comment.setAuthorId(Integer.valueOf(request
+					.getParameter("authorId")));
 		else
 			comment.setAuthorId(0);
 		comment.setOwnerId(Integer.valueOf(request.getParameter("ownerId")));
@@ -93,35 +95,32 @@ public class CommentsServlet extends HttpServlet {
 		comment.setUrl(request.getParameter("url"));
 		comment.setText(request.getParameter("text"));
 		cs.add(comment);
-		contentService.editCommentsNum(cid,"+");
+		contentService.editCommentsNum(cid, "+");
 
-		/*获取相关session*/
-		HttpSession session=request.getSession();
+		/* 获取相关session */
+		HttpSession session = request.getSession();
 
-		
 		List<ContentsVO> contents = contentService.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
-		
+
 		List<CommentsVO> comments = cs.list();
 		Collections.reverse(comments);
 		session.setAttribute("comments", comments);
-		
+
 		List<UsersVO> users = us.list();
 		Collections.reverse(users);
 		session.setAttribute("users", users);
-		
-		
+
 		List<MetasVO> metas = ms.listAll();
 		Collections.reverse(metas);
 		session.setAttribute("metas", metas);
-		
+
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
-		
-		
-		response.sendRedirect("../"+cid+".post#comment-"+cid);
+
+		response.sendRedirect("../" + cid + ".post#comment-" + cid);
 	}
 
 	/**
@@ -137,35 +136,32 @@ public class CommentsServlet extends HttpServlet {
 
 		int coid = Integer.valueOf(request.getParameter("coid"));
 		int cid = Integer.valueOf(request.getParameter("cid"));
-		contentService.editCommentsNum(cid,"-");
+		contentService.editCommentsNum(cid, "-");
 		cs.del(coid);
 
+		/* 获取相关session */
+		HttpSession session = request.getSession();
 
-		/*获取相关session*/
-		HttpSession session=request.getSession();
-
-		
 		List<ContentsVO> contents = contentService.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
-		
+
 		List<CommentsVO> comments = cs.list();
 		Collections.reverse(comments);
 		session.setAttribute("comments", comments);
-		
+
 		List<UsersVO> users = us.list();
 		Collections.reverse(users);
 		session.setAttribute("users", users);
-		
-		
+
 		List<MetasVO> metas = ms.listAll();
 		Collections.reverse(metas);
 		session.setAttribute("metas", metas);
-		
+
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
-		
+
 		request.setAttribute("message", "删除成功!");
 		request.setAttribute("returnURL", request.getContextPath()
 				+ "/admin/manage-comments.jsp");
@@ -208,33 +204,29 @@ public class CommentsServlet extends HttpServlet {
 		comment.setText(request.getParameter("text"));
 		cs.edit(comment);
 
+		/* 获取相关session */
+		HttpSession session = request.getSession();
 
-		/*获取相关session*/
-		HttpSession session=request.getSession();
-
-		
 		List<ContentsVO> contents = contentService.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
-		
+
 		List<CommentsVO> comments = cs.list();
 		Collections.reverse(comments);
 		session.setAttribute("comments", comments);
-		
+
 		List<UsersVO> users = us.list();
 		Collections.reverse(users);
 		session.setAttribute("users", users);
-		
-		
+
 		List<MetasVO> metas = ms.listAll();
 		Collections.reverse(metas);
 		session.setAttribute("metas", metas);
-		
+
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
-		
-		
+
 		request.setAttribute("message", "修改成功!");
 		request.setAttribute("returnURL", request.getContextPath()
 				+ "/admin/manage-comments.jsp");
@@ -264,50 +256,45 @@ public class CommentsServlet extends HttpServlet {
 	public void multiDel(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String coid[] = request.getParameterValues("coid");
-		
+
 		String op = request.getParameter("multiOption");
-		if(op.equals("multiDel")) {
-			for (int i=0;i<coid.length;i++) {
+		if (op.equals("multiDel")) {
+			for (int i = 0; i < coid.length; i++) {
 				int commentId = Integer.valueOf(coid[i]);
 				int cid = (cs.find(Integer.valueOf(coid[i]))).getCid();
-				contentService.editCommentsNum(cid,"-");
+				contentService.editCommentsNum(cid, "-");
 				cs.del(commentId);
 			}
 
+			/* 获取相关session */
+			HttpSession session = request.getSession();
 
-			/*获取相关session*/
-			HttpSession session=request.getSession();
-
-			
 			List<ContentsVO> contents = contentService.list();
 			Collections.reverse(contents);
 			session.setAttribute("contents", contents);
-			
+
 			List<CommentsVO> comments = cs.list();
 			Collections.reverse(comments);
 			session.setAttribute("comments", comments);
-			
+
 			List<UsersVO> users = us.list();
 			Collections.reverse(users);
 			session.setAttribute("users", users);
-			
-			
+
 			List<MetasVO> metas = ms.listAll();
 			Collections.reverse(metas);
 			session.setAttribute("metas", metas);
-			
+
 			List<OptionsVO> options = os.list();
 			Collections.reverse(options);
 			session.setAttribute("options", options);
-			
-			
+
 			request.setAttribute("message", "删除成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-comments.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(request,
-					response);
-		}
-		else {
+			request.getRequestDispatcher("../admin/message.jsp").forward(
+					request, response);
+		} else {
 			response.sendRedirect("../admin/manage-comments.jsp");
 		}
 

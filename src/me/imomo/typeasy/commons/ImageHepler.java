@@ -62,14 +62,12 @@ public class ImageHepler {
 			g.fillRect(0, 0, subImageBounds.width, subImageBounds.height);
 			g.drawImage(image, left, top, null);
 			ImageIO.write(image, formatName, subImageFile);
-			System.out.println("if is running left:" + left + " top: " + top);
 		} else {
 			// BufferedImage subImage =
 			// image.getSubimage(subImageBounds.x,subImageBounds.y,
 			// subImageBounds.width, subImageBounds.height);
 			g.drawImage(image.getSubimage(subImageBounds.x, subImageBounds.y,
 					subImageBounds.width, subImageBounds.height), 0, 0, null);
-			System.out.println("else is running");
 		}
 		g.dispose();
 		ImageIO.write(subImage, formatName, subImageFile);

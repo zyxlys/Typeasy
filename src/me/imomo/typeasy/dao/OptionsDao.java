@@ -31,7 +31,7 @@ public class OptionsDAO {
 	public OptionsVO findByName(String name) {
 		OptionsVO option = new OptionsVO();
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM options WHERE name=?";
+		String sql = "SELECT * FROM `options` WHERE `name`=?";
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -66,7 +66,7 @@ public class OptionsDAO {
 	 */
 	public void add(OptionsVO option) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO options(name,value) VALUES(?,?)";
+		String sql = "INSERT INTO `options`(`name`,`value`) VALUES(?,?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, option.getName());
@@ -93,7 +93,7 @@ public class OptionsDAO {
 	 */
 	public void del(String name) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "DELETE FROM options WHERE name=?";
+		String sql = "DELETE FROM `options` WHERE `name`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
@@ -119,7 +119,7 @@ public class OptionsDAO {
 	 */
 	public void edit(OptionsVO options) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATE options SET value=? WHERE name=?";
+		String sql = "UPDATE `options` SET `value`=? WHERE `name`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, options.getValue());
@@ -143,7 +143,7 @@ public class OptionsDAO {
 		List<OptionsVO> options = new ArrayList<OptionsVO>();
 		OptionsVO option = null;
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM options";
+		String sql = "SELECT * FROM `options`";
 
 		try {
 			Statement stmt = conn.createStatement();

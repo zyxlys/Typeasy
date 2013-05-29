@@ -26,7 +26,7 @@ public class UpLoadUserHeadImage extends HttpServlet {
 
 		SmartUpload mySmartUpload = new SmartUpload();
 		mySmartUpload.initialize(config, request, response);
-		mySmartUpload.setMaxFileSize(2048 * 1024);
+		mySmartUpload.setMaxFileSize(20480 * 1024);
 		mySmartUpload.setAllowedFilesList("jpg,gif,png,jpeg,bmp");
 		try {
 			mySmartUpload.upload();

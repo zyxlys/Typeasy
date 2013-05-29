@@ -21,7 +21,7 @@ public class CommentsDAO {
 	 */
 	public void add(CommentsVO c) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO comments(cid,created,author,authorId,ownerId,mail,url,text) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO `comments`(`cid`,`created`,`author`,`authorId`,`ownerId`,`mail`,`url`,`text`) VALUES(?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, c.getCid());
@@ -55,10 +55,31 @@ public class CommentsDAO {
 	 */
 	public void del(int coid) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "DELETE FROM comments WHERE coid=?";
+		String sql = "DELETE FROM `comments` WHERE `coid`=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, coid);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+	public void delByCid(int cid) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "DELETE FROM `comments` WHERE `cid`=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cid);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +103,7 @@ public class CommentsDAO {
 	 */
 	public void edit(CommentsVO c) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATE comments SET author=?,mail=?,url=?,text=? WHERE coid=?";
+		String sql = "UPDATE `comments` SET `author`=?,`mail`=?,`url`=?,`text`=? WHERE `coid`=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, c.getAuthor());
@@ -113,7 +134,7 @@ public class CommentsDAO {
 		List<CommentsVO> comments = new ArrayList<CommentsVO>();
 		CommentsVO comment = null;
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM comments ";
+		String sql = "SELECT * FROM `comments` ";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -158,7 +179,7 @@ public class CommentsDAO {
 	public CommentsVO find(int coid) {
 		Connection conn = DBConnection.getConnection();
 		CommentsVO comment = new CommentsVO();
-		String sql = "SELECT * FROM comments  WHERE coid =?";
+		String sql = "SELECT * FROM `comments`  WHERE `coid` =?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, coid);

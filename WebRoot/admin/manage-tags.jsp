@@ -30,7 +30,7 @@
 			<option>删除选中的标签</option>
 		</select> <input type="submit" value="应用">  <input type="submit"
 			value="添加标签" class="alt_btn"
-			onclick="window.location.href='add-tag.jsp';">
+			onclick="window.location.href='${basePath }admin/add-tag.jsp';">
 	 </fieldset>
 
 	<article class="module width_full">

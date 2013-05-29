@@ -2,6 +2,8 @@ package me.imomo.typeasy.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,9 +34,10 @@ import me.imomo.typeasy.vo.UsersVO;
 
 /**
  * 用户登录相关的Servlet
- * @version 1.0	2013/05/02
+ * 
+ * @version 1.0 2013/05/02
  * @author Mo
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
@@ -69,29 +72,25 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*获取相关session*/
-		HttpSession session=request.getSession();
-		
+		/* 获取相关session */
+		HttpSession session = request.getSession();
+
 		List<ContentsVO> contents = cs.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
-		
+
 		List<CommentsVO> comments = cos.list();
 		Collections.reverse(comments);
 		session.setAttribute("comments", comments);
-		
+
 		List<UsersVO> users = us.list();
 		Collections.reverse(users);
 		session.setAttribute("users", users);
-		
-		
+
 		List<MetasVO> metas = ms.listAll();
 		Collections.reverse(metas);
 		session.setAttribute("metas", metas);
-		
-		
-		
-		
+
 		String action = request.getParameter("action");
 		if (action == null) {
 			action = "login";
@@ -201,6 +200,7 @@ public class LoginServlet extends HttpServlet {
 
 	/**
 	 * 用户注册
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -212,15 +212,43 @@ public class LoginServlet extends HttpServlet {
 		String password = md5.getMD5ofStr(request.getParameter("user_pwd"));
 		String mail = request.getParameter("user_email");
 		String screenName = request.getParameter("user_nickname");
+		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(Calendar.getInstance().getTime());
 		UsersVO user = new UsersVO();
 		user.setName(name);
 		user.setPassword(password);
 		user.setMail(mail);
 		user.setScreenName(screenName);
+		user.setCreated(nowtime);
 		boolean flag = ls.register(user);
+		
+		/*获取相关session*/
+		HttpSession session=request.getSession();
+
+		
+		List<ContentsVO> contents = cs.list();
+		Collections.reverse(contents);
+		session.setAttribute("contents", contents);
+		
+		List<CommentsVO> comments = cos.list();
+		Collections.reverse(comments);
+		session.setAttribute("comments", comments);
+		
+		List<UsersVO> users = us.list();
+		Collections.reverse(users);
+		session.setAttribute("users", users);
+		
+		
+		List<MetasVO> metas = ms.listAll();
+		Collections.reverse(metas);
+		session.setAttribute("metas", metas);
+		
+		List<OptionsVO> options = os.list();
+		Collections.reverse(options);
+		session.setAttribute("options", options);
+		
 		if (flag) {
 			UsersVO u = ls.login(user);
-			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			response.sendRedirect("../login.jsp");
 		} else {

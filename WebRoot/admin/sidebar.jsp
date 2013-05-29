@@ -34,15 +34,19 @@
 	<ul class="toggle">
 		<li class="icn_new_post"><a href="admin/add-post.jsp">发表文章</a></li>
 		<li class="icn_manage_posts"><a href="admin/manage-posts.jsp">管理文章</a></li>
-		<li class="icn_manage_categories"><a
-			href="admin/manage-categories.jsp">分类目录</a></li>
-		<li class="icn_manage_tags"><a href="admin/manage-tags.jsp">文章标签</a></li>
+		<c:if test="${user.group == 'admin' }">
+			<li class="icn_manage_categories"><a
+				href="admin/manage-categories.jsp">分类目录</a></li>
+			<li class="icn_manage_tags"><a href="admin/manage-tags.jsp">文章标签</a></li>
+		</c:if>
 	</ul>
-	<h3>页面</h3>
-	<ul class="toggle">
-		<li class="icn_new_page"><a href="admin/add-page.jsp">发表页面</a></li>
-		<li class="icn_manage_pages"><a href="admin/manage-pages.jsp">管理页面</a></li>
-	</ul>
+	<c:if test="${user.group == 'admin' }">
+		<h3>页面</h3>
+		<ul class="toggle">
+			<li class="icn_new_page"><a href="admin/add-page.jsp">发表页面</a></li>
+			<li class="icn_manage_pages"><a href="admin/manage-pages.jsp">管理页面</a></li>
+		</ul>
+	</c:if>
 	<h3>评论</h3>
 	<ul class="toggle">
 		<li class="icn_manage_comments"><a
@@ -50,13 +54,17 @@
 	</ul>
 	<h3>用户</h3>
 	<ul class="toggle">
-		<li class="icn_new_user"><a href="admin/add-user.jsp">添加用户</a></li>
-		<li class="icn_manage_users"><a href="admin/manage-users.jsp">管理用户</a></li>
+		<c:if test="${user.group == 'admin' }">
+			<li class="icn_new_user"><a href="admin/add-user.jsp">添加用户</a></li>
+			<li class="icn_manage_users"><a href="admin/manage-users.jsp">管理用户</a></li>
+		</c:if>
 		<li class="icn_my_profile"><a href="admin/my-profiles.jsp">我的资料</a></li>
 	</ul>
 	<h3>选项</h3>
 	<ul class="toggle">
-		<li class="icn_options"><a href="admin/options.jsp">基本设置</a></li>
+		<c:if test="${user.group == 'admin' }">
+			<li class="icn_options"><a href="admin/options.jsp">基本设置</a></li>
+		</c:if>
 		<li class="icn_security"><a href="admin/security.jsp">安全设置</a></li>
 		<li class="icn_jump_back"><a class="logout_user"
 			href="servlet/LoginServlet?action=logout"

@@ -28,18 +28,9 @@ public class ZoomImage extends HttpServlet
 		float imageZoom = Float.parseFloat(request.getParameter("txt_Zoom"));
 		String picture = request.getParameter("picture");
 		
-		System.out.println("imageWidth : "+imageWidth);
-		System.out.println("imageHeight : "+imageHeight);
-		System.out.println("cutTop : "+cutTop);
-		System.out.println("cutLeft : "+cutLeft);
-		System.out.println("dropWidth : "+dropWidth);
-		System.out.println("dropHeight : "+dropHeight);
-		System.out.println("imageZoom : "+imageZoom);
-		System.out.println("picture : "+picture);
-		System.out.println("url :"+request.getRealPath("")+"/uploads/UploadPhoto/"+picture);
 		Rectangle rec = new Rectangle(cutLeft,cutTop,dropWidth,dropHeight);
 		File file = new File(request.getRealPath("")+"/uploads/User/UserHeadImage/"+picture);
-		//BufferedImage image = ImageIO.read(new File(request.getRealPath("")+"/UploadPhoto/"+picture));  
+		BufferedImage image = ImageIO.read(new File(request.getRealPath("")+"/uploads/UploadPhoto/"+picture));  
 		saveSubImage(new File(request.getRealPath("")+"/uploads/UploadPhoto/"+picture),file,imageWidth,imageHeight,rec);
 		response.sendRedirect("../uploadimage.jsp?Picurl="+picture+"&step=3");
 	}

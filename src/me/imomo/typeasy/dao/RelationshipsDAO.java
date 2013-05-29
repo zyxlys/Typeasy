@@ -16,7 +16,7 @@ public class RelationshipsDAO {
 
 	public void add(RelationshipsVO relationship) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO relationships VALUES (?,?)";
+		String sql = "INSERT INTO `relationships` VALUES (?,?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, relationship.getCid());
@@ -37,7 +37,7 @@ public class RelationshipsDAO {
 
 	public void del(int cid) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "DELETE FROM relationships WHERE cid=?";
+		String sql = "DELETE FROM `relationships` WHERE `cid`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, cid);
@@ -57,7 +57,7 @@ public class RelationshipsDAO {
 
 	public void edit(RelationshipsVO relationship) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATE relationships SET mid=? WHERE cid=?";
+		String sql = "UPDATE `relationships` SET `mid`=? WHERE `cid`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(2, relationship.getCid());
@@ -81,7 +81,7 @@ public class RelationshipsDAO {
 		List<RelationshipsVO> relationships = new ArrayList<RelationshipsVO>();
 		Connection conn = DBConnection.getConnection();
 		RelationshipsVO relationship = null;
-		String sql = "SELECT * FROM relationships";
+		String sql = "SELECT * FROM `relationships`";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -109,7 +109,7 @@ public class RelationshipsDAO {
 	public RelationshipsVO findMid(int mid) {
 		Connection conn = DBConnection.getConnection();
 		RelationshipsVO relationship = new RelationshipsVO();
-		String sql = "SELECT * FROM relationships WHERE mid=?";
+		String sql = "SELECT * FROM `relationships` WHERE `mid`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, mid);

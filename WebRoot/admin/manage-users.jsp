@@ -34,7 +34,7 @@
 			<option>删除选中的用户</option>
 		</select> <input type="submit" value="应用"> <input type="submit"
 			value="添加用户" class="alt_btn"
-			onclick="window.location.href='add-user.jsp';">
+			onclick="window.location.href='${basePath }admin/add-user.jsp';">
 	</fieldset>
 
 	<article class="module width_full">

@@ -12,6 +12,11 @@ public class CommentsService {
 		 cd.add(comment);
 	}
 
+	public void delByCid(int cid) {
+		cd.delByCid(cid);
+		
+	}
+	
 	public void del(int coid) {
 		cd.del(coid);
 		

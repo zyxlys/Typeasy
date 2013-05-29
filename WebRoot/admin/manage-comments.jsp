@@ -2,10 +2,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="title" scope="request" value="管理评论"></c:set>
 
+<c:set var="title" scope="request" value="管理评论"></c:set>
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="sidebar.jsp"></jsp:include>
+
 <section id="main" class="column">
 	<h4 class="alert_info">小提示：单击列名可以将评论按照列名项目排序。</h4>
 	<script type="text/javascript">

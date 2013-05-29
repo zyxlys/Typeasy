@@ -35,7 +35,7 @@
 				<p>${user.group }</p>
 			</div>
 			<input type="submit" value="点击修改我的资料" class="alt_btn"
-				onclick="window.location.href='../servlet/UsersServlet?action=edit&uid=${user.uid}';">
+				onclick="window.location.href='${basePath }/servlet/UsersServlet?action=find&uid=${user.uid}';">
 
 		</div>
 

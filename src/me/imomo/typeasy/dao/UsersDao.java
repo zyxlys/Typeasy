@@ -27,7 +27,7 @@ public class UsersDAO {
 	 */
 	public void add(UsersVO user) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO users(name,password,mail,url,screenName,created) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO `users`(`name`,`password`,`mail`,`url`,`screenName`,`created`) VALUES(?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getName());
@@ -60,7 +60,7 @@ public class UsersDAO {
 		List<UsersVO> users = new ArrayList<UsersVO>();
 		UsersVO user = null;
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM users";
+		String sql = "SELECT * FROM `users`";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -99,17 +99,15 @@ public class UsersDAO {
 	 */
 	public void edit(UsersVO user) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATE users SET name=?,password=?,mail=?,url=?,screenName=?,avatar=?,group=? WHERE uid=?";
+		String sql = "UPDATE `users` SET `mail`=?,`url`=?,`screenName`=?,`avatar`=?,`group`=? WHERE `uid`=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getName());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getMail());
-			pstmt.setString(4, user.getUrl());
-			pstmt.setString(5, user.getScreenName());
-			pstmt.setString(6, user.getAvatar());
-			pstmt.setString(7, user.getGroup());
-			pstmt.setInt(8, user.getUid());
+			pstmt.setString(1, user.getMail());
+			pstmt.setString(2, user.getUrl());
+			pstmt.setString(3, user.getScreenName());
+			pstmt.setString(4, user.getAvatar());
+			pstmt.setString(5, user.getGroup());
+			pstmt.setInt(6, user.getUid());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,7 +132,7 @@ public class UsersDAO {
 	public UsersVO find(int uid) {
 		UsersVO user = null;
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM users WHERE uid=?";
+		String sql = "SELECT * FROM `users` WHERE `uid`=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, uid);
@@ -174,7 +172,7 @@ public class UsersDAO {
 	 */
 	public void del(int uid) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "DELETE FROM users WHERE uid=?";
+		String sql = "DELETE FROM `users` WHERE `uid`=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, uid);

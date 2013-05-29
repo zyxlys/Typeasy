@@ -21,7 +21,7 @@ public class MetasDAO {
 	public MetasVO findMid(int mid) {
 		Connection conn = DBConnection.getConnection();
 		MetasVO meta = new MetasVO();
-		String sql = "SELECT * FROM metas WHERE mid=? ";
+		String sql = "SELECT * FROM `metas` WHERE `mid`=? ";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, mid);
@@ -61,7 +61,7 @@ public class MetasDAO {
 	public MetasVO findName(String name) {
 		Connection conn = DBConnection.getConnection();
 		MetasVO meta = new MetasVO();
-		String sql = "SELECT * FROM metas WHERE name=?";
+		String sql = "SELECT * FROM `metas` WHERE `name`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
@@ -97,7 +97,7 @@ public class MetasDAO {
 	 */
 	public void add(MetasVO meta) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO metas(name,slug,type,description) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO `metas`(`name`,`slug`,`type`,`description`) VALUES(?,?,?,?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -127,7 +127,7 @@ public class MetasDAO {
 	public void del(int mid) {
 		Connection conn = DBConnection.getConnection();
 		MetasVO meta = new MetasVO();
-		String sql = "DELETE FROM metas WHERE mid=?";
+		String sql = "DELETE FROM `metas` WHERE `mid`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, mid);
@@ -152,7 +152,7 @@ public class MetasDAO {
 	 */
 	public void edit(MetasVO meta) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATE metas SET name=?,slug=?,type=?,description=? WHERE mid=?";
+		String sql = "UPDATE `metas` SET `name`=?,`slug`=?,`type`=?,`description`=? WHERE `mid`=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(5, meta.getMid());
@@ -182,7 +182,7 @@ public class MetasDAO {
 		List<MetasVO> metas = new ArrayList<MetasVO>();
 		Connection conn = DBConnection.getConnection();
 		MetasVO meta = null;
-		String sql = "SELECT * FROM metas";
+		String sql = "SELECT * FROM `metas`";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);

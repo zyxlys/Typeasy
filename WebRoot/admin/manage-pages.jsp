@@ -31,7 +31,7 @@
 			<option>删除选中的页面</option>
 		</select> <input type="submit" value="应用"> <input type="submit"
 			value="发表新页面" class="alt_btn"
-			onclick="window.location.href='add-page.jsp';">
+			onclick="window.location.href='${basePath }admin/add-page.jsp';">
 	</fieldset>
 
 	<article class="module width_full">

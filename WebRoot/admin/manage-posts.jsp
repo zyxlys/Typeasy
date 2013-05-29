@@ -36,7 +36,7 @@
 			<option>删除选中的文章</option>
 		</select> <input type="submit" value="应用"> <input type="submit"
 			value="发表新文章" class="alt_btn"
-			onclick="window.location.href='add-post.jsp';">
+			onclick="window.location.href='${basePath }admin/add-post.jsp';">
 	</fieldset>
 
 	<article class="module width_full">

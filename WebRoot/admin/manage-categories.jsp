@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="title" scope="request" value="管理分类目录"></c:set>
 
+<c:set var="title" scope="request" value="管理分类目录"></c:set>
 
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="sidebar.jsp"></jsp:include>
+
 
 <section id="main" class="column">
 	<h4 class="alert_info">小提示：单击列名可以将目录按照列名排序。</h4>
@@ -26,8 +27,6 @@
 		};
 	</script>
 
-	<div id="category_left"
-		style="width:95%; float:right; margin-right:3px;">
 		<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 			<input type="checkbox" name="all" onclick="selectAll();" /> <select
 				style="width: 70%;">
@@ -35,7 +34,7 @@
 				<option>删除选中的目录</option>
 			</select> <input type="submit" value="应用"> <input type="submit"
 				value="添加目录" class="alt_btn"
-				onclick="window.location.href='add-category.jsp';">
+				onclick="window.location.href='${basePath }admin/add-category.jsp'">
 		</fieldset>
 		<article class="module width_full">
 			<header>
@@ -71,7 +70,6 @@
 				</tbody>
 			</table>
 		</article>
-	</div>
 
 
 	<div class="spacer"></div>

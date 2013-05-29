@@ -23,7 +23,7 @@ public class ContentsDAO {
 		Connection conn = DBConnection.getConnection();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO contents(title,created,text,type,authorId,slug) VALUES(?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO `contents`(`title`,`created`,`text`,`type`,`authorId`,`slug`) VALUES(?,?,?,?,?,?)");
 			ps.setString(1, article.getTitle());
 			ps.setString(2, article.getCreated());
 			ps.setString(3, article.getText());
@@ -53,7 +53,7 @@ public class ContentsDAO {
 		Connection conn = DBConnection.getConnection();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("DELETE FROM contents WHERE cid = ?");
+					.prepareStatement("DELETE FROM `contents` WHERE `cid` = ?");
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class ContentsDAO {
 		Connection conn = DBConnection.getConnection();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("UPDATE contents SET title =?,text =?,modified = ?,type =? WHERE cid =?");
+					.prepareStatement("UPDATE `contents` SET `title` =?,`text` =?,`modified` = ?,`type` =? WHERE `cid` =?");
 			ps.setString(1, article.getTitle());
 			ps.setString(2, article.getText());
 			ps.setString(3, article.getModified());
@@ -107,7 +107,7 @@ public class ContentsDAO {
 		Connection conn = DBConnection.getConnection();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM contents WHERE cid = ?");
+					.prepareStatement("SELECT * FROM `contents` WHERE `cid` = ?");
 			ps.setInt(1, cid);
 			java.sql.ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -153,7 +153,7 @@ public class ContentsDAO {
 		Connection conn = DBConnection.getConnection();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM contents");
+					.prepareStatement("SELECT * FROM `contents`");
 			java.sql.ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				content = new ContentsVO();
@@ -199,11 +199,11 @@ public class ContentsDAO {
 		if(o == null)
 			o = "";
 		if(o.equals("+"))
-			sql = "UPDATE contents SET commentsNum=commentsNum+1 WHERE cid = ?";
+			sql = "UPDATE `contents` SET `commentsNum`=`commentsNum`+1 WHERE `cid` = ?";
 		else if(o.equals("-"))
-			sql = "UPDATE contents SET commentsNum=commentsNum-1 WHERE cid = ?";
+			sql = "UPDATE `contents` SET `commentsNum`=`commentsNum`-1 WHERE `cid` = ?";
 		else
-			sql = "UPDATE contents SET commentsNum=commentsNum WHERE cid = ?";
+			sql = "UPDATE `contents` SET `commentsNum`=`commentsNum` WHERE `cid` = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, cid);

@@ -28,7 +28,7 @@ public class LoginDAO {
 		Connection conn = DBConnection.getConnection();
 		UsersVO user = new UsersVO();
 		if (u != null) {
-			String sql = "SELECT * FROM users WHERE name=? AND password=?";
+			String sql = "SELECT * FROM `users` WHERE `name`=? AND `password`=?";
 			ResultSet rs;
 			PreparedStatement pstmt;
 			try {
@@ -71,13 +71,14 @@ public class LoginDAO {
 	 */
 	public void register(UsersVO u) {
 		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO users(name,password,mail,screenName) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO `users`(`name`,`password`,`mail`,`screenName`,`created`) VALUES(?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, u.getName());
 			pstmt.setString(2, u.getPassword());
 			pstmt.setString(3, u.getMail());
 			pstmt.setString(4, u.getScreenName());
+			pstmt.setString(5, u.getCreated());
 			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,10 +103,11 @@ public class LoginDAO {
 	public UsersVO getUserByName(String name) {
 		UsersVO user = new UsersVO();
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM users WHERE name='" + name + "'";
+		String sql = "SELECT * FROM `users` WHERE `name`=?";
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
 			if (rs != null && rs.next()) {
 				user.setUid(rs.getInt("uid"));
 				user.setName(rs.getString("name"));
@@ -142,10 +144,11 @@ public class LoginDAO {
 	public UsersVO getUserByMail(String mail) {
 		UsersVO user = new UsersVO();
 		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM users WHERE mail='" + mail + "'";
+		String sql = "SELECT * FROM `users` WHERE `mail`=?";
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mail);
+			ResultSet rs = pstmt.executeQuery();
 			if (rs != null && rs.next()) {
 				user.setUid(rs.getInt("uid"));
 				user.setName(rs.getString("name"));

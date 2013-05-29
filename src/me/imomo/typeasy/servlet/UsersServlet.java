@@ -3,6 +3,7 @@ package me.imomo.typeasy.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -72,16 +73,14 @@ public class UsersServlet extends HttpServlet {
 	public void add(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UsersVO user = new UsersVO();
-		SimpleDateFormat fomater = new SimpleDateFormat(
-				"yyyy'-'MM'-'dd HH:mm:ss");
-		String nowtime = fomater.format(new Date());
-		user.setCreated(nowtime);
+		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(Calendar.getInstance().getTime());
 		user.setName(request.getParameter("name"));
 		user.setPassword(md5.getMD5ofStr(request.getParameter("password")));
 		user.setScreenName(request.getParameter("screenName"));
 		user.setMail(request.getParameter("mail"));
 		user.setUrl(request.getParameter("url"));
-		user.setGroup(request.getParameter("group"));
+		user.setCreated(nowtime);
 		us.add(user);
 		List<UsersVO> users = us.list();
 		HttpSession session = request.getSession();
@@ -119,14 +118,18 @@ public class UsersServlet extends HttpServlet {
 	public void edit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UsersVO user = new UsersVO();
-		user.setName(request.getParameter("name"));
 		user.setScreenName(request.getParameter("screenName"));
 		user.setMail(request.getParameter("mail"));
 		user.setUrl(request.getParameter("url"));
+		user.setAvatar(request.getParameter("avatar"));
+		user.setGroup(request.getParameter("group"));
+		user.setUid(Integer.valueOf(request.getParameter("uid")));
 		us.modifyProfile(user);
 		List<UsersVO> users = us.list();
+		UsersVO u = us.find(Integer.valueOf(request.getParameter("uid")));
 		HttpSession session = request.getSession();
 		session.setAttribute("users", users);
+		session.setAttribute("user", u);
 		request.setAttribute("message", "修改成功!");
 		request.setAttribute("returnURL", request.getContextPath()
 				+ "/admin/manage-users.jsp");
@@ -160,10 +163,9 @@ public class UsersServlet extends HttpServlet {
 	public void find(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("uid"));
-		UsersVO user = null;
-		user = us.find(id);
+		UsersVO user = us.find(id);
 		if (user != null) {
-			request.setAttribute("user", user);
+			request.setAttribute("u", user);
 		}
 		request.getRequestDispatcher("../admin/edit-user.jsp").forward(request,
 				response);

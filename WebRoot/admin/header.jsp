@@ -4,12 +4,13 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	request.setAttribute("basePath", basePath);
 %>
 <!doctype html>
 <html>
 
 <head>
-<base href="<%=basePath%>">
+<base href="${basePath }">
 <meta charset="utf-8" />
 
 <title>${title} - Typeasy</title>
@@ -61,8 +62,8 @@
 	});
 </script>
 
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon" /> 
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
 </head>
 
