@@ -1,0 +1,28 @@
+.pagination {
+	font-family: "Microsoft Yahei";
+}
+
+.pagination a {
+	border: 1px solid #ccc;
+	color: #333;
+	margin-right: 3px;
+	padding: 2px 9px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+
+.pagination a:hover {
+	background-color: #1987CD;
+	color: #FFFFFF;
+	background-image: none;
+}
+
+.pagination .current {
+	color: #666;
+	font-weight: bold;
+	margin-right: 3px;
+	padding: 2px 9px;
+}
+

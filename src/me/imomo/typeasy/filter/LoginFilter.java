@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import me.imomo.typeasy.commons.CookieUtil;
 import me.imomo.typeasy.vo.UsersVO;
 
+/**
+ * 登录过滤器 
+ * @author Administrator
+ *
+ */
 public class LoginFilter implements Filter {
 
 	@Override

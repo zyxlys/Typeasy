@@ -1,33 +1,144 @@
+<%@page import="me.imomo.typeasy.commons.SwitchFormat"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="title" scope="request" value="文章归档"></c:set>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
+
+<c:choose>
+	<c:when test="${param.action == 'search' }">
+		<c:set scope="request" value="${sessionScope.sContents }"
+			var="archives"></c:set>
+			<c:set var="title" scope="request" value="搜索结果"></c:set>
+	</c:when>
+	<c:when test="${param.action == 'tag' }">
+		<c:set scope="request" value="${sessionScope.tmContents }"
+			var="archives"></c:set>
+			<c:set var="title" scope="request" value="按标签查看"></c:set>
+	</c:when>
+	<c:when test="${param.action == 'category' }">
+		<c:set scope="request" value="${sessionScope.cmContents }"
+			var="archives"></c:set>
+			<c:set var="title" scope="request" value="按目录查看"></c:set>
+	</c:when>
+</c:choose>
+
+<c:if test="${archives == null || fn:length(archives) == 0 }">
+	<script type="text/javascript">
+		alert("未找到内容");
+		history.back();
+	</script>
+</c:if>
+
+
+
 
 <jsp:include page="header.jsp"></jsp:include>
+<c:forEach var="option" items="${options }">
+	<c:if test="${option.name == 'number' }">
+		<c:set scope="request" value="${option.value }" var="maxPageItems"></c:set>
+	</c:if>
+</c:forEach>
+<pg:pager items="${fn:length(archives) }"
+	export="currentPageNumber=pageNumber" maxPageItems="${maxPageItems }">
+	<div id="m4out" class="container_16 clearfix">
 
-<div id="content">
-	<c:if test="${contents != null }">
-		<div class="post">
-			<c:forEach items="${contents }" var="content">
-				<c:if test="${content.type == 'post' }">
-
-					<h1 class="post-title">
-						<a href="${content。cid }.post" rel="bookmark"
-							title="${content。title }">${content。title }</a>
-					</h1>
-            	${content。text }
-            
-            	<div class="post-info">
-						${content。created } in 分类目录 | tags: 标签 | <strong>${content.commentsNum
-							}条评论</strong>
-					</div>
+		<div class="grid_10" id="content">
+			<c:forEach items="${archives }" var="archive">
+				<c:if test="${archive.type == 'post' }">
+					<c:set scope="request" value="${archive.created }"
+						var="createdTime"></c:set>
+					<%
+						String createdTime = (String) request
+											.getAttribute("createdTime");
+									String formatTime = SwitchFormat
+											.SwitchFormat(createdTime);
+									request.setAttribute("formatTime", formatTime);
+					%>
+					<pg:item>
+						<div class="post clearfix">
+							<h2 class="entry_title">
+								<a href="post-${archive.cid }.htm" title="${archive.title }">${archive.title
+									}</a>
+							</h2>
+							<p class="entry_data">
+								<span>作者：<c:forEach items="${sessionScope.users }"
+										var="user">
+										<c:if test="${archive.authorId == user.uid }">${user.screenName }</c:if>
+									</c:forEach></span> <span>发布时间：${requestScope.formatTime }</span> <span>分类目录：<c:forEach
+										items="${relationships }" var="relationship">
+										<c:if test="${relationship.cid == archive.cid }">
+											<c:forEach items="${metas }" var="meta">
+												<c:if test="${meta.mid == relationship.mid }">
+													<c:if test="${meta.type == 'category' }">${meta.name }</c:if>
+												</c:if>
+											</c:forEach>
+										</c:if>
+									</c:forEach></span>
+							</p>
+							<c:forEach var="option" items="${options }">
+								<c:if test="${option.name == 'excerpt' }">
+									<c:set scope="request" value="${option.value }" var="isExcerpt"></c:set>
+								</c:if>
+								<c:if test="${option.name == 'count' }">
+									<c:set scope="request" value="${option.value }"
+										var="contentCount"></c:set>
+								</c:if>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${requestScope.isExcerpt == 'excerpt' }">${fn:substring(archive.text,0,contentCount) } <br />
+									<c:if test="${fn:length(archive.text) > contentCount }">
+										<p style="text-align: right">
+											【<a href="post-${archive.cid }.htm" title="阅读更多">阅读更多</a>】
+										</p>
+									</c:if>
+								</c:when>
+								<c:otherwise>${archive.text }</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="m4gomore">
+							<a href="post-${archive.cid }.htm#comments"
+								title="${archive.commentsNum }条评论" class="m4pc">${archive.commentsNum
+								}</a> <a href="post-${archive.cid }.htm" title="${archive.title }"
+								class="m4pr">阅读更多</a>
+						</div>
+					</pg:item>
 				</c:if>
 			</c:forEach>
 		</div>
-	</c:if>
-	<ul id="pages">
-		<li>页数:</li> 分页
-	</ul>
-</div>
-<!-- end #content-->
-<jsp:include page="sidebar.jsp"></jsp:include>
+		<!-- end #content-->
+		<jsp:include page="sidebar.jsp"></jsp:include>
+
+		<div class="clearfix m4ip">
+			<ol class="pages clearfix m4ipol">
+
+				<div class="pagination">
+					<pg:first>
+						<a href="${pageUrl}">首页</a>
+					</pg:first>
+					<pg:prev>
+						<a href="${pageUrl}">上页</a>
+					</pg:prev>
+					<pg:pages>
+						<c:choose>
+							<c:when test="${pageNumber eq currentPageNumber }">
+								<b class="current">${pageNumber }</b>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageUrl }">${pageNumber}</a>
+							</c:otherwise>
+						</c:choose>
+					</pg:pages>
+					<pg:next>
+						<a href="${pageUrl}">下页</a>
+					</pg:next>
+					<pg:last>
+						<a href="${pageUrl}">尾页</a>
+					</pg:last>
+
+				</div>
+			</ol>
+		</div>
+	</div>
+</pg:pager>
+<!-- end m4out -->
 <jsp:include page="footer.jsp"></jsp:include>

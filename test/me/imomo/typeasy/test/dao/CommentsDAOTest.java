@@ -2,11 +2,15 @@ package me.imomo.typeasy.test.dao;
 
 import java.util.List;
 
+
 import org.junit.Test;
 
 import me.imomo.typeasy.dao.CommentsDAO;
 import me.imomo.typeasy.vo.CommentsVO;
-
+/**
+ *	评论测试
+ * @author 夏、末
+ */
 public class CommentsDAOTest {
 	private CommentsVO c = new CommentsVO();
 	private CommentsDAO cd = new CommentsDAO();
@@ -26,7 +30,6 @@ public class CommentsDAOTest {
 		cd.add(c);
 		System.out.println(c.getAuthor());
 	}
-	
 
 	@Test
 	/**
@@ -52,7 +55,7 @@ public class CommentsDAOTest {
 
 	@Test
 	/**
-	 * 测试查询所以评论
+	 * 测试查询所有评论
 	 */
 	public void list() {
 		List<CommentsVO> comments = (List) cd.list();
@@ -61,13 +64,14 @@ public class CommentsDAOTest {
 		}
 
 	}
+
 	@Test
 	/**
 	 * 测试通过coid查找
 	 */
-	public void find(){
+	public void find() {
 		cd.find(6);
 		System.out.print((cd.find(6)).getAuthor());
-		
+
 	}
 }

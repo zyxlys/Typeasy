@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -12,6 +13,12 @@ import me.imomo.typeasy.commons.DBConnection;
 import me.imomo.typeasy.vo.ContentsVO;
 import me.imomo.typeasy.vo.UsersVO;
 
+/**
+ * 文章表数据库操作类
+ * 
+ * @author Administrator
+ * 
+ */
 public class ContentsDAO {
 
 	/**
@@ -190,17 +197,18 @@ public class ContentsDAO {
 
 	/**
 	 * 更改评论数
+	 * 
 	 * @param cid
 	 * @param o
 	 */
 	public void editCommentsNum(int cid, String o) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "";
-		if(o == null)
+		if (o == null)
 			o = "";
-		if(o.equals("+"))
+		if (o.equals("+"))
 			sql = "UPDATE `contents` SET `commentsNum`=`commentsNum`+1 WHERE `cid` = ?";
-		else if(o.equals("-"))
+		else if (o.equals("-"))
 			sql = "UPDATE `contents` SET `commentsNum`=`commentsNum`-1 WHERE `cid` = ?";
 		else
 			sql = "UPDATE `contents` SET `commentsNum`=`commentsNum` WHERE `cid` = ?";
@@ -220,4 +228,53 @@ public class ContentsDAO {
 			}
 		}
 	}
+
+	/**
+	 * 搜索文章
+	 * 
+	 * @param keywords
+	 * @return
+	 */
+	public List<ContentsVO> search(String keywords) {
+		List<ContentsVO> contents = new ArrayList<ContentsVO>();
+		ContentsVO content = null;
+		Connection conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM `contents` WHERE `title` LIKE ? AND `type`='post'";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + keywords + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				content = new ContentsVO();
+				content.setCid(rs.getInt(1));
+				content.setTitle(rs.getString(2));
+				content.setSlug(rs.getString(3));
+				content.setCreated(rs.getString(4));
+				content.setModified(rs.getString(5));
+				content.setText(rs.getString(6));
+				content.setOrder(rs.getInt(7));
+				content.setAuthorId(rs.getInt(8));
+				content.setTemplate(rs.getString(9));
+				content.setType(rs.getString(10));
+				content.setStatus(rs.getString(11));
+				content.setPassword(rs.getString(12));
+				content.setCommentsNum(rs.getInt(13));
+				content.setAllowComment(rs.getString(14));
+				content.setAllowPing(rs.getString(15));
+				contents.add(content);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return contents;
+	}
+
 }

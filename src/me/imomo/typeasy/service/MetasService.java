@@ -3,35 +3,81 @@ package me.imomo.typeasy.service;
 import java.util.List;
 
 import me.imomo.typeasy.dao.MetasDAO;
+import me.imomo.typeasy.dao.RelationshipsDAO;
 import me.imomo.typeasy.vo.MetasVO;
 
+/**
+ * Metas Service类
+ * 
+ * @author Administrator
+ * 
+ */
 public class MetasService {
 
-	MetasDAO metasDao=new MetasDAO();
-	public void add(MetasVO meta){
-		  metasDao.add(meta);
-	}
-	
+	MetasDAO metasDAO = new MetasDAO();
 
-	public void  del(int mid){
-	      metasDao.del(mid);
-	}
-	
-	
-	
-	public void edit(MetasVO meta){
-			metasDao.edit(meta);
-	}
-	
-	
-	public List<MetasVO> listAll(){
-		return metasDao.find();
+	/**
+	 * 添加项目
+	 * 
+	 * @param meta
+	 */
+	public void add(MetasVO meta) {
+		metasDAO.add(meta);
 	}
 
-
-	public MetasVO findMid(int mid) {
-		return metasDao.findMid(mid);
+	/**
+	 * 删除项目
+	 * 
+	 * @param mid
+	 */
+	public void del(int mid) {
+		metasDAO.del(mid);
 	}
 
-	
+	/*
+	 * 编辑项目
+	 */
+	public void edit(MetasVO meta) {
+		metasDAO.edit(meta);
+	}
+
+	/**
+	 * 查询所有的项目
+	 * 
+	 * @return
+	 */
+	public List<MetasVO> listAll() {
+		return metasDAO.find();
+	}
+
+	/**
+	 * 根据mid查找项目
+	 * 
+	 * @param mid
+	 * @return
+	 */
+	public MetasVO findByMid(int mid) {
+		return metasDAO.findByMid(mid);
+	}
+
+	/**
+	 * 根据名称查找项目
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public MetasVO findByName(String name) {
+		return metasDAO.findByName(name);
+	}
+
+	/**
+	 * 修改文章计数
+	 * 
+	 * @param mid
+	 * @param op
+	 */
+	public void editCount(int mid, String op) {
+		metasDAO.editCount(mid, op);
+	}
+
 }

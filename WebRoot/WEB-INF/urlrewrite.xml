@@ -9,14 +9,28 @@
 
 -->
 <urlrewrite>
+	<rule>
+            <from>/404/</from>
+            <to>/blog/404.jsp</to>
+     </rule>
+	<rule>
+            <from>/500/</from>
+            <to>/blog/500.jsp</to>
+     </rule>
+     
 	 <rule>
-            <from>/(\d+).post</from>
+            <from>/post-(\d+).htm</from>
             <to>/blog/post.jsp?cid=$1</to>
      </rule>
 	 <rule>
-            <from>/(\d+).page</from>
+            <from>/page-(\d+).htm</from>
             <to>/blog/page.jsp?cid=$1</to>
      </rule>
+     <rule>
+            <from>/index.htm</from>
+            <to>/blog/index.jsp</to>
+     </rule>
+
 	
 
 

@@ -16,9 +16,8 @@
 		</header>
 		<div class="module_content">
 			<form id="edit-user"
-				action="servlet/UsersServlet?action=edit&uid=${u.uid }"
+				action="servlet/UsersServlet?action=edit&uid=${u.uid }&adminId=${user.uid }"
 				method="post">
-				<div class="padding-box">
 					<h2>基本资料</h2>
 					<table class="form-table">
 
@@ -33,7 +32,7 @@
 									session.removeAttribute("newAvatar");
 								%> <img src="<%=newAvatar%>" alt="用户头像" width="100" height="100" />
 								<br /> <a href="javascript:void(0);"
-								onclick="PopUpWindow('${basePath }uploadimage.jsp?avatar=${u.avatar }',100,100,600,500)">点击修改</a>
+								onclick="PopUpWindow('${basePath }avatar.jsp?avatar=${u.avatar }',200,200,650,500)">点击修改</a>
 								<input type="hidden" name="avatar" value="<%=newAvatar%>" />
 							</td>
 						</tr>
@@ -59,7 +58,7 @@
 							<th><label for="mail">电子邮箱 <span class="description">(必填项
 										，邮箱唯一，不可重复)</span></label></th>
 							<td><input type="text" name="mail" id="mail"
-								value="${u.mail }" class="regular-text" /></td>
+								value="${u.mail }" class="regular-text" required/></td>
 						</tr>
 						<br>
 						<br>
@@ -91,8 +90,10 @@
 					<p align="right">
 						<input name="submit" type="submit" value="修改用户信息" />
 					</p>
-				</div>
 			</form>
+			<script>
+				$("#edit-user").validate();
+			</script>
 		</div>
 	</article>
 

@@ -191,4 +191,31 @@ public class UsersDAO {
 		}
 	}
 
+	/**
+	 * 修改用户密码
+	 * 
+	 * @param user
+	 */
+	public void security(UsersVO user) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "UPDATE `users` SET `password`=? WHERE `uid`=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getPassword());
+			pstmt.setInt(2, user.getUid());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 }

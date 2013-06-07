@@ -1,7 +1,11 @@
 package me.imomo.typeasy.vo;
 
 import java.io.Serializable;
-
+/**
+ *  Relationships VO
+ * @author Administrator
+ *
+ */
 public class RelationshipsVO implements Serializable {
 	private Integer cid;
 	private Integer mid;

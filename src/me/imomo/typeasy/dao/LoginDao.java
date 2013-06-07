@@ -79,7 +79,7 @@ public class LoginDAO {
 			pstmt.setString(3, u.getMail());
 			pstmt.setString(4, u.getScreenName());
 			pstmt.setString(5, u.getCreated());
-			pstmt.execute();
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -135,6 +135,7 @@ public class LoginDAO {
 		return user;
 	}
 
+
 	/**
 	 * 根据邮箱查找用户
 	 * 
@@ -175,5 +176,4 @@ public class LoginDAO {
 		}
 		return user;
 	}
-
 }

@@ -74,6 +74,10 @@ public class CommentsDAO {
 
 	}
 
+	/**
+	 * 根据cid删除文章
+	 * @param cid
+	 */
 	public void delByCid(int cid) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "DELETE FROM `comments` WHERE `cid`=?";
@@ -187,9 +191,12 @@ public class CommentsDAO {
 			if (rs.next()) {
 				comment.setCoid(rs.getInt("coid"));
 				comment.setAuthor(rs.getString("author"));
+				comment.setAuthorId(rs.getInt("authorId"));
 				comment.setCid(rs.getInt("cid"));
 				comment.setCreated(rs.getString("created"));
 				comment.setText(rs.getString("text"));
+				comment.setMail(rs.getString("mail"));
+				comment.setUrl(rs.getString("url"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

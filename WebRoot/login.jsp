@@ -24,7 +24,7 @@
 
 
 
-<c:if test="${user!=null }">
+<c:if test="${sessionScope.user.uid != null }">
 	<jsp:forward page="admin/index.jsp"></jsp:forward>
 </c:if>
 
@@ -39,6 +39,9 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <link rel="stylesheet" type="text/css" href="css/login.css">
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
 <%
 	if (action.equals("login")) {
 %>
@@ -50,43 +53,8 @@
 	if (action.equals("register")) {
 %>
 <title>注册 - Typeasy</title>
-<script type="text/javascript"
-	src="js/jquery-1.5.2.min.js"></script>
-<script type="text/javascript"
-	src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/messages_zh.js"></script>
-<!-- 表单验证 -->
-<script>
-	$().ready(function() {
 
-		// validate signup form on keyup and submit
-		$("#registerForm").validate({
-			rules : {
-				user_login : {
-					required : true,
-					minlength : 5
-				},
-				user_pwd : {
-					required : true,
-					minlength : 6
-				},
-				user_pwd_agin : {
-					required : true,
-					minlength : 6,
-					equalTo : "#user_pwd"
-				},
-				user_email : {
-					required : true,
-					email : true
-				},
-				user_nickname : {
-					minlength : 2
-				},
-			},
-		});
 
-	});
-</script>
 <%
 	}
 %>
@@ -105,12 +73,14 @@
 			action="servlet/LoginServlet?action=login" method="post">
 			<p>
 				<label for="user_login">用户名<br /> <input type="text"
-					name="user_login" id="user_login" class="input" value="" size="20" />
+					name="user_login" id="user_login" class="input" value="" size="20"
+					required />
 				</label>
 			</p>
 			<p>
 				<label for="user_pwd">密码<br /> <input type="password"
-					name="user_pwd" id="user_pwd" class="input" value="" size="20" />
+					name="user_pwd" id="user_pwd" class="input" value="" size="20"
+					required />
 				</label>
 			</p>
 			<p class="forgetmenot">
@@ -123,6 +93,9 @@
 					class="button-primary" value="登录" />
 			</p>
 		</form>
+		<script>
+			$("#loginForm").validate();
+		</script>
 		<p id="nav">
 			<a href="login.jsp?action=register" title="注册">注册一个新帐户</a>
 		</p>
@@ -170,6 +143,35 @@
 					class="button-primary" value="注册" />
 			</p>
 		</form>
+		<script>
+			$().ready(function() {
+
+				// validate signup form on keyup and submit
+				$("#registerForm").validate({
+					rules : {
+						user_login : {
+							required : true,
+							minlength : 5
+						},
+						user_pwd : {
+							required : true,
+						},
+						user_pwd_agin : {
+							required : true,
+							equalTo : "#user_pwd"
+						},
+						user_email : {
+							required : true,
+							email : true
+						},
+						user_nickname : {
+							minlength : 1
+						},
+					},
+				});
+
+			});
+		</script>
 		<p id="nav">
 			<a href="login.jsp" title="登录">已经有了一个帐号?点击登录</a>
 		</p>

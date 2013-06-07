@@ -11,6 +11,11 @@ import java.security.NoSuchAlgorithmException;
  *
  */
 public class Gravatar {
+	/**
+	 * MD5加密
+	 * @param array
+	 * @return
+	 */
 	  public static String hex(byte[] array) {
 	      StringBuffer sb = new StringBuffer();
 	      for (int i = 0; i < array.length; ++i) {
@@ -30,6 +35,12 @@ public class Gravatar {
 	      return null;
 	  }
 
+	  /**
+	   * 获取头像
+	   * @param mail
+	   * @param size
+	   * @return
+	   */
 	public static String getAvatar(String mail,int size) {
 		String hashMail = md5Hex(mail);
 		String avatar = "<img src='http://www.gravatar.com/avatar/"+hashMail+"?s="+size+"&d=mm' />";

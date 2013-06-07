@@ -25,20 +25,25 @@
 <!-- end of secondary bar -->
 
 <aside id="sidebar" class="column">
-	<form class="quick_search">
-		<input type="text" value=""
-			onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
-	</form>
-	<hr />
 	<h3>文章</h3>
 	<ul class="toggle">
 		<li class="icn_new_post"><a href="admin/add-post.jsp">发表文章</a></li>
-		<li class="icn_manage_posts"><a href="admin/manage-posts.jsp">管理文章</a></li>
+		<c:choose>
+			<c:when test="${user.group == 'admin' }">
+				<li class="icn_manage_posts"><a href="admin/manage-posts.jsp">管理文章</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="icn_manage_posts"><a
+					href="admin/manage-posts-visitor.jsp">管理文章</a></li>
+			</c:otherwise>
+		</c:choose>
+
 		<c:if test="${user.group == 'admin' }">
 			<li class="icn_manage_categories"><a
 				href="admin/manage-categories.jsp">分类目录</a></li>
 			<li class="icn_manage_tags"><a href="admin/manage-tags.jsp">文章标签</a></li>
 		</c:if>
+
 	</ul>
 	<c:if test="${user.group == 'admin' }">
 		<h3>页面</h3>
@@ -49,8 +54,16 @@
 	</c:if>
 	<h3>评论</h3>
 	<ul class="toggle">
-		<li class="icn_manage_comments"><a
-			href="admin/manage-comments.jsp">管理评论</a></li>
+		<c:choose>
+			<c:when test="${user.group == 'admin' }">
+				<li class="icn_manage_comments"><a
+					href="admin/manage-comments.jsp">管理评论</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="icn_manage_comments"><a
+					href="admin/manage-comments-visitor.jsp">管理评论</a></li>
+			</c:otherwise>
+		</c:choose>
 	</ul>
 	<h3>用户</h3>
 	<ul class="toggle">

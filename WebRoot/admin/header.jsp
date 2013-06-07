@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -13,7 +14,7 @@
 <base href="${basePath }">
 <meta charset="utf-8" />
 
-<title>${title} - Typeasy</title>
+<title>${title} - <c:forEach var="option" items="${options }"><c:if test="${option.name == 'title' }">${option.value }</c:if> </c:forEach></title>
 <link rel="stylesheet" href="css/admin-layout.css" type="text/css"
 	media="screen" />
 <!--[if lt IE 9]>
@@ -27,7 +28,7 @@
 <script src="kindeditor/kindeditor.js" type="text/javascript"></script>
 <script src="kindeditor/lang/zh_CN.js" type="text/javascript"></script>
 
-<script src="js/jquery-1.5.2.min.js" type="text/javascript"></script>
+<script src="js/jquery-1.10.1.min.js" type="text/javascript"></script>
 <script src="js/hideshow.js" type="text/javascript"></script>
 <script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery.equalHeight.js"></script>
@@ -62,9 +63,9 @@
 	});
 </script>
 
-<link rel="icon" href="favicon.ico" type="image/x-icon" /> 
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
+<link rel="shortcut icon" href="${basePath }favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="icon" href="${basePath }favicon.ico" type="image/vnd.microsoft.icon">
 </head>
 
 

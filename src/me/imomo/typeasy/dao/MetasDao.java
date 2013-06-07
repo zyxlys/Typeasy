@@ -10,6 +10,12 @@ import java.util.List;
 import me.imomo.typeasy.commons.DBConnection;
 import me.imomo.typeasy.vo.MetasVO;
 
+/**
+ * Metas 数据库操作类
+ * 
+ * @author Administrator
+ * 
+ */
 public class MetasDAO {
 
 	/**
@@ -18,7 +24,7 @@ public class MetasDAO {
 	 * @param mid
 	 * @return
 	 */
-	public MetasVO findMid(int mid) {
+	public MetasVO findByMid(int mid) {
 		Connection conn = DBConnection.getConnection();
 		MetasVO meta = new MetasVO();
 		String sql = "SELECT * FROM `metas` WHERE `mid`=? ";
@@ -27,7 +33,7 @@ public class MetasDAO {
 			ps.setInt(1, mid);
 			ResultSet rs = ps.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				meta.setMid(rs.getInt("mid"));
 				meta.setName(rs.getString("name"));
 				meta.setSlug(rs.getString("slug"));
@@ -58,7 +64,7 @@ public class MetasDAO {
 	 * @param name
 	 * @return
 	 */
-	public MetasVO findName(String name) {
+	public MetasVO findByName(String name) {
 		Connection conn = DBConnection.getConnection();
 		MetasVO meta = new MetasVO();
 		String sql = "SELECT * FROM `metas` WHERE `name`=?";
@@ -95,6 +101,7 @@ public class MetasDAO {
 	 * 
 	 * @param met
 	 */
+
 	public void add(MetasVO meta) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "INSERT INTO `metas`(`name`,`slug`,`type`,`description`) VALUES(?,?,?,?)";
@@ -209,5 +216,39 @@ public class MetasDAO {
 			}
 		}
 		return metas;
+	}
+
+	/**
+	 * 修改对应的文章数
+	 * 
+	 * @param mid
+	 * @param op
+	 */
+	public void editCount(int mid, String op) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "";
+		if (op == null)
+			op = "";
+		if (op.equals("+"))
+			sql = "UPDATE `metas` SET `count`=`count`+1 WHERE `mid`=?";
+		else if (op.equals("-"))
+			sql = "UPDATE `metas` SET `count`=`count`-1 WHERE `mid`=?";
+		else
+			sql = "UPDATE `metas` SET `count`=`count` WHERE `mid`=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, mid);
+			ps.executeUpdate();
+		} catch (Exception e) {
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
 }

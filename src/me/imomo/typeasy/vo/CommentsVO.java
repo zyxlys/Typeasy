@@ -1,8 +1,16 @@
 package me.imomo.typeasy.vo;
 
 import java.io.Serializable;
-
+/**
+ * Comments VO
+ * @author Administrator
+ *
+ */
 public class CommentsVO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2324082366398601933L;
 	private Integer coid;
 	private Integer cid;
 	private String created;

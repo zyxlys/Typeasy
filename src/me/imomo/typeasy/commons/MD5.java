@@ -2,6 +2,11 @@ package me.imomo.typeasy.commons;
 
 import java.lang.reflect.Array;
 
+/**
+ * 用户密码MD5加密
+ * @author Administrator
+ *
+ */
 public class MD5
 {
 

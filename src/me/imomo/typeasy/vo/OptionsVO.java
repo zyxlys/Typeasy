@@ -1,7 +1,11 @@
 package me.imomo.typeasy.vo;
 
 import java.io.Serializable;
-
+/**
+ * Options VO
+ * @author Administrator
+ *
+ */
 public class OptionsVO implements Serializable {
 	private String name;
 	private Integer user = 0;

@@ -24,7 +24,7 @@
 				</fieldset>
 				<fieldset>
 					<label>文章内容</label>
-					<textarea name="text" id="text">${content.text }</textarea>
+					<textarea name="text" id="text"></textarea>
 					<script>
 						KindEditor
 								.ready(function(K) {

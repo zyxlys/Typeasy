@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*,me.imomo.typeasy.vo.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<c:if test="${sessionScope.user.group != 'admin' }"><script type="text/javascript">alert('用户权限不够，非法操作！');history.back();</script> </c:if>
 <c:set var="title" scope="request" value="编辑标签信息"></c:set>
 
 <jsp:include page="header.jsp"></jsp:include>
@@ -17,7 +17,6 @@
 			<form id="edit-tag"
 				action="servlet/MetasServlet?action=edit&type=tag&mid=${meta.mid }"
 				method="post">
-				<div class="padding-box">
 					<table class="form-table">
 						<tr>
 							<th><label for="name">标签名 <span class="description">(必填)</span></label></th>
@@ -38,7 +37,6 @@
 					<p align="right">
 						<input name="submit" type="submit" value="修改标签" />
 					</p>
-				</div>
 			</form>
 		</div>
 	</article>

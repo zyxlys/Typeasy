@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +17,12 @@ import javax.servlet.http.HttpSession;
 
 import me.imomo.typeasy.commons.CookieUtil;
 import me.imomo.typeasy.commons.MD5;
-import me.imomo.typeasy.dao.LoginDAO;
 import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
 import me.imomo.typeasy.service.LoginService;
 import me.imomo.typeasy.service.MetasService;
 import me.imomo.typeasy.service.OptionsService;
+import me.imomo.typeasy.service.RelationshipsService;
 import me.imomo.typeasy.service.UsersService;
 import me.imomo.typeasy.vo.CommentsVO;
 import me.imomo.typeasy.vo.ContentsVO;
@@ -41,7 +40,7 @@ import me.imomo.typeasy.vo.UsersVO;
  */
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
-	private RelationshipsVO rs = new RelationshipsVO();
+	private RelationshipsService rs = new RelationshipsService();
 	private LoginService ls = new LoginService();
 	private ContentsService cs = new ContentsService();
 	private CommentsService cos = new CommentsService();
@@ -72,24 +71,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/* 获取相关session */
-		HttpSession session = request.getSession();
-
-		List<ContentsVO> contents = cs.list();
-		Collections.reverse(contents);
-		session.setAttribute("contents", contents);
-
-		List<CommentsVO> comments = cos.list();
-		Collections.reverse(comments);
-		session.setAttribute("comments", comments);
-
-		List<UsersVO> users = us.list();
-		Collections.reverse(users);
-		session.setAttribute("users", users);
-
-		List<MetasVO> metas = ms.listAll();
-		Collections.reverse(metas);
-		session.setAttribute("metas", metas);
 
 		String action = request.getParameter("action");
 		if (action == null) {
@@ -157,12 +138,39 @@ public class LoginServlet extends HttpServlet {
 			user.setPassword(password);
 			String rememberMe = request.getParameter("rememberMe");
 			UsersVO u = ls.login(user);
+
+			/* 获取相关session */
+			HttpSession session = request.getSession();
+
+			List<RelationshipsVO> relationships = rs.list();
+			Collections.reverse(relationships);
+			session.setAttribute("relationships", relationships);
+
+			List<ContentsVO> contents = cs.list();
+			Collections.reverse(contents);
+			session.setAttribute("contents", contents);
+
+			List<CommentsVO> comments = cos.list();
+			Collections.reverse(comments);
+			session.setAttribute("comments", comments);
+
+			List<UsersVO> users = us.list();
+			Collections.reverse(users);
+			session.setAttribute("users", users);
+
+			List<MetasVO> metas = ms.listAll();
+			Collections.reverse(metas);
+			session.setAttribute("metas", metas);
+
+			List<OptionsVO> options = os.list();
+			Collections.reverse(options);
+			session.setAttribute("options", options);
+
 			if (u.getUid() == null) {
 				request.setAttribute("loginMessage", "用户名或密码错误");
 				rd = request.getRequestDispatcher("/login.jsp");
 				rd.forward(request, response);
 			} else {
-				HttpSession session = request.getSession();
 				session.setAttribute("user", u);
 				if (rememberMe != null && rememberMe.endsWith("forever")) {
 					String cookieValue = name + "," + password;
@@ -171,7 +179,7 @@ public class LoginServlet extends HttpServlet {
 					cookie.setPath(request.getContextPath());
 					response.addCookie(cookie);
 				}
-				response.sendRedirect("../admin/index.jsp");
+				response.sendRedirect("../index.jsp");
 			}
 		} else {
 			rd = request.getRequestDispatcher("/login.jsp");
@@ -193,9 +201,38 @@ public class LoginServlet extends HttpServlet {
 		CookieUtil.removeCookie("UserCookie", request, response);
 		request.getSession().removeAttribute("user");
 		request.setAttribute("loginMessage", "您已经安全退出");
+
+		/* 获取相关session */
+		HttpSession session = request.getSession();
+
+		List<RelationshipsVO> relationships = rs.list();
+		Collections.reverse(relationships);
+		session.setAttribute("relationships", relationships);
+
+		List<ContentsVO> contents = cs.list();
+		Collections.reverse(contents);
+		session.setAttribute("contents", contents);
+
+		List<CommentsVO> comments = cos.list();
+		Collections.reverse(comments);
+		session.setAttribute("comments", comments);
+
+		List<UsersVO> users = us.list();
+		Collections.reverse(users);
+		session.setAttribute("users", users);
+
+		List<MetasVO> metas = ms.listAll();
+		Collections.reverse(metas);
+		session.setAttribute("metas", metas);
+
+		List<OptionsVO> options = os.list();
+		Collections.reverse(options);
+		session.setAttribute("options", options);
+
 		RequestDispatcher rd = null;
 		rd = request.getRequestDispatcher("../login.jsp");
 		rd.forward(request, response);
+
 	}
 
 	/**
@@ -221,36 +258,39 @@ public class LoginServlet extends HttpServlet {
 		user.setScreenName(screenName);
 		user.setCreated(nowtime);
 		boolean flag = ls.register(user);
-		
-		/*获取相关session*/
-		HttpSession session=request.getSession();
 
-		
+		/* 获取相关session */
+		HttpSession session = request.getSession();
+
+		List<RelationshipsVO> relationships = rs.list();
+		Collections.reverse(relationships);
+		session.setAttribute("relationships", relationships);
+
 		List<ContentsVO> contents = cs.list();
 		Collections.reverse(contents);
 		session.setAttribute("contents", contents);
-		
+
 		List<CommentsVO> comments = cos.list();
 		Collections.reverse(comments);
 		session.setAttribute("comments", comments);
-		
+
 		List<UsersVO> users = us.list();
 		Collections.reverse(users);
 		session.setAttribute("users", users);
-		
-		
+
 		List<MetasVO> metas = ms.listAll();
 		Collections.reverse(metas);
 		session.setAttribute("metas", metas);
-		
+
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
-		
+
 		if (flag) {
 			UsersVO u = ls.login(user);
 			session.setAttribute("user", u);
-			response.sendRedirect("../login.jsp");
+			PrintWriter out = response.getWriter();
+			response.sendRedirect("../index.jsp?op=regSuc");
 		} else {
 			request.setAttribute("registerMessage", "用户名或邮箱已被注册,请重新输入.");
 			RequestDispatcher rd = null;

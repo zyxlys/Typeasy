@@ -10,29 +10,36 @@ import me.imomo.typeasy.vo.OptionsVO;
  * 
  * @version 1.0 2013/05/18
  * @author YL
- *
+ * 
  */
 public class OptionsService {
 
 	private OptionsDAO od = new OptionsDAO();
-	
-	
-	public boolean edit(OptionsVO option)
-	{
-		if(option!=null)
-		{
-			od.edit(option);
-			return true;	
-		}else{
-			return false;
-		}
+
+	/**
+	 * 编辑选项
+	 * 
+	 * @param option
+	 */
+	public void edit(OptionsVO option) {
+		od.edit(option);
 	}
-	
-	
-	public OptionsVO findByName(String name){
+
+	/**
+	 * 根据选项名称查找
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public OptionsVO findByName(String name) {
 		return od.findByName(name);
 	}
-	
+
+	/**
+	 * 查找所有选项
+	 * 
+	 * @return
+	 */
 	public List<OptionsVO> list() {
 		return od.list();
 	}

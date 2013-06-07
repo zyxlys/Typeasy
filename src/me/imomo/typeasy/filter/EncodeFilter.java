@@ -10,7 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-
+/**
+ * 编码过滤器
+ * @author Administrator
+ *
+ */
 public class EncodeFilter implements Filter {
 	protected String encoding = null;// ///要制定的编码，在web.xml中配置
 

@@ -1,6 +1,7 @@
 package me.imomo.typeasy.servlet;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +21,7 @@ import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
 import me.imomo.typeasy.service.MetasService;
 import me.imomo.typeasy.service.OptionsService;
+import me.imomo.typeasy.service.RelationshipsService;
 import me.imomo.typeasy.service.UsersService;
 import me.imomo.typeasy.vo.CommentsVO;
 import me.imomo.typeasy.vo.ContentsVO;
@@ -28,9 +30,15 @@ import me.imomo.typeasy.vo.OptionsVO;
 import me.imomo.typeasy.vo.RelationshipsVO;
 import me.imomo.typeasy.vo.UsersVO;
 
+/**
+ * 评论表Servlet
+ * 
+ * @author Administrator
+ * @version 1.0 2013/06/06
+ */
 public class CommentsServlet extends HttpServlet {
 
-	private RelationshipsVO rs = new RelationshipsVO();
+	private RelationshipsService rs = new RelationshipsService();
 	private ContentsService contentService = new ContentsService();
 	private CommentsService cs = new CommentsService();
 	private MetasService ms = new MetasService();
@@ -43,6 +51,9 @@ public class CommentsServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/**
+	 * doPost
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -77,28 +88,36 @@ public class CommentsServlet extends HttpServlet {
 	 */
 	public void add(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		CommentsVO comment = new CommentsVO();
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
 		int cid = Integer.valueOf(request.getParameter("cid"));
+		String author = request.getParameter("author");
+		String text = request.getParameter("text");
+		String mail = request.getParameter("mail");
+
 		comment.setCid(cid);
 		comment.setCreated(nowtime);
-		comment.setText(request.getParameter("text"));
-		comment.setAuthor(request.getParameter("author"));
+		comment.setAuthor(author);
 		if (request.getParameter("authorId") != null)
 			comment.setAuthorId(Integer.valueOf(request
 					.getParameter("authorId")));
 		else
 			comment.setAuthorId(0);
 		comment.setOwnerId(Integer.valueOf(request.getParameter("ownerId")));
-		comment.setMail(request.getParameter("mail"));
+		comment.setMail(mail);
 		comment.setUrl(request.getParameter("url"));
-		comment.setText(request.getParameter("text"));
+		comment.setText(text);
 		cs.add(comment);
 		contentService.editCommentsNum(cid, "+");
 
 		/* 获取相关session */
 		HttpSession session = request.getSession();
+
+		List<RelationshipsVO> relationships = rs.list();
+		Collections.reverse(relationships);
+		session.setAttribute("relationships", relationships);
 
 		List<ContentsVO> contents = contentService.list();
 		Collections.reverse(contents);
@@ -120,7 +139,7 @@ public class CommentsServlet extends HttpServlet {
 		Collections.reverse(options);
 		session.setAttribute("options", options);
 
-		response.sendRedirect("../" + cid + ".post#comment-" + cid);
+		response.sendRedirect("../post-" + cid + ".htm#comments");
 	}
 
 	/**
@@ -133,14 +152,22 @@ public class CommentsServlet extends HttpServlet {
 	 */
 	public void del(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		String fromPage = request.getParameter("fromPage");
+		if (fromPage == null)
+			fromPage = "";
 		int coid = Integer.valueOf(request.getParameter("coid"));
 		int cid = Integer.valueOf(request.getParameter("cid"));
+		int authorId = Integer.valueOf(request.getParameter("authorId"));
+		int uid = ((UsersVO) session.getAttribute("user")).getUid();
 		contentService.editCommentsNum(cid, "-");
 		cs.del(coid);
 
 		/* 获取相关session */
-		HttpSession session = request.getSession();
+
+		List<RelationshipsVO> relationships = rs.list();
+		Collections.reverse(relationships);
+		session.setAttribute("relationships", relationships);
 
 		List<ContentsVO> contents = contentService.list();
 		Collections.reverse(contents);
@@ -161,12 +188,23 @@ public class CommentsServlet extends HttpServlet {
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
-
-		request.setAttribute("message", "删除成功!");
-		request.setAttribute("returnURL", request.getContextPath()
-				+ "/admin/manage-comments.jsp");
-		request.getRequestDispatcher("../admin/message.jsp").forward(request,
-				response);
+		if ("postPage".equals(fromPage)) {
+			response.sendRedirect("../post-" + cid + ".htm#comments");
+		} else {
+			if (authorId == uid) {
+				request.setAttribute("message", "删除成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-comments-visitor.jsp");
+				request.getRequestDispatcher("../admin/message.jsp").forward(
+						request, response);
+			} else {
+				request.setAttribute("message", "删除成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-comments.jsp");
+				request.getRequestDispatcher("../admin/message.jsp").forward(
+						request, response);
+			}
+		}
 	}
 
 	/**
@@ -206,6 +244,12 @@ public class CommentsServlet extends HttpServlet {
 
 		/* 获取相关session */
 		HttpSession session = request.getSession();
+		int authorId = Integer.valueOf(request.getParameter("authorId"));
+		int uid = ((UsersVO) session.getAttribute("user")).getUid();
+
+		List<RelationshipsVO> relationships = rs.list();
+		Collections.reverse(relationships);
+		session.setAttribute("relationships", relationships);
 
 		List<ContentsVO> contents = contentService.list();
 		Collections.reverse(contents);
@@ -226,13 +270,20 @@ public class CommentsServlet extends HttpServlet {
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
+		if (authorId == uid) {
+			request.setAttribute("message", "修改成功!");
+			request.setAttribute("returnURL", request.getContextPath()
+					+ "/admin/manage-comments-visitor.jsp");
+			request.getRequestDispatcher("../admin/message.jsp").forward(
+					request, response);
+		} else {
 
-		request.setAttribute("message", "修改成功!");
-		request.setAttribute("returnURL", request.getContextPath()
-				+ "/admin/manage-comments.jsp");
-		request.getRequestDispatcher("../admin/message.jsp").forward(request,
-				response);
-
+			request.setAttribute("message", "修改成功!");
+			request.setAttribute("returnURL", request.getContextPath()
+					+ "/admin/manage-comments.jsp");
+			request.getRequestDispatcher("../admin/message.jsp").forward(
+					request, response);
+		}
 	}
 
 	/**
@@ -253,10 +304,23 @@ public class CommentsServlet extends HttpServlet {
 				request, response);
 	}
 
+	/**
+	 * 批量删除
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void multiDel(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String coid[] = request.getParameterValues("coid");
-
+		String opreator = request.getParameter("opreatorId");
+		if (opreator == null || "".equals(opreator))
+			opreator = "-1";
+		int opreatorId = Integer.valueOf(opreator);
+		int uid = ((UsersVO) session.getAttribute("user")).getUid();
 		String op = request.getParameter("multiOption");
 		if (op.equals("multiDel")) {
 			for (int i = 0; i < coid.length; i++) {
@@ -267,7 +331,10 @@ public class CommentsServlet extends HttpServlet {
 			}
 
 			/* 获取相关session */
-			HttpSession session = request.getSession();
+
+			List<RelationshipsVO> relationships = rs.list();
+			Collections.reverse(relationships);
+			session.setAttribute("relationships", relationships);
 
 			List<ContentsVO> contents = contentService.list();
 			Collections.reverse(contents);
@@ -288,14 +355,27 @@ public class CommentsServlet extends HttpServlet {
 			List<OptionsVO> options = os.list();
 			Collections.reverse(options);
 			session.setAttribute("options", options);
+			if (opreatorId == uid) {
+				request.setAttribute("message", "删除成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-posts-visitor.jsp");
+				request.getRequestDispatcher("../admin/message.jsp").forward(
+						request, response);
+			} else {
 
-			request.setAttribute("message", "删除成功!");
-			request.setAttribute("returnURL", request.getContextPath()
-					+ "/admin/manage-comments.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+				request.setAttribute("message", "删除成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-comments.jsp");
+				request.getRequestDispatcher("../admin/message.jsp").forward(
+						request, response);
+			}
 		} else {
-			response.sendRedirect("../admin/manage-comments.jsp");
+			if (opreatorId == uid) {
+				response.sendRedirect("../admin/manage-posts-visitor.jsp");
+			} else {
+
+				response.sendRedirect("../admin/manage-comments.jsp");
+			}
 		}
 
 	}

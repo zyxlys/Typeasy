@@ -39,7 +39,7 @@ public class OptionsDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs != null && rs.next()) {
 				option.setName(rs.getString("name"));
-				option.setUser(rs.getInt("user"));
+				// option.setUser(rs.getInt("user"));
 				option.setValue(rs.getString("value"));
 			}
 
@@ -57,58 +57,6 @@ public class OptionsDAO {
 		}
 
 		return option;
-	}
-
-	/**
-	 * 插入操作
-	 * 
-	 * @param options
-	 */
-	public void add(OptionsVO option) {
-		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO `options`(`name`,`value`) VALUES(?,?)";
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, option.getName());
-			ps.setString(2, option.getValue());
-			ps.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	/**
-	 * 根据user删除操作
-	 * 
-	 * @param name
-	 */
-	public void del(String name) {
-		Connection conn = DBConnection.getConnection();
-		String sql = "DELETE FROM `options` WHERE `name`=?";
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, name);
-			ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
 	/**
@@ -138,7 +86,12 @@ public class OptionsDAO {
 			}
 		}
 	}
-	
+
+	/**
+	 * 查询所有的选项
+	 * 
+	 * @return
+	 */
 	public List<OptionsVO> list() {
 		List<OptionsVO> options = new ArrayList<OptionsVO>();
 		OptionsVO option = null;
@@ -151,7 +104,6 @@ public class OptionsDAO {
 			while (rs.next()) {
 				option = new OptionsVO();
 				option.setName(rs.getString("name"));
-				option.setUser(rs.getInt("user"));
 				option.setValue(rs.getString("value"));
 				options.add(option);
 			}
