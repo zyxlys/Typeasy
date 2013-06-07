@@ -41,29 +41,6 @@
 
 
 
-	<filter>
-		<description>解决SQL注入问题</description>
-		<filter-name>SQLInjectionFilter</filter-name>
-		<filter-class>me.imomo.typeasy.filter.SQLInjectionFilter</filter-class>
-		<init-param>
-			<description>要被过滤掉的字符列表，空格分开</description>
-			<param-name>dataFields</param-name>
-			<param-value>and exec insert select delete update count chr mid master truncate char declare</param-value>
-		</init-param>
-		<init-param>
-			<description>要过滤的表单参数名，用空格分开，不在本列表中的参数将不被过滤，以提高效率</description>
-			<param-name>formFields</param-name>
-			<param-value>name password text</param-value>
-		</init-param>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>SQLInjectionFilter</filter-name>
-		<url-pattern>/blog/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
-
-
 
 	<servlet>
 		<description>UpLoad User Avatar</description>

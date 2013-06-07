@@ -11,7 +11,7 @@ import me.imomo.typeasy.service.OptionsService;
  * @author Administrator
  *
  */
-public class SwitchFormat {
+public class SwitchDateFormat {
 	/**
 	 * 格式化时间
 	 * @param created

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import me.imomo.typeasy.commons.CookieUtil;
+import me.imomo.typeasy.commons.Html2Text;
 import me.imomo.typeasy.commons.MD5;
 import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
@@ -99,8 +100,8 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) {
 		boolean flag = true;
 		String loginMessage = "";
-		String name = request.getParameter("user_login");
-		String password = request.getParameter("user_pwd");
+		String name = Html2Text.Html2Text(request.getParameter("user_login"));
+		String password = Html2Text.Html2Text(request.getParameter("user_pwd"));
 		if (name == null || name.equals("")) {
 			flag = false;
 			loginMessage = "用户名不能为空";
@@ -132,8 +133,10 @@ public class LoginServlet extends HttpServlet {
 		RequestDispatcher rd = null;
 		if (flag) {
 			UsersVO user = new UsersVO();
-			String name = request.getParameter("user_login");
-			String password = md5.getMD5ofStr(request.getParameter("user_pwd"));
+			String name = Html2Text.Html2Text(request
+					.getParameter("user_login"));
+			String password = md5.getMD5ofStr(Html2Text.Html2Text(request
+					.getParameter("user_pwd")));
 			user.setName(name);
 			user.setPassword(password);
 			String rememberMe = request.getParameter("rememberMe");
@@ -245,10 +248,12 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void register(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("user_login");
-		String password = md5.getMD5ofStr(request.getParameter("user_pwd"));
-		String mail = request.getParameter("user_email");
-		String screenName = request.getParameter("user_nickname");
+		String name = Html2Text.Html2Text(request.getParameter("user_login"));
+		String password = md5.getMD5ofStr(Html2Text.Html2Text(request
+				.getParameter("user_pwd")));
+		String mail = Html2Text.Html2Text(request.getParameter("user_email"));
+		String screenName = Html2Text.Html2Text(request
+				.getParameter("user_nickname"));
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
 		UsersVO user = new UsersVO();

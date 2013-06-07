@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import me.imomo.typeasy.commons.Html2Text;
 import me.imomo.typeasy.commons.MD5;
 import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
@@ -106,11 +107,11 @@ public class UsersServlet extends HttpServlet {
 		UsersVO user = new UsersVO();
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
-		user.setName(request.getParameter("name"));
-		user.setPassword(md5.getMD5ofStr(request.getParameter("password")));
-		user.setScreenName(request.getParameter("screenName"));
-		user.setMail(request.getParameter("mail"));
-		user.setUrl(request.getParameter("url"));
+		user.setName(Html2Text.Html2Text(request.getParameter("name")));
+		user.setPassword(md5.getMD5ofStr(Html2Text.Html2Text(request.getParameter("password"))));
+		user.setScreenName(Html2Text.Html2Text(request.getParameter("screenName")));
+		user.setMail(Html2Text.Html2Text(request.getParameter("mail")));
+		user.setUrl(Html2Text.Html2Text(request.getParameter("url")));
 		user.setCreated(nowtime);
 		boolean flag = ls.register(user);
 
@@ -182,11 +183,11 @@ public class UsersServlet extends HttpServlet {
 		UsersVO user = new UsersVO();
 		int uid = Integer.valueOf(request.getParameter("uid"));
 		int adminId = Integer.valueOf(request.getParameter("adminId"));
-		user.setScreenName(request.getParameter("screenName"));
-		user.setMail(request.getParameter("mail"));
-		user.setUrl(request.getParameter("url"));
-		user.setAvatar(request.getParameter("avatar"));
-		user.setGroup(request.getParameter("group"));
+		user.setScreenName(Html2Text.Html2Text(request.getParameter("screenName")));
+		user.setMail(Html2Text.Html2Text(request.getParameter("mail")));
+		user.setUrl(Html2Text.Html2Text(request.getParameter("url")));
+		user.setAvatar(Html2Text.Html2Text(request.getParameter("avatar")));
+		user.setGroup(Html2Text.Html2Text(request.getParameter("group")));
 		user.setUid(uid);
 		us.modifyProfile(user);
 		UsersVO u = us.find(adminId);

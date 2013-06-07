@@ -1,4 +1,5 @@
-<%@page import="me.imomo.typeasy.commons.SwitchFormat"%>
+<%@page import="me.imomo.typeasy.commons.SubStringHTML"%>
+<%@page import="me.imomo.typeasy.commons.SwitchDateFormat"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -8,17 +9,17 @@
 	<c:when test="${param.action == 'search' }">
 		<c:set scope="request" value="${sessionScope.sContents }"
 			var="archives"></c:set>
-			<c:set var="title" scope="request" value="搜索结果"></c:set>
+		<c:set var="title" scope="request" value="搜索结果"></c:set>
 	</c:when>
 	<c:when test="${param.action == 'tag' }">
 		<c:set scope="request" value="${sessionScope.tmContents }"
 			var="archives"></c:set>
-			<c:set var="title" scope="request" value="按标签查看"></c:set>
+		<c:set var="title" scope="request" value="按标签查看"></c:set>
 	</c:when>
 	<c:when test="${param.action == 'category' }">
 		<c:set scope="request" value="${sessionScope.cmContents }"
 			var="archives"></c:set>
-			<c:set var="title" scope="request" value="按目录查看"></c:set>
+		<c:set var="title" scope="request" value="按目录查看"></c:set>
 	</c:when>
 </c:choose>
 
@@ -47,12 +48,14 @@
 				<c:if test="${archive.type == 'post' }">
 					<c:set scope="request" value="${archive.created }"
 						var="createdTime"></c:set>
+					<c:set scope="request" value="${archive.text }" var="archiveText"></c:set>
+					<c:set scope="request" value="${archive.cid }" var="archiveCid"></c:set>
 					<%
 						String createdTime = (String) request
-											.getAttribute("createdTime");
-									String formatTime = SwitchFormat
-											.SwitchFormat(createdTime);
-									request.setAttribute("formatTime", formatTime);
+														.getAttribute("createdTime");
+												String formatTime = SwitchDateFormat
+														.SwitchFormat(createdTime);
+												request.setAttribute("formatTime", formatTime);
 					%>
 					<pg:item>
 						<div class="post clearfix">
@@ -81,18 +84,21 @@
 								</c:if>
 								<c:if test="${option.name == 'count' }">
 									<c:set scope="request" value="${option.value }"
-										var="contentCount"></c:set>
+										var="archiveCount"></c:set>
 								</c:if>
 							</c:forEach>
 							<c:choose>
-								<c:when test="${requestScope.isExcerpt == 'excerpt' }">${fn:substring(archive.text,0,contentCount) } <br />
-									<c:if test="${fn:length(archive.text) > contentCount }">
-										<p style="text-align: right">
-											【<a href="post-${archive.cid }.htm" title="阅读更多">阅读更多</a>】
-										</p>
-									</c:if>
+								<c:when test="${requestScope.isExcerpt == 'excerpt' }"><%=SubStringHTML.subStringHTML(
+											((String) request
+													.getAttribute("archiveText")),
+											(Integer.valueOf((String) request
+													.getAttribute("archiveCount"))),
+											"<p style=\"text-align: right\">【<a href=\"post-"
+													+ request
+															.getAttribute("archiveCid")
+													+ ".htm\" title=\"阅读更多\">阅读更多</a>】</p>")%>
 								</c:when>
-								<c:otherwise>${archive.text }</c:otherwise>
+								<c:otherwise>${content.text }</c:otherwise>
 							</c:choose>
 						</div>
 						<div class="m4gomore">

@@ -1,4 +1,5 @@
-<%@page import="me.imomo.typeasy.commons.SwitchFormat"%>
+<%@page import="me.imomo.typeasy.commons.SubStringHTML"%>
+<%@page import="me.imomo.typeasy.commons.SwitchDateFormat"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -41,12 +42,14 @@
 				<c:if test="${content.type == 'post' }">
 					<c:set scope="request" value="${content.created }"
 						var="createdTime"></c:set>
+					<c:set scope="request" value="${content.text }" var="contentText"></c:set>
+					<c:set scope="request" value="${content.cid }" var="contentCid"></c:set>
 					<%
 						String createdTime = (String) request
-											.getAttribute("createdTime");
-									String formatTime = SwitchFormat
-											.SwitchFormat(createdTime);
-									request.setAttribute("formatTime", formatTime);
+														.getAttribute("createdTime");
+												String formatTime = SwitchDateFormat
+														.SwitchFormat(createdTime);
+												request.setAttribute("formatTime", formatTime);
 					%>
 					<pg:item>
 						<div class="post clearfix">
@@ -84,12 +87,15 @@
 								</c:if>
 							</c:forEach>
 							<c:choose>
-								<c:when test="${requestScope.isExcerpt == 'excerpt' }">${fn:substring(content.text,0,contentCount) } <br />
-									<c:if test="${fn:length(content.text) > contentCount }">
-										<p style="text-align: right">
-											【<a href="post-${content.cid }.htm" title="阅读更多">阅读更多</a>】
-										</p>
-									</c:if>
+								<c:when test="${requestScope.isExcerpt == 'excerpt' }"><%=SubStringHTML.subStringHTML(
+											((String) request
+													.getAttribute("contentText")),
+											(Integer.valueOf((String) request
+													.getAttribute("contentCount"))),
+											"<p style=\"text-align: right\">【<a href=\"post-"
+													+ request
+															.getAttribute("contentCid")
+													+ ".htm\" title=\"阅读更多\">阅读更多</a>】</p>")%>
 								</c:when>
 								<c:otherwise>${content.text }</c:otherwise>
 							</c:choose>

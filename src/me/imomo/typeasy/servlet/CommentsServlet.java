@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import me.imomo.typeasy.commons.Html2Text;
 import me.imomo.typeasy.dao.CommentsDAO;
 import me.imomo.typeasy.dao.ContentsDAO;
 import me.imomo.typeasy.service.CommentsService;
@@ -88,14 +89,13 @@ public class CommentsServlet extends HttpServlet {
 	 */
 	public void add(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		CommentsVO comment = new CommentsVO();
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
 		int cid = Integer.valueOf(request.getParameter("cid"));
-		String author = request.getParameter("author");
-		String text = request.getParameter("text");
-		String mail = request.getParameter("mail");
+		String author = Html2Text.Html2Text(request.getParameter("author"));
+		String text = Html2Text.Html2Text(request.getParameter("text"));
+		String mail = Html2Text.Html2Text(request.getParameter("mail"));
 
 		comment.setCid(cid);
 		comment.setCreated(nowtime);
@@ -107,7 +107,7 @@ public class CommentsServlet extends HttpServlet {
 			comment.setAuthorId(0);
 		comment.setOwnerId(Integer.valueOf(request.getParameter("ownerId")));
 		comment.setMail(mail);
-		comment.setUrl(request.getParameter("url"));
+		comment.setUrl(Html2Text.Html2Text(request.getParameter("url")));
 		comment.setText(text);
 		cs.add(comment);
 		contentService.editCommentsNum(cid, "+");
@@ -236,10 +236,10 @@ public class CommentsServlet extends HttpServlet {
 			throws ServletException, IOException {
 		CommentsVO comment = new CommentsVO();
 		comment.setCoid(Integer.valueOf(request.getParameter("coid")));
-		comment.setAuthor(request.getParameter("author"));
-		comment.setMail(request.getParameter("mail"));
-		comment.setUrl(request.getParameter("url"));
-		comment.setText(request.getParameter("text"));
+		comment.setAuthor(Html2Text.Html2Text(request.getParameter("author")));
+		comment.setMail(Html2Text.Html2Text(request.getParameter("mail")));
+		comment.setUrl(Html2Text.Html2Text(request.getParameter("url")));
+		comment.setText(Html2Text.Html2Text(request.getParameter("text")));
 		cs.edit(comment);
 
 		/* 获取相关session */

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import me.imomo.typeasy.commons.Html2Text;
 import me.imomo.typeasy.service.CommentsService;
 import me.imomo.typeasy.service.ContentsService;
 import me.imomo.typeasy.service.MetasService;
@@ -80,10 +81,10 @@ public class MetasServlet extends HttpServlet {
 	public void add(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		String slug = request.getParameter("slug");
-		String name = request.getParameter("name");
-		String type = request.getParameter("type");
-		String description = request.getParameter("description");
+		String slug = Html2Text.Html2Text(request.getParameter("slug"));
+		String name = Html2Text.Html2Text(request.getParameter("name"));
+		String type = Html2Text.Html2Text(request.getParameter("type"));
+		String description = Html2Text.Html2Text(request.getParameter("description"));
 
 		MetasVO meta = new MetasVO();
 		meta.setName(name);
@@ -178,10 +179,10 @@ public class MetasServlet extends HttpServlet {
 			throws IOException, ServletException {
 
 		int mid = Integer.valueOf(request.getParameter("mid"));
-		String name = request.getParameter("name");
-		String slug = request.getParameter("slug");
-		String type = request.getParameter("type");
-		String description = request.getParameter("description");
+		String name = Html2Text.Html2Text(request.getParameter("name"));
+		String slug = Html2Text.Html2Text(request.getParameter("slug"));
+		String type = Html2Text.Html2Text(request.getParameter("type"));
+		String description = Html2Text.Html2Text(request.getParameter("description"));
 
 		MetasVO meta = new MetasVO();
 		meta.setMid(mid);
