@@ -1,8 +1,8 @@
 使用方法：
 
-1、部署document文件夹下的应用
+1、部署document文件夹下的Typeasy.zip
 
-2、导入document文件夹下的typeasy.sql数据库
+2、将document文件夹下的typeasy.sql导入到MySQL
 
 3、修改DBConfig.properties中的数据库连接
 
