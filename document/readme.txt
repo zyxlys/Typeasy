@@ -1,7 +1,8 @@
-ʹ�÷�����
-1������document�ļ����µ�Ӧ��
-2������document�ļ����µ�typeasy.sql���ݿ�
-3���޸�DBConfig.properties�е����ݿ�����
-4����ʼʹ��
+使用方法：
+1、部署document文件夹下的应用
+2、导入document文件夹下的typeasy.sql数据库
+3、修改DBConfig.properties中的数据库连接
+4、开始使用
 
-��̨�ʺţ�admin	���룺123456
+后台管理帐号：admin 密码：123456
+前台演示账号：shallowmo 密码123123
