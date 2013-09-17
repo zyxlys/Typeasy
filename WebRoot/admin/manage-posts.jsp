@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,me.imomo.typeasy.vo.*"
+<%@ page language="java" import="java.util.*,me.llss.vo.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>

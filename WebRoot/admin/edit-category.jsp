@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,me.imomo.typeasy.vo.*"
+<%@ page language="java" import="java.util.*,me.llss.vo.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:if test="${sessionScope.user.group != 'admin' }"><script type="text/javascript">alert('用户权限不够，非法操作！');history.back();</script> </c:if>

@@ -1,5 +1,5 @@
-<%@page import="me.imomo.typeasy.vo.UsersVO"%>
-<%@page import="me.imomo.typeasy.commons.CookieUtil"%>
+<%@page import="me.llss.vo.UsersVO"%>
+<%@page import="me.llss.utils.CookieUtil"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%

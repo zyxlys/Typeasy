@@ -1,4 +1,4 @@
-<%@ page import="me.imomo.typeasy.commons.Gravatar"%>
+<%@ page import="me.llss.utils.Gravatar"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -112,16 +112,16 @@
 			create : function() {
 				return function() {
 					this.initialize.apply(this, arguments);
-				}
+				};
 			}
-		}
+		};
 
 		var Extend = function(destination, source) {
 			for ( var property in source) {
 				destination[property] = source[property];
 			}
 			return destination;
-		}
+		};
 
 		var Calendar = Class.create();
 		Calendar.prototype = {
@@ -242,7 +242,7 @@
 						&& d1.getMonth() == d2.getMonth() && d1.getDate() == d2
 						.getDate());
 			}
-		}
+		};
 	</script>
 	<style type="text/css">
 .Calendar {
@@ -325,7 +325,7 @@
 		</ul>
 	</div>
 
-	<script language="JavaScript">
+	<script type="text/javascript">
 		var cale = new Calendar(
 				"idCalendar",
 				{
@@ -356,10 +356,10 @@
 
 		$("idCalendarPre").onclick = function() {
 			cale.PreMonth();
-		}
+		};
 		$("idCalendarNext").onclick = function() {
 			cale.NextMonth();
-		}
+		};
 	</script>
 
 

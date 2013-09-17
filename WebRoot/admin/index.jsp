@@ -1,4 +1,4 @@
-<%@page import="me.imomo.typeasy.commons.Gravatar"%>
+<%@page import="me.llss.utils.Gravatar"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -8,31 +8,31 @@
 <jsp:include page="sidebar.jsp"></jsp:include>
 
 <section id="main" class="column">
-	<script language="JavaScript">
+	<script type="text/javascript">
 		var mess = "";
-		day = new Date()
-		hr = day.getHours()
+		day = new Date();
+		hr = day.getHours();
 		if ((hr >= 0) && (hr <= 4))
-			mess = "已经夜深了，请注意休息哦！"
+			mess = "已经夜深了，请注意休息哦！";
 		if ((hr >= 4) && (hr < 7))
-			mess = "早上好，这么早就起来了？ "
+			mess = "早上好，这么早就起来了？ ";
 		if ((hr >= 7) && (hr < 12))
-			mess = "上午好，祝您保持心情愉快！"
+			mess = "上午好，祝您保持心情愉快！";
 		if ((hr >= 12) && (hr <= 13))
-			mess = "现在是午饭时间，你做什么好吃的了吗？"
+			mess = "现在是午饭时间，你做什么好吃的了吗？";
 		if ((hr >= 13) && (hr <= 17))
-			mess = "该午休了，希望您能够劳逸结合！ "
+			mess = "该午休了，希望您能够劳逸结合！ ";
 		if ((hr >= 17) && (hr <= 18))
-			mess = "今晚时分，天空好美！"
+			mess = "今晚时分，天空好美！";
 		if ((hr >= 18) && (hr <= 19))
-			mess = "晚上好！"
+			mess = "晚上好！";
 		if ((hr >= 19) && (hr <= 23))
-			mess = "一天又快过去了，你今天收获很多吧？"
+			mess = "一天又快过去了，你今天收获很多吧？";
 	</script>
 	<h4 class="alert_info">
 		欢迎归来！
-		<script language="JavaScript">
-			document.write(mess)
+		<script type="text/javascript">
+			document.write(mess);
 		</script>
 	</h4>
 
