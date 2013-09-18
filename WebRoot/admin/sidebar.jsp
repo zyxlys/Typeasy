@@ -11,7 +11,7 @@
 				</c:choose>
 			</a>
 		</p>
-		<a class="logout_user" href="servlet/LoginServlet?action=logout"
+		<a class="logout_user" href="Logout"
 			onclick="return confirm('确认要安全退出吗?')">安全退出</a>
 	</div>
 	<div class="breadcrumbs_container">
@@ -80,7 +80,7 @@
 		</c:if>
 		<li class="icn_security"><a href="admin/security.jsp">安全设置</a></li>
 		<li class="icn_jump_back"><a class="logout_user"
-			href="servlet/LoginServlet?action=logout"
+			href="Logout"
 			onclick="return confirm('确认要安全退出吗?')">安全退出</a></li>
 	</ul>
 

@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<package name="me.llss.actions" extends="struts-default" namespace="">
-	<action name="Login" class="me.llss.actions.LoginAction">
-		<result></result>
+
+<package name="me.llss.actions" extends="struts-default" namespace="/">
+
+	<action name="Login" class="me.llss.actions.LoginAction" method="login">
+		<result name="loginSuccess">/index.jsp</result>
+		<result name="loginFail">/login.jsp</result>
+		<result name="input">/login.jsp</result>
+	</action>
+	<action name="Register" class="me.llss.actions.LoginAction" method="register">
+		<result name="regSuccess">/index.jsp?op=regSuc</result>
+		<result name="regFail">/login.jsp?action=register</result>
+		<result name="input">/login.jsp?action=register</result>
+	</action>
+	<action name="Logout" class="me.llss.actions.LoginAction" method="logout">
+		<result name="success">/login.jsp</result>
 	</action>
 
 

@@ -12,11 +12,11 @@ import java.util.Properties;
  */
 public class DBConnection {
 	private static String driver,url,user,pwd;
-	/* Get database configuration from DBConfig.properties */
+	/* Get database configuration from dbConfig.properties */
 	static {
 		Properties p = new Properties();
 		try {
-			p.load(DBConnection.class.getClassLoader().getResourceAsStream("DBConfig.properties"));
+			p.load(DBConnection.class.getClassLoader().getResourceAsStream("dbConfig.properties"));
 			driver = p.getProperty("driver");
 			url = p.getProperty("url");
 			user = p.getProperty("user");

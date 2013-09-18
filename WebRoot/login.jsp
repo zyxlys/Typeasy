@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/struts-tags" prefix="s" %>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -24,24 +26,17 @@
 
 
 
-<c:if test="${sessionScope.user.uid != null }">
+<s:if test="%{#session.user.uid != null }">
 	<jsp:forward page="admin/index.jsp"></jsp:forward>
-</c:if>
+</s:if>
 
 <!doctype html>
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/messages_zh.js"></script>
 <%
 	if (action.equals("login")) {
 %>
@@ -68,34 +63,25 @@
 		<%
 			if (action.equals("login")) {
 		%>
-		<p class="message login"><%=loginMessage%></p>
-		<form name="loginForm" id="loginForm"
-			action="servlet/LoginServlet?action=login" method="post">
+<!-- 		<p class="message login"><%=loginMessage%></p> -->
+		<s:actionerror cssClass="message login"/>
+		<s:actionmessage cssClass="message register"/>
+		<s:form action="Login" id="loginForm" name="loginForm">
 			<p>
-				<label for="user_login">用户名<br /> <input type="text"
-					name="user_login" id="user_login" class="input" value="" size="20"
-					required />
-				</label>
+				<s:textfield name="user_login" label="账号" id="user_login" cssClass="input"></s:textfield>
 			</p>
 			<p>
-				<label for="user_pwd">密码<br /> <input type="password"
-					name="user_pwd" id="user_pwd" class="input" value="" size="20"
-					required />
-				</label>
+				<s:password name="user_pwd" label="密码" id="user_pwd" cssClass="input"></s:password>
 			</p>
 			<p class="forgetmenot">
-				<label for="rememberme"> <input name="rememberMe"
-					type="checkbox" id="rememberme" value="forever" /> 十天内免登录
-				</label>
+				<s:checkbox label="十天内免登录" name="rememberMe" id="rememberme" value="forever"></s:checkbox>
 			</p>
 			<p class="submit">
-				<input type="submit" name="submit" id="submit"
-					class="button-primary" value="登录" />
+				<s:submit name="submit" cssClass="button-primary" id="submit" value="登录"></s:submit>
 			</p>
-		</form>
-		<script>
-			$("#loginForm").validate();
-		</script>
+		</s:form>
+		
+		
 		<p id="nav">
 			<a href="login.jsp?action=register" title="注册">注册一个新帐户</a>
 		</p>
@@ -109,69 +95,29 @@
 			if (action.equals("register")) {
 		%>
 		<p class="message register"><%=registerMessage%></p>
-		<form name="registerForm" id="registerForm"
-			action="servlet/LoginServlet?action=register" method="post">
+		
+		<s:form action="Register" id="registerForm" name="registerForm">
 			<p>
-				<label for="user_login">用户名 *<br /> <input type="text"
-					name="user_login" id="user_login" class="input" value="" size="20" />
-				</label>
+				<s:textfield name="user_login" label="账号 *" id="user_login" cssClass="input"></s:textfield>
 			</p>
 			<p>
-				<label for="user_pwd">密码 *<br /> <input type="password"
-					name="user_pwd" id="user_pwd" class="input" value="" size="20" />
-				</label>
+				<s:password name="user_pwd" label="密码 *" id="user_pwd" cssClass="input"></s:password>
 			</p>
 			<p>
-				<label for="user_pwd_agin">确认密码 *<br /> <input
-					type="password" name="user_pwd_agin" id="user_pwd_agin"
-					class="input" value="" size="20" />
-				</label>
+				<s:password name="user_pwd_agin" label="确认密码 *" id="user_pwd_agin" cssClass="input"></s:password>
 			</p>
 			<p>
-				<label for="user_email">邮箱 *<br /> <input type="text"
-					name="user_email" id="user_email" class="input" value="" size="20" />
-				</label>
+				<s:textfield name="user_email" label="邮箱 *" id="user_email" cssClass="input"></s:textfield>
 			</p>
 			<p>
-				<label for="user_nickname">昵称<br /> <input type="text"
-					name="user_nickname" id="user_nickname" class="input" value=""
-					size="20" />
-				</label>
+				<s:textfield name="user_nickname" label="昵称" id="user_nickname" cssClass="input"></s:textfield>
+				
 			</p>
 			<p class="submit">
-				<input type="submit" name="submit" id="submit"
-					class="button-primary" value="注册" />
+				<s:submit name="submit" cssClass="button-primary" id="submit" value="注册"></s:submit>
 			</p>
-		</form>
-		<script>
-			$().ready(function() {
-
-				// validate signup form on keyup and submit
-				$("#registerForm").validate({
-					rules : {
-						user_login : {
-							required : true,
-							minlength : 5
-						},
-						user_pwd : {
-							required : true,
-						},
-						user_pwd_agin : {
-							required : true,
-							equalTo : "#user_pwd"
-						},
-						user_email : {
-							required : true,
-							email : true
-						},
-						user_nickname : {
-							minlength : 1
-						},
-					},
-				});
-
-			});
-		</script>
+		</s:form>
+		
 		<p id="nav">
 			<a href="login.jsp" title="登录">已经有了一个帐号?点击登录</a>
 		</p>
