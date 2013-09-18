@@ -1,4 +1,6 @@
 Typeasy
 =======
 
-Typesay is a web software you can use to create a blog which is simple and clean.
+Typeasy是一个使用Struts2框架编写的轻量级博客程序。
+
+详细介绍请参阅：http://llss.me/typeasy
