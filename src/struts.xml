@@ -7,12 +7,10 @@
 	<action name="Login" class="me.llss.actions.LoginAction" method="login">
 		<result name="loginSuccess">/index.jsp</result>
 		<result name="loginFail">/login.jsp</result>
-		<result name="input">/login.jsp</result>
 	</action>
 	<action name="Register" class="me.llss.actions.LoginAction" method="register">
 		<result name="regSuccess">/index.jsp?op=regSuc</result>
 		<result name="regFail">/login.jsp?action=register</result>
-		<result name="input">/login.jsp?action=register</result>
 	</action>
 	<action name="Logout" class="me.llss.actions.LoginAction" method="logout">
 		<result name="success">/login.jsp</result>

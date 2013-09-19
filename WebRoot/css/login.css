@@ -1,4 +1,4 @@
-.core-ui .button, .core-ui .button-primary, .core-ui .button-secondary {
+.core-ui .button,.core-ui .button-primary,.core-ui .button-secondary {
 	display: inline-block;
 	text-decoration: none;
 	font-size: 12px;
@@ -17,9 +17,11 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
 .core-ui .button-primary {
 	background-color: #21759b;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#2a95c5), to(#21759b));
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#2a95c5),
+		to(#21759b) );
 	background-image: -webkit-linear-gradient(top, #2a95c5, #21759b);
 	background-image: -moz-linear-gradient(top, #2a95c5, #21759b);
 	background-image: -ms-linear-gradient(top, #2a95c5, #21759b);
@@ -27,48 +29,58 @@
 	background-image: linear-gradient(to bottom, #2a95c5, #21759b);
 	border-color: #21759b;
 	border-bottom-color: #1e6a8d;
-	-webkit-box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
-	box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
+	-webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5);
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5);
 	color: #fff;
 	text-decoration: none;
-	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
-.login #nav a, .login #backtoblog a {
+
+.login #nav a,.login #backtoblog a {
 	color: #1384af !important;
 }
-.login #nav a:hover, .login #backtoblog a:hover {
+
+.login #nav a:hover,.login #backtoblog a:hover {
 	color: #d54e21 !important;
 }
+
 body.login {
 	font-family: "Microsoft Yahei";
 	font-size: 12px;
 	background: #fbfbfb;
 	min-width: 0;
 }
-.login form, .login .message {
+
+.login form,.login .message {
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	border-width: 1px;
-	border-style: solid;
-}
-.login .message {
+	border-style: dashed;
 	margin: 0 0 16px 8px;
 	padding: 12px;
 	background-color: #1384af;
 	border-color: #CCCCCC;
 	opacity: 0.5;
 }
-.login .message li {
+
+.login form,.login .message li {
 	list-style: none;
 }
 
-.login form .input {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
+.login form,.login .error {
+	color: red;
 }
+
+.login form .input {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+		"Helvetica Neue", sans-serif;
+}
+
 .login * {
 	margin: 0;
 	padding: 0;
 }
+
 .login form {
 	margin-left: 8px;
 	padding: 26px 24px 46px;
@@ -78,32 +90,39 @@ body.login {
 	-webkit-box-shadow: rgba(200, 200, 200, 0.7) 0px 4px 10px -1px;
 	box-shadow: rgba(200, 200, 200, 0.7) 0px 4px 10px -1px;
 	opacity: 0.8;
-	-moz-border-radius: 10px;      /* Gecko browsers */
-	-webkit-border-radius: 10px;   /* Webkit browsers */
-	border-radius: 10px;            /* W3C syntax */
+	-moz-border-radius: 10px; /* Gecko browsers */
+	-webkit-border-radius: 10px; /* Webkit browsers */
+	border-radius: 10px; /* W3C syntax */
 }
+
 .login form .forgetmenot {
 	font-weight: normal;
 	float: left;
 	margin-bottom: 0;
 }
+
 .login .button-primary {
 	float: right;
 }
+
 #login form p {
 	margin-bottom: 0;
 }
+
 #login form p.submit {
 	padding: 0;
 }
+
 .login label {
 	color: #777;
 	font-size: 14px;
 }
+
 .login form .forgetmenot label {
 	font-size: 12px;
 	line-height: 19px;
 }
+
 .login h1 a {
 	background-image: url('../images/logo.gif');
 	background-size: 274px 63px;
@@ -117,20 +136,24 @@ body.login {
 	padding-bottom: 15px;
 	display: block;
 }
+
 #login {
 	width: 320px;
 	padding: 114px 0 0;
 	margin: auto;
 }
-.login #nav, .login #backtoblog {
+
+.login #nav,.login #backtoblog {
 	text-shadow: #fff 0 1px 0;
 	margin: 0 0 0 16px;
 	padding: 16px 16px 0;
 }
+
 #backtoblog {
 	padding: 12px 16px 0;
 }
-.login form .input, .login input[type="text"] {
+
+.login form .input,.login input[type="text"] {
 	color: #555;
 	font-weight: 200;
 	font-size: 24px;
@@ -146,6 +169,7 @@ body.login {
 	-webkit-box-shadow: inset 1px 1px 2px rgba(200, 200, 200, 0.2);
 	box-shadow: inset 1px 1px 2px rgba(200, 200, 200, 0.2);
 }
+
 .login #pass-strength-result {
 	width: 250px;
 	font-weight: bold;

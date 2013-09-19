@@ -60,13 +60,15 @@ public class LoginAction extends ActionSupport implements Action {
 
 	private String user_login;
 	private String user_pwd;
-	private String rememberMe;
+	private String user_pwd_agin;
 	private String user_email;
 	private String user_nickname;
+	private String rememberMe;
 
 	/*
 	 * getters and setters
 	 */
+	
 	public String getUser_login() {
 		return user_login;
 	}
@@ -83,12 +85,12 @@ public class LoginAction extends ActionSupport implements Action {
 		this.user_pwd = user_pwd;
 	}
 
-	public String getRememberMe() {
-		return rememberMe;
+	public String getUser_pwd_agin() {
+		return user_pwd_agin;
 	}
 
-	public void setRememberMe(String rememberMe) {
-		this.rememberMe = rememberMe;
+	public void setUser_pwd_agin(String user_pwd_agin) {
+		this.user_pwd_agin = user_pwd_agin;
 	}
 
 	public String getUser_email() {
@@ -107,12 +109,21 @@ public class LoginAction extends ActionSupport implements Action {
 		this.user_nickname = user_nickname;
 	}
 
+	public String getRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(String rememberMe) {
+		this.rememberMe = rememberMe;
+	}
+	
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	
 	/**
 	 * 用户登录
 	 * 
