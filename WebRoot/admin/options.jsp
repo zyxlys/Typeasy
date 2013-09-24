@@ -1,5 +1,4 @@
-<%@ page language="java"
-	import="java.util.*,me.llss.vo.*,me.llss.dao.*"
+<%@ page language="java" import="java.util.*,me.llss.vo.*,me.llss.dao.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:if test="${sessionScope.user.group != 'admin' }">
@@ -19,8 +18,7 @@
 			<h3>基本设置</h3>
 		</header>
 		<div class="module_content">
-			<form id="options" action="servlet/OptionsServlet?action=edit"
-				method="post">
+			<form id="options" action="EditOptions" method="post">
 
 				<h1 style="text-align:center;">修改基本信息</h1>
 				<h2>博客信息</h2>
@@ -128,7 +126,6 @@
 				<h2>文章显示设置</h2>
 
 				<table class="form-table">
-					<br>
 					<tr>
 						<th style="width:280px;text-align:left;"><label
 							for="blog_title">文章显示方式<span class="description"></span></label></th>
@@ -139,7 +136,6 @@
 							<c:forEach var="option" items="${options }"><c:if test="${option.value == 'content' }">checked="checked"</c:if> </c:forEach>
 							value="content"> 全文</td>
 					</tr>
-					<br>
 					<tr>
 						<th style="width:280px;text-align:left;"><label
 							for="blog_title">每页显示文章数<span class="description">(必填，默认10条)</span></label></th>
@@ -148,7 +144,6 @@
 							value="<c:forEach var="option" items="${options }"><c:if test="${option.name == 'number' }">${option.value }</c:if></c:forEach>"
 							class="regular-text" size=20 required /></td>
 					</tr>
-					<br>
 					<tr>
 						<th style="width:280px;text-align:left;"><label
 							for="blog_title">文章摘要字数<span class="description">(文章显示方式为全文时无效)</span></label></th>
@@ -161,7 +156,7 @@
 				</table>
 				<br> <br>
 
-				<p align="right">
+				<p>
 					<input name="submit" type="submit" value="更新基本信息" />
 				</p>
 			</form>

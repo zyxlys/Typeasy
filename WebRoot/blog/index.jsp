@@ -6,7 +6,7 @@
 <%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
 
 <c:if test="${contents == null }">
-	<jsp:forward page="/servlet/IndexServlet?cid=${cid }&type=post"></jsp:forward>
+	<jsp:forward page="goIndex.jsp?cid=${cid }&type=post"></jsp:forward>
 </c:if>
 
 <c:set var="title" scope="request" value="首页"></c:set>
@@ -46,10 +46,10 @@
 					<c:set scope="request" value="${content.cid }" var="contentCid"></c:set>
 					<%
 						String createdTime = (String) request
-														.getAttribute("createdTime");
-												String formatTime = SwitchDateFormat
-														.SwitchFormat(createdTime);
-												request.setAttribute("formatTime", formatTime);
+											.getAttribute("createdTime");
+									String formatTime = SwitchDateFormat
+											.SwitchFormat(createdTime);
+									request.setAttribute("formatTime", formatTime);
 					%>
 					<pg:item>
 						<div class="post clearfix">
@@ -67,8 +67,7 @@
 											<c:forEach items="${metas }" var="meta">
 												<c:if test="${meta.mid == relationship.mid }">
 													<c:if test="${meta.type == 'category' }">
-														<a
-															href="servlet/ContentsServlet?mid=${meta.mid }&action=listByCategory"
+														<a href="ListContentsByCategory?mid=${meta.mid }"
 															title="${meta.name }">${meta.name }</a>
 													</c:if>
 												</c:if>

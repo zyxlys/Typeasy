@@ -26,10 +26,13 @@
 	</c:forEach></title>
 <SCRIPT type=text/javascript src="${bathPath }js/jquery-1.10.1.min.js"></SCRIPT>
 <SCRIPT type=text/javascript src="${bathPath }js/scrolltop.js"></SCRIPT>
-<script type="text/javascript" src="${bathPath }js/jquery.validate.min.js"></script>
+<script type="text/javascript"
+	src="${bathPath }js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="${bathPath }js/messages_zh.js"></script>
-<link rel="stylesheet" type="text/css" media="all" href="${bathPath }css/style.css" />
-<link rel="stylesheet" type="text/css" media="all" href="${bathPath }css/pager.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="${bathPath }css/style.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="${bathPath }css/pager.css" />
 <link rel="shortcut icon" href="${basePath }favicon.ico"
 	type="image/vnd.microsoft.icon">
 <link rel="icon" href="${basePath }favicon.ico"
@@ -49,7 +52,7 @@
 	</SCRIPT>
 
 	<div id="header" class="container_16 clearfix">
-		<form id="search" method="post" action="servlet/ContentsServlet?action=search">
+		<form id="search" method="post" action="SearchContents">
 			<div>
 				<input type="text" name="keywords" class="text" size="20"
 					value="输入关键词后回车..." onfocus="this.value=''" />
@@ -90,7 +93,8 @@
 					</c:if>
 				</c:if>
 			</c:forEach>
-			<li id="tqq"><a href="http://t.qq.com/acrisliu" title="收听我的腾讯微博">腾讯微博@acrisliu</a></li>
+			<li id="tqq"><a href="http://t.qq.com/acrisliu" title="收听我的腾讯微博">腾讯微博
+					@acrisliu</a></li>
 		</ul>
 	</div>
 	<!--end navbox-->

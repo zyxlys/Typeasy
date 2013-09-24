@@ -7,4 +7,5 @@
 	String pic2 = request.getParameter("pic2");
 	String pic3 = request.getParameter("pic3");
 %>
-<jsp:forward page="servlet/AvatarServlet?pic=<%=pic %>&pic1=<%=pic1 %>&pic2=<%=pic2 %>&pic3=<%=pic3 %>"></jsp:forward>
+<jsp:forward
+	page="Avatar?pic=<%=pic%>&pic1=<%=pic1%>&pic2=<%=pic2%>&pic3=<%=pic3%>"></jsp:forward>

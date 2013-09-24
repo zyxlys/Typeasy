@@ -1,15 +1,13 @@
-package me.llss.servlet;
+package me.llss.actions;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 
 import me.llss.service.impl.CommentsServiceImpl;
 import me.llss.service.impl.ContentsServiceImpl;
@@ -25,14 +23,22 @@ import me.llss.vo.OptionsVO;
 import me.llss.vo.RelationshipsVO;
 import me.llss.vo.UsersVO;
 
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
+
 /**
- * Index Serlet 获取session
+ * Index Action
  * 
- * @author Administrator
- * 
+ * @author Acris
+ * @version 2.0 2013/09/21 14:24
  */
-@SuppressWarnings("serial")
-public class IndexServlet extends HttpServlet {
+public class IndexAction extends ActionSupport implements Action {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private RelationshipsServiceImpl rs = new RelationshipsServiceImpl();
 	private ContentsServiceImpl cs = new ContentsServiceImpl();
 	private CommentsServiceImpl cos = new CommentsServiceImpl();
@@ -41,61 +47,42 @@ public class IndexServlet extends HttpServlet {
 	private UsersServiceImpl us = new UsersServiceImpl();
 	private LoginServiceImpl ls = new LoginServiceImpl();
 
-	/**
-	 * Constructor of the object.
+	private String type;
+	private String cid;
+	private String error;
+
+	/*
+	 * Getters and setters
 	 */
-	public IndexServlet() {
-		super();
+	public String getType() {
+		return type;
 	}
 
-	/**
-	 * Destruction of the servlet. <br>
-	 */
-	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 * 
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request
-	 *            the request send by the client to the server
-	 * @param response
-	 *            the response send by the server to the client
-	 * @throws ServletException
-	 *             if an error occurred
-	 * @throws IOException
-	 *             if an error occurred
-	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		doPost(request, response);
+	public String getCid() {
+		return cid;
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 * 
-	 * This method is called when a form has its tag value method equals to
-	 * post.
-	 * 
-	 * @param request
-	 *            the request send by the client to the server
-	 * @param response
-	 *            the response send by the server to the client
-	 * @throws ServletException
-	 *             if an error occurred
-	 * @throws IOException
-	 *             if an error occurred
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String cid = request.getParameter("cid");
-		String type = request.getParameter("type");
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
 
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	@Override
+	public String execute() throws Exception {
+		// TODO Auto-generated method stub
+
+		HttpServletRequest request = ServletActionContext.getRequest();
 		String name = null;
 		String pwd = null;
 		String cookieStr = null;
@@ -154,42 +141,30 @@ public class IndexServlet extends HttpServlet {
 		Collections.reverse(options);
 		session.setAttribute("options", options);
 
-		String code = request.getParameter("error");
+		String code = error;
 		if (code != null) {
 			if (code.equals("404"))
-				response.sendRedirect("404/");
+				return "404";
 			else if (code.equals("500"))
-				response.sendRedirect("500/");
-			else
-
-			{
+				return "500";
+			else {
 				if (("".equals(cid) || cid == null)
 						|| ("".equals(type) || type == null))
-					response.sendRedirect("index.htm");
+					return "index";
 				else if (type.equals("post"))
-					response.sendRedirect("post-" + cid + ".htm");
+					return "goPost";
 				else
-					response.sendRedirect("page-" + cid + ".htm");
+					return "goPage";
 			}
 		} else {
 			if (("".equals(cid) || cid == null)
 					|| ("".equals(type) || type == null))
-				response.sendRedirect("index.htm");
+				return "index";
 			else if (type.equals("post"))
-				response.sendRedirect("post-" + cid + ".htm");
+				return "goPost";
 			else
-				response.sendRedirect("page-" + cid + ".htm");
+				return "goPage";
 		}
-	}
-
-	/**
-	 * Initialization of the servlet. <br>
-	 * 
-	 * @throws ServletException
-	 *             if an error occurs
-	 */
-	public void init() throws ServletException {
-		// Put your code here
 	}
 
 }

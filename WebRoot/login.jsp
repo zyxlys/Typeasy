@@ -77,7 +77,7 @@
 					value="登录"></s:submit>
 			</p>
 		</s:form>
-<script>
+		<script>
 			$().ready(function() {
 
 				// validate signup form on keyup and submit

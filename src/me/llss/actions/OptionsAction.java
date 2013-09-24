@@ -1,14 +1,12 @@
-package me.llss.servlet;
+package me.llss.actions;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 
 import me.llss.service.impl.CommentsServiceImpl;
 import me.llss.service.impl.ContentsServiceImpl;
@@ -23,14 +21,11 @@ import me.llss.vo.OptionsVO;
 import me.llss.vo.RelationshipsVO;
 import me.llss.vo.UsersVO;
 
-/**
- * 配置表相关的Servlet
- * 
- * @version 1.0 2013/05/18
- * @author Acris
- * 
- */
-public class OptionsServlet extends HttpServlet {
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
+
+public class OptionsAction extends ActionSupport implements Action {
+
 	/**
 	 * 
 	 */
@@ -43,52 +38,78 @@ public class OptionsServlet extends HttpServlet {
 	private OptionsServiceImpl os = new OptionsServiceImpl();
 	private UsersServiceImpl us = new UsersServiceImpl();
 
-	/**
-	 * Constructor of the object.
+
+	private String title;
+	private String description;
+	private String date;
+	private String time;
+	private String excerpt;
+	private String number;
+	private String count;
+
+	/*
+	 * Getters and setters
 	 */
-	public OptionsServlet() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getTitle() {
+		return title;
 	}
 
-	/**
-	 * 此处交给doPost方法处理
-	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	/**
-	 * doPost方法
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String action = request.getParameter("action");
-
-		if (action.equals("edit")) {
-			this.edit(request, response);
-		}
-
+	public String getDescription() {
+		return description;
 	}
 
-	/**
-	 * 设置基本设置
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	public void edit(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String description = request.getParameter("description");
-		String date = request.getParameter("date");
-		String time = request.getParameter("time");
-		String excerpt = request.getParameter("excerpt");
-		String number = request.getParameter("number");
-		String count = request.getParameter("count");
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getExcerpt() {
+		return excerpt;
+	}
+
+	public void setExcerpt(String excerpt) {
+		this.excerpt = excerpt;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	@Override
+	public String execute() throws Exception {
+		// TODO Auto-generated method stub
+		HttpServletRequest request = ServletActionContext.getRequest();
 		OptionsVO o1 = new OptionsVO();
 		OptionsVO o2 = new OptionsVO();
 		OptionsVO o3 = new OptionsVO();
@@ -149,9 +170,8 @@ public class OptionsServlet extends HttpServlet {
 		request.setAttribute("message", "更改成功!");
 		request.setAttribute("returnURL", request.getContextPath()
 				+ "/admin/options.jsp");
-		request.getRequestDispatcher("../admin/message.jsp").forward(request,
-				response);
 
+		return "success";
 	}
 
 }

@@ -6,7 +6,7 @@
 	request.setAttribute("cid", cid);
 %>
 <c:if test="${contents == null }">
-	<jsp:forward page="/servlet/IndexServlet?cid=${param.cid }&type=page"></jsp:forward>
+	<jsp:forward page="goIndex.jsp?cid=${param.cid }&type=page"></jsp:forward>
 </c:if>
 <c:forEach items="${contents }" var="content">
 	<c:if test="${content.cid == param.cid }">
@@ -32,9 +32,9 @@
 				<c:when test="${sessionScope.user.group == 'admin' }">
 					<p style="text-align: right">
 						操作：<a
-							href="servlet/ContentsServlet?action=del&cid=${c.cid}&type=page&authorId=${c.authorId }&fromPage=postPage"
+							href="DelContents?cid=${c.cid}&type=page&authorId=${c.authorId }&fromPage=postPage"
 							title="删除" onclick="return confirm('确认要删除吗？');">删除</a> | <a
-							href="servlet/ContentsServlet?action=find&cid=${c.cid}&type=page&authorId=${c.authorId }"
+							href="FindContents?cid=${c.cid}&type=page&authorId=${c.authorId }"
 							title="修改">修改 </a>
 					</p>
 				</c:when>
@@ -42,9 +42,9 @@
 					<c:if test="${c.authorId == sessionScope.user.uid }">
 						<p style="text-align: right">
 							操作：<a
-								href="servlet/ContentsServlet?action=del&cid=${c.cid}&type=post&authorId=${c.authorId }&fromPage=postPage"
+								href="DelContents?cid=${c.cid}&type=post&authorId=${c.authorId }&fromPage=postPage"
 								title="删除" onclick="return confirm('确认要删除吗？');">删除</a> | <a
-								href="servlet/ContentsServlet?action=find&cid=${c.cid}&type=post&authorId=${c.authorId }"
+								href="FindContents?cid=${c.cid}&type=post&authorId=${c.authorId }"
 								title="修改">修改 </a>
 						</p>
 					</c:if>

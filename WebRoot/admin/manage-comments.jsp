@@ -34,7 +34,7 @@
 	<pg:pager items="${fn:length(comments) }"
 		export="currentPageNumber=pageNumber" maxPageItems="10">
 
-		<form action="servlet/CommentsServlet?action=multiDel" method="post">
+		<form action="MultiDelComments" method="post">
 			<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 
 				<input type="checkbox" name="all" onclick="selectAll();" /><select
@@ -75,7 +75,7 @@
 									<pg:item>
 
 										<tr>
-											<td><input type="checkbox" name="coid"
+											<td><input type="checkbox" name="commentIdArray"
 												value="${comment.coid }">${comment.author }</td>
 											<td><c:choose>
 													<c:when test="${fn:length(comment.text) > 15 }">${fn:substring(comment.text,0,15) } ...</c:when>
@@ -91,10 +91,10 @@
 												</c:forEach></td>
 											<td>${comment.created }</td>
 											<td><a
-												href="./servlet/CommentsServlet?action=find&coid=${comment.coid }&authorId=${comment.authorId }"><img
+												href="FindComments?coid=${comment.coid }&authorId=${comment.authorId }"><img
 													src="images/icn_edit.png" alt="编辑" style="border:0px;">
 											</a> <a
-												href="./servlet/CommentsServlet?action=del&coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }"
+												href="DelComments?coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }"
 												onclick="return confirm('确认删除吗？')"><img
 													src="images/icn_trash.png" alt="删除" style="border:0px;">
 											</a></td>

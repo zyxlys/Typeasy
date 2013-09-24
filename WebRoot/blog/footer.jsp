@@ -7,7 +7,7 @@
 			href="https://twitter.com/acrisliu" target="_blank">Twitter</a> • <a
 			href="https://www.facebook.com/acrisliu" target="_blank">Facebook</a>
 		• <a href="http://weibo.com/acris" target="_blank">Sina Weibo</a> • <a
-			href="http://acris.github.io/Typeasy/" target="_blank">Github</a>
+			href="http://github.com/Acris" target="_blank">Github</a>
 	</p>
 </div>
 

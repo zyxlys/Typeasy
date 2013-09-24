@@ -1,14 +1,12 @@
-package me.llss.servlet;
+package me.llss.actions;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 
 import me.llss.service.impl.CommentsServiceImpl;
 import me.llss.service.impl.ContentsServiceImpl;
@@ -24,8 +22,21 @@ import me.llss.vo.OptionsVO;
 import me.llss.vo.RelationshipsVO;
 import me.llss.vo.UsersVO;
 
-@SuppressWarnings("serial")
-public class MetasServlet extends HttpServlet {
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
+
+/**
+ * Metas Action
+ * 
+ * @author Acris
+ * @version 2.0 2013/09/21
+ */
+public class MetasAction extends ActionSupport implements Action {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private RelationshipsServiceImpl rs = new RelationshipsServiceImpl();
 	private ContentsServiceImpl contentService = new ContentsServiceImpl();
@@ -34,63 +45,81 @@ public class MetasServlet extends HttpServlet {
 	private OptionsServiceImpl os = new OptionsServiceImpl();
 	private UsersServiceImpl us = new UsersServiceImpl();
 
-	/**
-	 * doGet
-	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
+	private String slug;
+	private String name;
+	private String type;
+	private String description;
+	private Integer mid;
+	private Integer[] metaIdArray;
 
+	
+	
+	public String getSlug() {
+		return slug;
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getMid() {
+		return mid;
+	}
+
+	public void setMid(Integer mid) {
+		this.mid = mid;
+	}
+
+	public Integer[] getMetaIdArray() {
+		return metaIdArray;
+	}
+
+	public void setMetaIdArray(Integer[] metaIdArray) {
+		this.metaIdArray = metaIdArray;
+	}
+
+	@Override
+	public String execute() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
-	 * doPost
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		String action = request.getParameter("action");
-		if (action.equals("add")) {
-			this.add(request, response);
-		}
-		if (action.equals("del")) {
-			this.del(request, response);
-		}
-		if (action.equals("edit")) {
-			this.edit(request, response);
-		}
-		if (action.equals("list")) {
-			this.list(request, response);
-		}
-		if (action.equals("find")) {
-			this.find(request, response);
-		}
-		if (action.equals("multiDel")) {
-			this.multiDel(request, response);
-		}
-	}
-
-	/**
-	 * 添加
+	 * 添加Metas
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
+	 * @return
 	 */
-	public void add(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-
-		String slug = Html2Text.HtmlToText(request.getParameter("slug"));
-		String name = Html2Text.HtmlToText(request.getParameter("name"));
-		String type = Html2Text.HtmlToText(request.getParameter("type"));
-		String description = Html2Text.HtmlToText(request.getParameter("description"));
-
+	public String add() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		MetasVO meta = new MetasVO();
-		meta.setName(name);
-		meta.setSlug(slug);
-		meta.setType(type);
-		meta.setDescription(description);
+		meta.setName(Html2Text.HtmlToText(name));
+		meta.setSlug(Html2Text.HtmlToText(slug));
+		meta.setType(Html2Text.HtmlToText(type));
+		meta.setDescription(Html2Text.HtmlToText(description));
 		ms.add(meta);
 		List<MetasVO> metas = ms.listAll();
 		HttpSession session = request.getSession();
@@ -99,28 +128,22 @@ public class MetasServlet extends HttpServlet {
 			request.setAttribute("message", "添加成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-categories.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "addCategorySuccess";
 		} else {
 			request.setAttribute("message", "添加成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-tags.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "addTagSuccess";
 		}
 	}
 
 	/**
-	 * 删除
+	 * 删除Metas
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
+	 * @return
 	 */
-	public void del(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		int mid = Integer.valueOf(request.getParameter("mid"));
+	public String del() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		MetasVO meta = ms.findByMid(mid);
 		String type = meta.getType();
 		ms.del(mid);
@@ -155,41 +178,29 @@ public class MetasServlet extends HttpServlet {
 			request.setAttribute("message", "删除成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-categories.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "delCategorySuccess";
 		} else {
 			request.setAttribute("message", "删除成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-tags.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "delTagSuccess";
 		}
 
 	}
 
 	/**
-	 * 修改
+	 * 修改Metas
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
+	 * @return
 	 */
-	public void edit(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-
-		int mid = Integer.valueOf(request.getParameter("mid"));
-		String name = Html2Text.HtmlToText(request.getParameter("name"));
-		String slug = Html2Text.HtmlToText(request.getParameter("slug"));
-		String type = Html2Text.HtmlToText(request.getParameter("type"));
-		String description = Html2Text.HtmlToText(request.getParameter("description"));
-
+	public String edit() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		MetasVO meta = new MetasVO();
 		meta.setMid(mid);
-		meta.setName(name);
-		meta.setSlug(slug);
-		meta.setType(type);
-		meta.setDescription(description);
+		meta.setName(Html2Text.HtmlToText(name));
+		meta.setSlug(Html2Text.HtmlToText(slug));
+		meta.setType(Html2Text.HtmlToText(type));
+		meta.setDescription(Html2Text.HtmlToText(description));
 		ms.edit(meta);
 
 		/* 获取相关session */
@@ -222,54 +233,29 @@ public class MetasServlet extends HttpServlet {
 			request.setAttribute("message", "更新成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-categories.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "editCategorySuccess";
 		} else {
 			request.setAttribute("message", "更新成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-tags.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "editTagSuccess";
 		}
 
 	}
 
 	/**
-	 * 查询所有
+	 * 根据mid查找Meta
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
+	 * @return
 	 */
-	public void list(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		List<MetasVO> metas = ms.listAll();
-		HttpSession session = request.getSession();
-		session.setAttribute("metas", metas);
-
-	}
-
-	/**
-	 * 根据mid查找
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	public void find(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		int mid = Integer.valueOf(request.getParameter("mid"));
-		String type = request.getParameter("type");
+	public String find() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		MetasVO meta = ms.findByMid(mid);
 		request.setAttribute("meta", meta);
 		if (type.equals("category")) {
-			request.getRequestDispatcher("../admin/edit-category.jsp").forward(
-					request, response);
+			return "findCategorySuccess";
 		} else {
-			request.getRequestDispatcher("../admin/edit-tag.jsp").forward(
-					request, response);
+			return "findTagSuccess";
 		}
 
 	}
@@ -277,19 +263,15 @@ public class MetasServlet extends HttpServlet {
 	/**
 	 * 批量删除
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void multiDel(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String mid[] = request.getParameterValues("mid");
+	public String multiDel() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		String type = request.getParameter("type");
 		String op = request.getParameter("multiOption");
 		if (op.equals("multiDel")) {
-			for (int i = 0; i < mid.length; i++) {
-				int metaId = Integer.valueOf(mid[i]);
+			for (int i = 0; i < metaIdArray.length; i++) {
+				int metaId = Integer.valueOf(metaIdArray[i]);
 				ms.del(metaId);
 			}
 
@@ -320,27 +302,22 @@ public class MetasServlet extends HttpServlet {
 			Collections.reverse(options);
 			session.setAttribute("options", options);
 
-			request.setAttribute("message", "删除成功!");
-			request.setAttribute("returnURL", request.getContextPath()
-					+ "/admin/manage-categories.jsp");
 			if (type.equals("category")) {
 				request.setAttribute("message", "删除成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-categories.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "MultiDelCategorySuccess";
 			} else {
 				request.setAttribute("message", "删除成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-tags.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "MultiDelTagSuccess";
 			}
 		} else {
 			if (type.equals("category")) {
-				response.sendRedirect("../admin/manage-categories.jsp");
+				return "CategoryDoNothing";
 			} else {
-				response.sendRedirect("../admin/manage-tags.jsp");
+				return "TagDoNothing";
 			}
 		}
 

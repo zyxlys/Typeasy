@@ -55,12 +55,10 @@ public class LoginAction extends ActionSupport implements Action {
 	private UsersServiceImpl us = new UsersServiceImpl();
 	private MD5 md5 = new MD5();
 
-	HttpServletRequest request = ServletActionContext.getRequest();
-	HttpServletResponse response = ServletActionContext.getResponse();
 
 	private String user_login;
 	private String user_pwd;
-	private String user_pwd_agin;
+	private String user_pwd_again;
 	private String user_email;
 	private String user_nickname;
 	private String rememberMe;
@@ -85,12 +83,12 @@ public class LoginAction extends ActionSupport implements Action {
 		this.user_pwd = user_pwd;
 	}
 
-	public String getUser_pwd_agin() {
-		return user_pwd_agin;
+	public String getUser_pwd_again() {
+		return user_pwd_again;
 	}
 
-	public void setUser_pwd_agin(String user_pwd_agin) {
-		this.user_pwd_agin = user_pwd_agin;
+	public void setUser_pwd_again(String user_pwd_again) {
+		this.user_pwd_again = user_pwd_again;
 	}
 
 	public String getUser_email() {
@@ -130,6 +128,8 @@ public class LoginAction extends ActionSupport implements Action {
 	 * @return
 	 */
 	public String login() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
 		UsersVO user = new UsersVO();
 		String name = Html2Text.HtmlToText(user_login);
 		String password = md5.getMD5ofStr(Html2Text.HtmlToText(user_pwd));
@@ -163,13 +163,12 @@ public class LoginAction extends ActionSupport implements Action {
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
-
 		if (u.getUid() == null) {
 			this.addActionError("用户名或密码错误");
 			return "loginFail";
 		} else {
 			session.setAttribute("user", u);
-			if (rememberMe != null && rememberMe.endsWith("forever")) {
+			if (rememberMe.equals("true")) {
 				String cookieValue = name + "," + password;
 				Cookie cookie = new Cookie("UserCookie", cookieValue);
 				cookie.setMaxAge(864000); // 设置有效期为十天
@@ -186,6 +185,7 @@ public class LoginAction extends ActionSupport implements Action {
 	 * @return
 	 */
 	public String register() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		String name = Html2Text.HtmlToText(user_login);
 		String password = md5.getMD5ofStr(Html2Text.HtmlToText(user_pwd));
 		String mail = Html2Text.HtmlToText(user_email);
@@ -243,6 +243,8 @@ public class LoginAction extends ActionSupport implements Action {
 	 * @return
 	 */
 	public String logout() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
 		// 删除cookie中的值以及session中的值
 		CookieUtil.removeCookie("UserCookie", request, response);
 		request.getSession().removeAttribute("user");

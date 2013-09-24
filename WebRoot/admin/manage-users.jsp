@@ -1,7 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<c:if test="${sessionScope.user.group != 'admin' }"><script type="text/javascript">alert('用户权限不够，非法操作！');history.back();</script> </c:if>
+<c:if test="${sessionScope.user.group != 'admin' }">
+	<script type="text/javascript">
+		alert('用户权限不够，非法操作！');
+		history.back();
+	</script>
+</c:if>
 <c:set var="title" scope="request" value="管理用户"></c:set>
 
 <jsp:include page="header.jsp"></jsp:include>
@@ -26,7 +31,7 @@
 		};
 	</script>
 
-	<form action="servlet/UsersServlet?action=multiDel" method="post">
+	<form action="MultiDelUsers" method="post">
 		<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 			<input type="checkbox" name="all" onclick="selectAll();" /> <select
 				style="width: 70%;" name="multiOption">
@@ -45,7 +50,7 @@
 
 			</header>
 
-			<table class="tablesorter" cellspacing="0">
+			<table class="tablesorter">
 				<thead>
 					<tr>
 						<th>用户名</th>
@@ -65,7 +70,8 @@
 						<c:otherwise>
 							<c:forEach var="user" items="${users }">
 								<tr>
-									<td><input type="checkbox" name="uid" value="${user.uid }"
+									<td><input type="checkbox" name="userIdArray"
+										value="${user.uid }"
 										<c:if test="${sessionScope.user.uid == user.uid }">disabled</c:if>>${user.name
 										}</td>
 									<td>${user.screenName }</td>

@@ -2,6 +2,7 @@
 <%@page import="me.llss.utils.CookieUtil"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 	Cookie cookie = CookieUtil.isCookieExist("UserCookie", request);
 	if (cookie != null) {
@@ -19,4 +20,4 @@
 </c:if>
 
 
-<jsp:forward page="servlet/IndexServlet?error=${param.error }"></jsp:forward>
+<jsp:forward page="goIndex.jsp?error=${param.error }"></jsp:forward>

@@ -67,7 +67,7 @@
 
 	<article class="module width_3_quarter">
 		<form id="add-post"
-			action="servlet/ContentsServlet?action=add&type=post&authorId=${sessionScope.user.uid }"
+			action="AddContents?type=post&authorId=${sessionScope.user.uid }"
 			method="post">
 			<header>
 				<h3>快速发表</h3>
@@ -145,7 +145,7 @@
 			</p>
 			<ul>
 				<li>E-Mail: shallowmo@outlook.com</li>
-				<li>Q  Q: 2235515581</li>
+				<li>Q Q: 2235515581</li>
 				<li>Github: http://github.com/Acris/Typeasy</li>
 			</ul>
 		</div>

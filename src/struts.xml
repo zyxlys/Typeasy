@@ -1,23 +1,149 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+	<constant name="struts.devMode" value="true"/>  
+	
+	<package name="me.llss.actions" extends="struts-default" namespace="/">
 
-<package name="me.llss.actions" extends="struts-default" namespace="/">
-
-	<action name="Login" class="me.llss.actions.LoginAction" method="login">
-		<result name="loginSuccess">/index.jsp</result>
-		<result name="loginFail">/login.jsp</result>
-	</action>
-	<action name="Register" class="me.llss.actions.LoginAction" method="register">
-		<result name="regSuccess">/index.jsp?op=regSuc</result>
-		<result name="regFail">/login.jsp?action=register</result>
-	</action>
-	<action name="Logout" class="me.llss.actions.LoginAction" method="logout">
-		<result name="success">/login.jsp</result>
-	</action>
+		<action name="Login" class="me.llss.actions.LoginAction" method="login">
+			<result name="loginSuccess" type="redirect">/index.jsp</result>
+			<result name="loginFail">/login.jsp</result>
+		</action>
+		<action name="Register" class="me.llss.actions.LoginAction" method="register">
+			<result name="regSuccess" type="redirect">/index.jsp?op=regSuc</result>
+			<result name="regFail">/login.jsp?action=register</result>
+		</action>
+		<action name="Logout" class="me.llss.actions.LoginAction" method="logout">
+			<result name="success">/login.jsp</result>
+		</action>
 
 
+		<action name="Avatar" class="me.llss.actions.AvatarAction" method="execute">
+		</action>
 
-</package>
+		<action name="AddComments" class="me.llss.actions.CommentsAction" method="add">
+			<result name="addSuccess" type="redirect">/post-${cid}.htm#comments</result>
+		</action>
+		<action name="DelComments" class="me.llss.actions.CommentsAction" method="del">
+			<result name="delFromPostPageSuccess" type="redirect">/post-${cid}.htm#comments</result>
+			<result name="visitorDelSuccess">/admin/message.jsp</result>
+			<result name="adminDelSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="MultiDelComments" class="me.llss.actions.CommentsAction" method="multiDel">
+			<result name="visitorMultiDelSuccess">/admin/message.jsp</result>
+			<result name="adminMultiDelSuccess">/admin/message.jsp</result>
+			<result name="visitorDoNothing" type="redirect">/admin/manage-comments-visitor.jsp</result>
+			<result name="adminDoNothing" type="redirect">/admin/manage-comments.jsp</result>
+		</action>
+		<action name="EditComments" class="me.llss.actions.CommentsAction" method="edit">
+			<result name="visitorEditSuccess">/admin/message.jsp</result>
+			<result name="adminEditSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="FindComments" class="me.llss.actions.CommentsAction" method="find">
+			<result name="findSuccess" type="redirect">/admin/edit-comment.jsp</result>
+		</action>
+
+
+
+
+		<action name="AddContents" class="me.llss.actions.ContentsAction" method="add">
+			<result name="visitorAddSuccess">/admin/message.jsp</result>
+			<result name="addPostSuccess">/admin/message.jsp</result>
+			<result name="addPageSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="SearchContents" class="me.llss.actions.ContentsAction" method="search">
+			<result name="searchSuccess" type="redirect">/blog/archive.jsp?action=search</result>
+		</action>
+		<action name="ListContentsByTag" class="me.llss.actions.ContentsAction" method="listByTag">
+			<result name="listByTagSuccess" type="redirect">/blog/archive.jsp?action=tag</result>
+		</action>
+		<action name="ListContentsByCategory" class="me.llss.actions.ContentsAction" method="listByCategory">
+			<result name="listByCategorySuccess" type="redirect">/blog/archive.jsp?action=category</result>
+		</action>
+		<action name="DelContents" class="me.llss.actions.ContentsAction" method="del">
+			<result name="visitorDelSuccess">/admin/message.jsp</result>
+			<result name="delPostSuccess">/admin/message.jsp</result>
+			<result name="delPageSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="MultiDelContents" class="me.llss.actions.ContentsAction" method="multiDel">
+			<result name="visitorMultiDelSuccess">/admin/message.jsp</result>
+			<result name="adminMultiDelPostSuccess">/admin/message.jsp</result>
+			<result name="adminMultiDelPageSuccess">/admin/message.jsp</result>
+			<result name="visitorDoNothing" type="redirect">/admin/manage-posts-visitor.jsp</result>
+			<result name="adminPostDoNothing" type="redirect">/admin/manage-posts.jsp</result>
+			<result name="adminPageDoNothing" type="redirect">/admin/manage-pages.jsp</result>
+		</action>
+		<action name="EditContents" class="me.llss.actions.ContentsAction" method="edit">
+			<result name="visitorEditPostSuccess">/admin/message.jsp</result>
+			<result name="adminEditPostSuccess">/admin/message.jsp</result>
+			<result name="editPageSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="FindContents" class="me.llss.actions.ContentsAction" method="find">
+			<result name="findPostSuccess" type="redirect">/admin/edit-post.jsp</result>
+			<result name="findPageSuccess" type="redirect">/admin/edit-page.jsp</result>
+		</action>
+
+		<action name="Index" class="me.llss.actions.IndexAction" method="execute">
+			<result name="404" type="redirect">/404/</result>
+			<result name="500" type="redirect">/500/</result>
+			<result name="index" type="redirect">/index.htm</result>
+			<result name="goPost" type="redirect">/post-${cid}.htm</result>
+			<result name="goPage" type="redirect">/page-${cid}.htm</result>
+		</action>
+
+		<action name="AddMetas" class="me.llss.actions.MetasAction" method="add">
+			<result name="addCategorySuccess">/admin/message.jsp</result>
+			<result name="addTagSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="DelMetas" class="me.llss.actions.MetasAction" method="del">
+			<result name="delCategorySuccess">/admin/message.jsp</result>
+			<result name="delTagSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="EditMetas" class="me.llss.actions.MetasAction" method="edit">
+			<result name="editCategorySuccess">/admin/message.jsp</result>
+			<result name="editTagSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="FindMetas" class="me.llss.actions.MetasAction" method="find">
+			<result name="findCategorySuccess" type="redirect">/admin/edit-category.jsp</result>
+			<result name="findTagSuccess" type="redirect">/admin/edit-tag.jsp</result>
+		</action>
+		<action name="MultiDelMetas" class="me.llss.actions.MetasAction" method="multiDel">
+			<result name="MultiDelCategorySuccess">/admin/message.jsp</result>
+			<result name="MultiDelTagSuccess">/admin/message.jsp</result>
+			<result name="CategoryDoNothing" type="redirect">/admin/manage-categories.jsp</result>
+			<result name="TagDoNothing" type="redirect">/admin/manage-tags.jsp</result>
+		</action>
+
+
+		<action name="EditOptions" class="me.llss.actions.OptionsAction">
+			<result name="success">/admin/message.jsp</result>
+		</action>
+
+		<action name="AddUsers" class="me.llss.actions.UsersAction" method="add">
+			<result name="addUserSuccess">/admin/message.jsp</result>
+			<result name="addUserFail">/admin/message.jsp</result>
+		</action>
+		<action name="EditUsers" class="me.llss.actions.UsersAction" method="edit">
+			<result name="editMyProfilesSuccess">/admin/message.jsp</result>
+			<result name="editUserSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="DelUsers" class="me.llss.actions.UsersAction" method="del">
+			<result name="delUserSuccess">/admin/message.jsp</result>
+		</action>
+		<action name="FindUsers" class="me.llss.actions.UsersAction" method="find">
+			<result name="findUserSuccess" type="redirect">/admin/edit-user.jsp</result>
+		</action>
+		<action name="ModifyPwd" class="me.llss.actions.UsersAction" method="modifyPwd">
+			<result name="modifyPwdSuccess">/admin/message.jsp</result>
+			<result name="modifyPwdFail">/admin/message.jsp</result>
+		</action>
+		<action name="MultiDelUsers" class="me.llss.actions.UsersAction" method="multiDel">
+			<result name="multiDelUserSuccess" type="redirect">/admin/message.jsp</result>
+			<result name="doNothing" type="redirect">/admin/manage-users.jsp</result>
+		</action>
+
+
+
+	</package>
 
 </struts>    

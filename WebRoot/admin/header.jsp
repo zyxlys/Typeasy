@@ -14,7 +14,9 @@
 <base href="${basePath }">
 <meta charset="utf-8" />
 
-<title>${title} - <c:forEach var="option" items="${options }"><c:if test="${option.name == 'title' }">${option.value }</c:if> </c:forEach></title>
+<title>${title} - <c:forEach var="option" items="${options }">
+		<c:if test="${option.name == 'title' }">${option.value }</c:if>
+	</c:forEach></title>
 <link rel="stylesheet" href="css/admin-layout.css" type="text/css"
 	media="screen" />
 <!--[if lt IE 9]>
@@ -64,8 +66,10 @@
 </script>
 
 
-<link rel="shortcut icon" href="${basePath }favicon.ico" type="image/vnd.microsoft.icon">
-<link rel="icon" href="${basePath }favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="shortcut icon" href="${basePath }favicon.ico"
+	type="image/vnd.microsoft.icon">
+<link rel="icon" href="${basePath }favicon.ico"
+	type="image/vnd.microsoft.icon">
 </head>
 
 

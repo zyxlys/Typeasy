@@ -34,8 +34,7 @@
 				}
 			};
 		</script>
-		<form action="servlet/ContentsServlet?action=multiDel&type=post"
-			method="post">
+		<form action="MultiDelContents?type=post" method="post">
 			<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 				<input type="checkbox" name="all" onclick="selectAll();" /> <select
 					style="width: 70%;" name="multiOption">
@@ -95,7 +94,7 @@
 									<c:if test="${content.type == 'post' }">
 										<pg:item>
 											<tr>
-												<td><input type="checkbox" name="cid"
+												<td><input type="checkbox" name="contentIdArray"
 													value="${content.cid }"> <c:choose>
 														<c:when test="${fn:length(content.title) > 15 }">${fn:substring(content.title,0,15) } ...</c:when>
 														<c:otherwise>${content.title }</c:otherwise>
@@ -117,10 +116,10 @@
 												<td>${content.created }</td>
 												<td>${content.commentsNum }</td>
 												<td><a
-													href="servlet/ContentsServlet?action=find&cid=${content.cid}&type=post&authorId=${content.authorId }"><img
+													href="FindContents?cid=${content.cid}&type=post&authorId=${content.authorId }"><img
 														src="images/icn_edit.png" alt="编辑" style="border:0px;" />
 												</a> <a
-													href="servlet/ContentsServlet?action=del&cid=${content.cid}&type=post&authorId=${content.authorId }"
+													href="DelContents?cid=${content.cid}&type=post&authorId=${content.authorId }"
 													onclick="return confirm('确认删除？')"><img
 														src="images/icn_trash.png" alt="删除" style="border:0px;" />
 												</a></td>

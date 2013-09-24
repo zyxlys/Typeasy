@@ -26,7 +26,7 @@
 
 	<article class="module width_full">
 		<form id="edit-post"
-			action="servlet/ContentsServlet?action=edit&type=post&cid=${content.cid }&oldCMid=${cMid }&authorId=${content.authorId }"
+			action="EditContents?type=post&cid=${content.cid }&oldCMid=${cMid }&authorId=${content.authorId }"
 			method="post">
 			<header>
 				<h3>修改文章</h3>

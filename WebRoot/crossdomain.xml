@@ -1,4 +1,6 @@
 <?xml version="1.0" ?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
 <cross-domain-policy>
-<allow-access-from domain="*" to-ports="*"/>
+	<allow-access-from domain="*" to-ports="*" />
 </cross-domain-policy>

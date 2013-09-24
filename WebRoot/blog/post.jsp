@@ -6,7 +6,7 @@
 	request.setAttribute("cid", cid);
 %>
 <c:if test="${contents == null }">
-	<jsp:forward page="/servlet/IndexServlet?cid=${cid }&type=post"></jsp:forward>
+	<jsp:forward page="goIndex.jsp?cid=${cid }&type=post"></jsp:forward>
 </c:if>
 <c:forEach items="${contents }" var="content">
 	<c:if test="${content.cid == param.cid }">
@@ -31,8 +31,7 @@
 							<c:forEach items="${metas }" var="meta">
 								<c:if test="${meta.mid == relationship.mid }">
 									<c:if test="${meta.type == 'category' }">
-										<a
-											href="servlet/ContentsServlet?mid=${meta.mid }&action=listByCategory"
+										<a href="ListContentsByCategory?mid=${meta.mid }"
 											title="${meta.name }">${meta.name }</a>
 									</c:if>
 								</c:if>
@@ -48,8 +47,7 @@
 						<c:forEach items="${metas }" var="meta">
 							<c:if test="${meta.mid == relationship.mid }">
 								<c:if test="${meta.type == 'tag' }">
-									<a
-										href="servlet/ContentsServlet?mid=${meta.mid }&action=listByTag"
+									<a href="ListContentsByTag?mid=${meta.mid }"
 										title="${meta.name }">${meta.name }</a>
 								</c:if>
 							</c:if>
@@ -60,9 +58,9 @@
 					<c:when test="${sessionScope.user.group == 'admin' }">
 						<p style="text-align: right">
 							操作：<a
-								href="servlet/ContentsServlet?action=del&cid=${c.cid}&type=post&authorId=${c.authorId }&fromPage=postPage"
+								href="DelContents?cid=${c.cid}&type=post&authorId=${c.authorId }&fromPage=postPage"
 								title="删除" onclick="return confirm('确认要删除吗？');">删除</a> | <a
-								href="servlet/ContentsServlet?action=find&cid=${c.cid}&type=post&authorId=${c.authorId }"
+								href="FindContents?cid=${c.cid}&type=post&authorId=${c.authorId }"
 								title="修改">修改 </a>
 						</p>
 					</c:when>
@@ -70,9 +68,9 @@
 						<c:if test="${c.authorId == sessionScope.user.uid }">
 							<p style="text-align: right">
 								操作：<a
-									href="servlet/ContentsServlet?action=del&cid=${c.cid}&type=post&authorId=${c.authorId }&fromPage=postPage"
+									href="DelContents?cid=${c.cid}&type=post&authorId=${c.authorId }&fromPage=postPage"
 									title="删除" onclick="return confirm('确认要删除吗？');">删除</a> | <a
-									href="servlet/ContentsServlet?action=find&cid=${c.cid}&type=post&authorId=${c.authorId }"
+									href="FindContents?cid=${c.cid}&type=post&authorId=${c.authorId }"
 									title="修改">修改 </a>
 							</p>
 						</c:if>

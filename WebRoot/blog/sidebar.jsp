@@ -8,7 +8,7 @@
 	<div class="siderss">
 		<a href="#" class="rrss" target="_blank" title="订阅">rss</a> <span
 			class="addthis_org_cn"><a href="#" class="radd" title="分享">share</a></span>
-		<a href="mailto:shallowmo@outlook.com" title="联系我们" class="radd">mail</a>
+		<a href="mailto:mail@llss.me" title="联系我们" class="radd">mail</a>
 	</div>
 
 	<div class="widget">
@@ -17,8 +17,7 @@
 			<c:choose>
 				<c:when test="${user.uid != null }">
 					<li class="last"><a href="admin">后台管理</a></li>
-					<li><a href="servlet/LoginServlet?action=logout"
-						onclick="return confirm('确认要退出吗？');">安全退出</a></li>
+					<li><a href="Logout" onclick="return confirm('确认要退出吗？');">安全退出</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="last"><a href="login.jsp">用户登录</a></li>
@@ -35,8 +34,7 @@
 			<c:set scope="request" value="0" var="j"></c:set>
 			<c:forEach items="${metas }" var="meta">
 				<c:if test="${meta.type == 'category' && j < 5 }">
-					<li><a
-						href="servlet/ContentsServlet?mid=${meta.mid }&action=listByCategory"
+					<li><a href="ListContentsByCategory?mid=${meta.mid }"
 						title="${meta.name }">${meta.name }</a></li>
 					<c:set scope="request" value="${j+1 }" var="j"></c:set>
 				</c:if>

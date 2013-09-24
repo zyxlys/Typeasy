@@ -57,10 +57,10 @@
 			<PARAM NAME=quality VALUE=high>
 			<PARAM NAME=bgcolor VALUE=#FFFFFF>
 			<param name="flashvars"
-				value="imgUrl=<%=avatar%>&uploadUrl=servlet/AvatarServlet&uploadSrc=false" />
+				value="imgUrl=<%=avatar%>&uploadUrl=Avatar&uploadSrc=false" />
 			<EMBED src="swf/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="650"
 				HEIGHT="450" wmode="transparent"
-				flashVars="imgUrl=<%=avatar%>&uploadUrl=servlet/AvatarServlet&uploadSrc=false"
+				flashVars="imgUrl=<%=avatar%>&uploadUrl=Avatar&uploadSrc=false"
 				NAME="avatar" ALIGN="center" TYPE="application/x-shockwave-flash"
 				allowScriptAccess="always"
 				PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">

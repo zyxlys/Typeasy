@@ -33,8 +33,7 @@
 				}
 			};
 		</script>
-		<form action="servlet/MetasServlet?action=multiDel&type=category"
-			method="post">
+		<form action="MultiDelMetas?type=category" method="post">
 			<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 				<input type="checkbox" name="all" onclick="selectAll();" /> <select
 					style="width: 70%;" name="multiOption">
@@ -48,7 +47,7 @@
 				<header>
 					<h3 class="tabs_involved">分类目录</h3>
 				</header>
-				<table class="tablesorter" cellspacing="0">
+				<table class="tablesorter">
 					<thead>
 						<tr>
 							<th>目录名</th>
@@ -88,9 +87,8 @@
 									<c:if test="${meta.type == 'category' }">
 										<pg:item>
 											<tr>
-												<td><input type="checkbox" name="mid"
-													value="${meta.mid }">
-												<c:choose>
+												<td><input type="checkbox" name="metaIdArray"
+													value="${meta.mid }"> <c:choose>
 														<c:when test="${fn:length(meta.name) > 15 }">${fn:substring(meta.name,0,15) } ...</c:when>
 														<c:otherwise>${meta.name}</c:otherwise>
 													</c:choose></td>
@@ -103,11 +101,9 @@
 														<c:otherwise>${meta.description}</c:otherwise>
 													</c:choose></td>
 												<td>${meta.count}</td>
-												<td><a
-													href="servlet/MetasServlet?action=find&type=category&mid=${meta.mid}"><img
+												<td><a href="FindMetas?type=category&mid=${meta.mid}"><img
 														src="images/icn_edit.png" title="编辑" style="border:0px;">
-												</a> <a
-													href="servlet/MetasServlet?action=del&type=category&mid=${meta.mid}"
+												</a> <a href="DelMetas?type=category&mid=${meta.mid}"
 													onclick="return confirm('确认删除吗？')"><img
 														src="images/icn_trash.png" alt="删除" style="border:0px;" />
 												</a></td>

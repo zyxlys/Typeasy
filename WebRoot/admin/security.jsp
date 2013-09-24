@@ -16,33 +16,33 @@
 		</header>
 		<div class="module_content">
 			<form id="security"
-				action="servlet/UsersServlet?action=security&uid=${user.uid }&adminId=${user.uid }"
+				action="ModifyPwd?uid=${user.uid }&adminId=${user.uid }"
 				method="post">
-					<h1 style="text-align:center;">修改安全信息</h1>
+				<h1 style="text-align:center;">修改安全信息</h1>
 
-					<h2>安全信息</h2>
-					<table class="form-table">
-						<tr>
-							<th><label for="user_pwd">原密码 <span
-									class="description">(必填)</span></label></th>
-							<td><input type="password" name="password" id="password"
-								value="" class="regular-text" required /></td>
-						</tr>
-						<tr>
-							<th><label for="user_pwd">新密码</label></th>
-							<td><input type="password" name="new_password"
-								id="new_password" value="" class="regular-text" /></td>
-						</tr>
-						<tr>
-							<th><label for="user_pwd">确认新密码</label></th>
-							<td><input type="password" name="new_password_again"
-								id="new_password_again" value="" class="regular-text" /></td>
-						</tr>
-					</table>
-					<br> <br>
-					<p align="right">
-						<input name="submit" type="submit" value="更新安全信息" />
-					</p>
+				<h2>安全信息</h2>
+				<table class="form-table">
+					<tr>
+						<th><label for="user_pwd">原密码 <span
+								class="description">(必填)</span></label></th>
+						<td><input type="password" name="password" id="password"
+							value="" class="regular-text" required /></td>
+					</tr>
+					<tr>
+						<th><label for="user_pwd">新密码</label></th>
+						<td><input type="password" name="new_password"
+							id="new_password" value="" class="regular-text" /></td>
+					</tr>
+					<tr>
+						<th><label for="user_pwd">确认新密码</label></th>
+						<td><input type="password" name="new_password_again"
+							id="new_password_again" value="" class="regular-text" /></td>
+					</tr>
+				</table>
+				<br> <br>
+				<p>
+					<input name="submit" type="submit" value="更新安全信息" />
+				</p>
 			</form>
 			<script>
 				$("#security").validate();

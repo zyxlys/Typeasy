@@ -1,16 +1,14 @@
-package me.llss.servlet;
+package me.llss.actions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 
 import me.llss.service.impl.CommentsServiceImpl;
 import me.llss.service.impl.ContentsServiceImpl;
@@ -28,14 +26,16 @@ import me.llss.vo.OptionsVO;
 import me.llss.vo.RelationshipsVO;
 import me.llss.vo.UsersVO;
 
-/**
- * 用户Servlet
- * 
- * @author Acris
- * 
- */
-@SuppressWarnings("serial")
-public class UsersServlet extends HttpServlet {
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
+
+public class UsersAction extends ActionSupport implements Action {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private LoginServiceImpl ls = new LoginServiceImpl();
 	private RelationshipsServiceImpl rs = new RelationshipsServiceImpl();
 	private ContentsServiceImpl cs = new ContentsServiceImpl();
@@ -45,72 +45,141 @@ public class UsersServlet extends HttpServlet {
 	private UsersServiceImpl us = new UsersServiceImpl();
 	private MD5 md5 = new MD5();
 
-	public UsersServlet() {
-		super();
+	
+
+	private String name;
+	private String password;
+	private String screenName;
+	private String mail;
+	private String url;
+	private Integer uid;
+	private Integer adminId;
+	private String avatar;
+	private String group;
+	private String new_password;
+	private String new_password_again;
+	private Integer[] userIdArray;
+
+	/*
+	 * Getters and setters
+	 */
+	public String getName() {
+		return name;
 	}
 
-	/**
-	 * doGet
-	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		doPost(request, response);
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	/**
-	 * doPost
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String action = request.getParameter("action");
-		if (action == null) {
-			action = "";
-		}
-		if (action.equals("add")) {
-			this.add(request, response);
-		}
-		if (action.equals("list")) {
-			this.list(request, response);
-		}
-		if (action.equals("edit")) {
-			this.edit(request, response);
-		}
-		if (action.equals("del")) {
-			this.del(request, response);
-		}
-		if (action.equals("find")) {
-			this.find(request, response);
-		}
-		if (action.equals("security")) {
-			this.security(request, response);
-		}
-		if (action.equals("multiDel")) {
-			this.multiDel(request, response);
-		}
+	public String getPassword() {
+		return password;
+	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getScreenName() {
+		return screenName;
+	}
+
+	public void setScreenName(String screenName) {
+		this.screenName = screenName;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
+	public Integer getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	public String getNew_password() {
+		return new_password;
+	}
+
+	public void setNew_password(String new_password) {
+		this.new_password = new_password;
+	}
+
+	public String getNew_password_again() {
+		return new_password_again;
+	}
+
+	public void setNew_password_again(String new_password_again) {
+		this.new_password_again = new_password_again;
+	}
+
+	public Integer[] getUserIdArray() {
+		return userIdArray;
+	}
+
+	public void setUserIdArray(Integer[] userIdArray) {
+		this.userIdArray = userIdArray;
+	}
+
+	@Override
+	public String execute() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
 	 * 后台添加用户
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void add(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public String add() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		UsersVO user = new UsersVO();
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
-		user.setName(Html2Text.HtmlToText(request.getParameter("name")));
-		user.setPassword(md5.getMD5ofStr(Html2Text.HtmlToText(request
-				.getParameter("password"))));
-		user.setScreenName(Html2Text.HtmlToText(request
-				.getParameter("screenName")));
-		user.setMail(Html2Text.HtmlToText(request.getParameter("mail")));
-		user.setUrl(Html2Text.HtmlToText(request.getParameter("url")));
+		user.setName(Html2Text.HtmlToText(name));
+		user.setPassword(md5.getMD5ofStr(Html2Text.HtmlToText(password)));
+		user.setScreenName(Html2Text.HtmlToText(screenName));
+		user.setMail(Html2Text.HtmlToText(mail));
+		user.setUrl(Html2Text.HtmlToText(url));
 		user.setCreated(nowtime);
 		boolean flag = ls.register(user);
 
@@ -145,49 +214,28 @@ public class UsersServlet extends HttpServlet {
 			request.setAttribute("message", "添加成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-users.jsp");
+			return "addUserSuccess";
 		} else {
 			request.setAttribute("message", "添加失败!用户名或邮箱已存在！");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/add-user.jsp");
+			return "addUserFail";
 		}
-		request.getRequestDispatcher("../admin/message.jsp").forward(request,
-				response);
-	}
-
-	/**
-	 * 查询所有用户并返回
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	public void list(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<UsersVO> users = us.list();
-		HttpSession session = request.getSession();
-		session.setAttribute("users", users);
 	}
 
 	/**
 	 * 修改用户信息
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void edit(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public String edit() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		UsersVO user = new UsersVO();
-		int uid = Integer.valueOf(request.getParameter("uid"));
-		int adminId = Integer.valueOf(request.getParameter("adminId"));
-		user.setScreenName(Html2Text.HtmlToText(request
-				.getParameter("screenName")));
-		user.setMail(Html2Text.HtmlToText(request.getParameter("mail")));
-		user.setUrl(Html2Text.HtmlToText(request.getParameter("url")));
-		user.setAvatar(Html2Text.HtmlToText(request.getParameter("avatar")));
-		user.setGroup(Html2Text.HtmlToText(request.getParameter("group")));
+		user.setScreenName(Html2Text.HtmlToText(screenName));
+		user.setMail(Html2Text.HtmlToText(mail));
+		user.setUrl(Html2Text.HtmlToText(url));
+		user.setAvatar(Html2Text.HtmlToText(avatar));
+		user.setGroup(Html2Text.HtmlToText(group));
 		user.setUid(uid);
 		us.modifyProfile(user);
 		UsersVO u = us.find(adminId);
@@ -224,26 +272,22 @@ public class UsersServlet extends HttpServlet {
 		if (adminId == uid) {
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/my-profiles.jsp");
+			return "editMyProfilesSuccess";
 		} else {
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-users.jsp");
+			return "editUserSuccess";
 		}
-		request.getRequestDispatcher("../admin/message.jsp").forward(request,
-				response);
 
 	}
 
 	/**
 	 * 删除用户
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void del(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int uid = Integer.valueOf(request.getParameter("uid"));
+	public String del() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		us.del(uid);
 
 		/* 获取相关session */
@@ -276,130 +320,108 @@ public class UsersServlet extends HttpServlet {
 		request.setAttribute("message", "删除成功!");
 		request.setAttribute("returnURL", request.getContextPath()
 				+ "/admin/manage-users.jsp");
-		request.getRequestDispatcher("../admin/message.jsp").forward(request,
-				response);
+		return "delUserSuccess";
 	}
 
 	/**
 	 * 根据uid查找用户
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void find(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("uid"));
-		UsersVO user = us.find(id);
+	public String find() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		UsersVO user = us.find(uid);
 		if (user != null) {
 			request.setAttribute("u", user);
 		}
-		request.getRequestDispatcher("../admin/edit-user.jsp").forward(request,
-				response);
+		return "findUserSuccess";
 	}
 
 	/**
 	 * 修改密码
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void security(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		boolean flag = validateSecurity(request, response);
+	public String modifyPwd() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		boolean flag = validatePwd();
 		if (flag) {
 			UsersVO user = new UsersVO();
-			String new_password = md5.getMD5ofStr(request
-					.getParameter("new_password"));
-			user.setPassword(new_password);
-			user.setUid(Integer.valueOf(request.getParameter("uid")));
+			user.setPassword(md5.getMD5ofStr(new_password));
+			user.setUid(uid);
 			us.security(user);
-			List<UsersVO> users = us.list();
-			UsersVO u = us
-					.find(Integer.valueOf(request.getParameter("adminId")));
+			UsersVO u = us.find(adminId);
 			HttpSession session = request.getSession();
-			session.setAttribute("users", users);
 			session.setAttribute("user", u);
 			request.setAttribute("message", "更新成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/login.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			/* 获取相关session */
+
+			List<RelationshipsVO> relationships = rs.list();
+			Collections.reverse(relationships);
+			session.setAttribute("relationships", relationships);
+
+			List<ContentsVO> contents = cs.list();
+			Collections.reverse(contents);
+			session.setAttribute("contents", contents);
+
+			List<CommentsVO> comments = cos.list();
+			Collections.reverse(comments);
+			session.setAttribute("comments", comments);
+
+			List<UsersVO> users = us.list();
+			Collections.reverse(users);
+			session.setAttribute("users", users);
+
+			List<MetasVO> metas = ms.listAll();
+			Collections.reverse(metas);
+			session.setAttribute("metas", metas);
+
+			List<OptionsVO> options = os.list();
+			Collections.reverse(options);
+			session.setAttribute("options", options);
+
+			return "modifyPwdSuccess";
 		} else {
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/security.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "modifyPwdFail";
 		}
 
-		/* 获取相关session */
-		HttpSession session = request.getSession();
-
-		List<RelationshipsVO> relationships = rs.list();
-		Collections.reverse(relationships);
-		session.setAttribute("relationships", relationships);
-
-		List<ContentsVO> contents = cs.list();
-		Collections.reverse(contents);
-		session.setAttribute("contents", contents);
-
-		List<CommentsVO> comments = cos.list();
-		Collections.reverse(comments);
-		session.setAttribute("comments", comments);
-
-		List<UsersVO> users = us.list();
-		Collections.reverse(users);
-		session.setAttribute("users", users);
-
-		List<MetasVO> metas = ms.listAll();
-		Collections.reverse(metas);
-		session.setAttribute("metas", metas);
-
-		List<OptionsVO> options = os.list();
-		Collections.reverse(options);
-		session.setAttribute("options", options);
 	}
 
 	/**
 	 * 验证修改密码额表单
 	 * 
-	 * @param request
-	 * @param response
 	 * @return
 	 */
 	@SuppressWarnings("null")
-	public boolean validateSecurity(HttpServletRequest request,
-			HttpServletResponse response) {
+	public boolean validatePwd() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		boolean flag = true;
 		String message = "";
-		String password = md5.getMD5ofStr(request.getParameter("password"));
-		String new_password = request.getParameter("new_password");
-		String new_password_again = request.getParameter("new_password_again");
+		String md5Pwd = md5.getMD5ofStr(password);
 
 		HttpSession session = request.getSession();
 		UsersVO vo = (UsersVO) session.getAttribute("user");
 		String pwd = vo.getPassword();
 
-		if (password == null || password.equals("")) {
+		if (md5Pwd == null || md5Pwd.equals("")) {
 			flag = false;
 			message = "原密码不能为空！";
 		}
-		if ((password != null || !password.equals(""))
-				&& (password.equals(pwd))
+		if ((md5Pwd != null || !md5Pwd.equals("")) && (md5Pwd.equals(pwd))
 				&& (new_password == null || new_password.equals(""))) {
 			flag = false;
 			message = "新密码不能为空！";
 		}
-		if ((password == null || password.equals(""))
+		if ((md5Pwd == null || md5Pwd.equals(""))
 				&& (new_password == null || new_password.equals(""))) {
 			flag = false;
 			message = "密码不能为空！";
 		}
-		if ((password != null || !password.equals(""))
-				&& (!password.equals(pwd))) {
+		if ((md5Pwd != null || !md5Pwd.equals("")) && (!md5Pwd.equals(pwd))) {
 			flag = false;
 			message = "原密码错误！";
 		}
@@ -416,19 +438,15 @@ public class UsersServlet extends HttpServlet {
 	/**
 	 * 批量删除
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void multiDel(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String uid[] = request.getParameterValues("uid");
+	public String multiDel() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 
 		String op = request.getParameter("multiOption");
 		if (op.equals("multiDel")) {
-			for (int i = 0; i < uid.length; i++) {
-				int userId = Integer.valueOf(uid[i]);
+			for (int i = 0; i < userIdArray.length; i++) {
+				int userId = Integer.valueOf(userIdArray[i]);
 				us.del(userId);
 			}
 
@@ -462,10 +480,9 @@ public class UsersServlet extends HttpServlet {
 			request.setAttribute("message", "删除成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-users.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "multiDelUserSuccess";
 		} else {
-			response.sendRedirect("../admin/manage-users.jsp");
+			return "doNothing";
 		}
 
 	}

@@ -1,17 +1,15 @@
-package me.llss.servlet;
+package me.llss.actions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 
 import me.llss.service.impl.CommentsServiceImpl;
 import me.llss.service.impl.ContentsServiceImpl;
@@ -28,15 +26,21 @@ import me.llss.vo.OptionsVO;
 import me.llss.vo.RelationshipsVO;
 import me.llss.vo.UsersVO;
 
-/**
- * 内容表Servlet
- * 
- * @author Administrator
- * 
- */
-public class ContentsServlet extends HttpServlet {
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
 
-	private static final long serialVersionUID = 7035043301348731807L;
+/**
+ * Contents Action
+ * 
+ * @author Acris
+ * @version 2.0 2013/09/21 13:36
+ */
+public class ContentsAction extends ActionSupport implements Action {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private ContentsServiceImpl cs = new ContentsServiceImpl();
 	private CommentsServiceImpl cos = new CommentsServiceImpl();
@@ -45,72 +49,134 @@ public class ContentsServlet extends HttpServlet {
 	private UsersServiceImpl us = new UsersServiceImpl();
 	private RelationshipsServiceImpl rs = new RelationshipsServiceImpl();
 
-	/**
-	 * doGet
+	
+
+	private String type;
+	private Integer authorId;
+	private String title;
+	private String text;
+	private String category;
+	private String name;
+	private String keywords;
+	private Integer mid;
+	private Integer cid;
+	private Integer oldCMid;
+	private Integer[] contentIdArray;
+	
+	/*
+	 * Getters and setters
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Integer getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public Integer getMid() {
+		return mid;
+	}
+
+	public void setMid(Integer mid) {
+		this.mid = mid;
+	}
+
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
+	public Integer getOldCMid() {
+		return oldCMid;
+	}
+
+	public void setOldCMid(Integer oldCMid) {
+		this.oldCMid = oldCMid;
+	}
+
+	public Integer[] getContentIdArray() {
+		return contentIdArray;
+	}
+
+	public void setContentIdArray(Integer[] contentIdArray) {
+		this.contentIdArray = contentIdArray;
+	}
+
+	@Override
+	public String execute() throws Exception {
+		// TODO Auto-generated method stub
+		return super.execute();
 	}
 
 	/**
-	 * doPost
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		String action = request.getParameter("action");
-		if (action.equals("add")) {
-			this.add(request, response);
-		}
-		if (action.equals("list")) {
-			this.list(request, response);
-		}
-		if (action.equals("del")) {
-			this.del(request, response);
-		}
-		if (action.equals("edit")) {
-			this.edit(request, response);
-		}
-		if (action.equals("find")) {
-			this.find(request, response);
-		}
-		if (action.equals("multiDel")) {
-			this.multiDel(request, response);
-		}
-		if (action.equals("search")) {
-			this.search(request, response);
-		}
-		if (action.equals("listByTag")) {
-			this.listByTag(request, response);
-		}
-		if (action.equals("listByCategory")) {
-			this.listByCategory(request, response);
-		}
-
-	}
-
-	/**
-	 * 发表文章
+	 * 发表文章或页面
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void add(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public String add() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
 		ContentsVO content = new ContentsVO();
 
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
-		String type = request.getParameter("type");
-		int authorId = Integer.valueOf(request.getParameter("authorId"));
 		int uid = ((UsersVO) session.getAttribute("user")).getUid();
 		content.setCreated(nowtime);
-		content.setTitle(request.getParameter("title"));
-		content.setText(request.getParameter("text"));
+		content.setTitle(title);
+		content.setText(text);
 		content.setType(type);
 		content.setAuthorId(authorId);
 		cs.add(content);
@@ -124,7 +190,6 @@ public class ContentsServlet extends HttpServlet {
 			}
 
 			int cMid = -1;
-			String category = request.getParameter("category");
 			if (category != null)
 				cMid = Integer.valueOf(category);
 
@@ -134,7 +199,7 @@ public class ContentsServlet extends HttpServlet {
 			rs.add(re1);
 			ms.editCount(cMid, "+");
 
-			String nameArray[] = request.getParameter("name").split(",");
+			String nameArray[] = name.split(",");
 			RelationshipsVO re2 = new RelationshipsVO();
 			MetasVO tMeta = null;
 
@@ -203,72 +268,44 @@ public class ContentsServlet extends HttpServlet {
 			request.setAttribute("message", "发表成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-posts-visitor.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "visitorAddSuccess";
 		} else {
 			if (type.equals("post")) {
 				request.setAttribute("message", "发表成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
-			}
-			if (type.equals("page")) {
+				return "addPostSuccess";
+			} else {
 				request.setAttribute("message", "发表成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-pages.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "addPageSuccess";
 			}
 		}
 
 	}
 
 	/**
-	 * 查询所有文章
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	public void list(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<ContentsVO> contents = cs.list();
-		Collections.reverse(contents);
-		HttpSession session = request.getSession();
-		session.setAttribute("contents", contents);
-	}
-
-	/**
 	 * 搜索文章
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void search(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String keywords = request.getParameter("keywords");
+	public String search() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		List<ContentsVO> sContents = cs.search(keywords);
 		Collections.reverse(sContents);
 		HttpSession session = request.getSession();
 		session.setAttribute("sContents", sContents);
-		response.sendRedirect("../blog/archive.jsp?action=search");
+		return "searchSuccess";
 	}
 
 	/**
 	 * 按标签查看
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void listByTag(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		int mid = Integer.valueOf(request.getParameter("mid"));
+	public String listByTag() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		List<RelationshipsVO> rls = rs.findByMid(mid);
 		List<ContentsVO> tmContents = new ArrayList<ContentsVO>();
 		for (RelationshipsVO rl : rls) {
@@ -278,20 +315,16 @@ public class ContentsServlet extends HttpServlet {
 		Collections.reverse(tmContents);
 		HttpSession session = request.getSession();
 		session.setAttribute("tmContents", tmContents);
-		response.sendRedirect("../blog/archive.jsp?action=tag");
+		return "listByTagSuccess";
 	}
 
 	/**
 	 * 按目录查看
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void listByCategory(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		int mid = Integer.valueOf(request.getParameter("mid"));
+	public String listByCategory() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		List<RelationshipsVO> rls = rs.findByMid(mid);
 		List<ContentsVO> cmContents = new ArrayList<ContentsVO>();
 		for (RelationshipsVO rl : rls) {
@@ -302,24 +335,18 @@ public class ContentsServlet extends HttpServlet {
 		Collections.reverse(cmContents);
 		HttpSession session = request.getSession();
 		session.setAttribute("cmContents", cmContents);
-		response.sendRedirect("../blog/archive.jsp?action=category");
+		return "listByCategorySuccess";
 	}
 
 	/**
 	 * 删除文章
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void del(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	public String del() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
-		int authorId = Integer.valueOf(request.getParameter("authorId"));
 		int uid = ((UsersVO) session.getAttribute("user")).getUid();
-		int cid = Integer.valueOf(request.getParameter("cid"));
 		List<RelationshipsVO> res = rs.findByCid(cid);
 		for (RelationshipsVO re : res) {
 			ms.editCount(re.getMid(), "-");
@@ -359,22 +386,19 @@ public class ContentsServlet extends HttpServlet {
 			request.setAttribute("message", "删除成功!");
 			request.setAttribute("returnURL", request.getContextPath()
 					+ "/admin/manage-posts-visitor.jsp");
-			request.getRequestDispatcher("../admin/message.jsp").forward(
-					request, response);
+			return "visitorDelSuccess";
 		} else {
 
 			if (type.equals("post")) {
 				request.setAttribute("message", "删除成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "delPostSuccess";
 			} else {
 				request.setAttribute("message", "删除成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-pages.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "delPostSuccess";
 			}
 		}
 
@@ -383,39 +407,27 @@ public class ContentsServlet extends HttpServlet {
 	/**
 	 * 修改文章
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void edit(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	public String edit() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
-		int cid = Integer.parseInt(request.getParameter("cid"));
-		String type = request.getParameter("type");
-		int oldCMid = -1;
-		if (request.getParameter("oldCMid") != null)
-			oldCMid = Integer.valueOf(request.getParameter("oldCMid"));
 		ContentsVO c = new ContentsVO();
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(Calendar.getInstance().getTime());
 		c.setModified(nowtime);
 		c.setCid(cid);
-		c.setTitle(request.getParameter("title"));
-		c.setText(request.getParameter("text"));
+		c.setTitle(title);
+		c.setText(text);
 		c.setType(type);
 		cs.edit(c);
-		String author = request.getParameter("authorId");
-		if (author == null)
-			author = "-1";
-		int authorId = Integer.valueOf(author);
+		if (authorId == null)
+			authorId = -1;
 		int uid = ((UsersVO) session.getAttribute("user")).getUid();
 
 		if (type.equals("post")) {
 
 			int cMid = -1;
-			String category = request.getParameter("category");
 			if (category != null)
 				cMid = Integer.valueOf(category);
 			RelationshipsVO re1 = new RelationshipsVO();
@@ -423,9 +435,7 @@ public class ContentsServlet extends HttpServlet {
 			re1.setMid(cMid);
 			rs.edit(re1, oldCMid);
 
-			/********* 目录处理完毕 ********/
-
-			String nameArray[] = request.getParameter("name").split(",");
+			String nameArray[] = name.split(",");
 			RelationshipsVO re2 = new RelationshipsVO();
 			MetasVO tMeta = null;
 
@@ -466,107 +476,99 @@ public class ContentsServlet extends HttpServlet {
 				}
 			}
 
+			List<RelationshipsVO> relationships = rs.list();
+			Collections.reverse(relationships);
+			session.setAttribute("relationships", relationships);
+
 			List<ContentsVO> contents = cs.list();
 			Collections.reverse(contents);
 			session.setAttribute("contents", contents);
+
+			List<CommentsVO> comments = cos.list();
+			Collections.reverse(comments);
+			session.setAttribute("comments", comments);
+
+			List<UsersVO> users = us.list();
+			Collections.reverse(users);
+			session.setAttribute("users", users);
+
+			List<MetasVO> metas = ms.listAll();
+			Collections.reverse(metas);
+			session.setAttribute("metas", metas);
+
+			List<OptionsVO> options = os.list();
+			Collections.reverse(options);
+			session.setAttribute("options", options);
 			if (authorId == uid) {
 				request.setAttribute("message", "修改成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts-visitor.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "visitorEditPostSuccess";
 			} else {
 				request.setAttribute("message", "修改成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "adminEditPostSuccess";
 			}
 		} else {
+			List<RelationshipsVO> relationships = rs.list();
+			Collections.reverse(relationships);
+			session.setAttribute("relationships", relationships);
+
 			List<ContentsVO> contents = cs.list();
 			Collections.reverse(contents);
 			session.setAttribute("contents", contents);
-			if (authorId == uid) {
-				request.setAttribute("message", "修改成功!");
-				request.setAttribute("returnURL", request.getContextPath()
-						+ "/admin/manage-posts-visitor.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
-			} else {
-				request.setAttribute("message", "修改成功!");
-				request.setAttribute("returnURL", request.getContextPath()
-						+ "/admin/manage-pages.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
-			}
+
+			List<CommentsVO> comments = cos.list();
+			Collections.reverse(comments);
+			session.setAttribute("comments", comments);
+
+			List<UsersVO> users = us.list();
+			Collections.reverse(users);
+			session.setAttribute("users", users);
+
+			List<MetasVO> metas = ms.listAll();
+			Collections.reverse(metas);
+			session.setAttribute("metas", metas);
+
+			List<OptionsVO> options = os.list();
+			Collections.reverse(options);
+			session.setAttribute("options", options);
+			request.setAttribute("message", "修改成功!");
+			request.setAttribute("returnURL", request.getContextPath()
+					+ "/admin/manage-pages.jsp");
+			return "editPageSuccess";
 		}
 
-		/* 获取相关session */
-
-		List<RelationshipsVO> relationships = rs.list();
-		Collections.reverse(relationships);
-		session.setAttribute("relationships", relationships);
-
-		List<ContentsVO> contents = cs.list();
-		Collections.reverse(contents);
-		session.setAttribute("contents", contents);
-
-		List<CommentsVO> comments = cos.list();
-		Collections.reverse(comments);
-		session.setAttribute("comments", comments);
-
-		List<UsersVO> users = us.list();
-		Collections.reverse(users);
-		session.setAttribute("users", users);
-
-		List<MetasVO> metas = ms.listAll();
-		Collections.reverse(metas);
-		session.setAttribute("metas", metas);
-
-		List<OptionsVO> options = os.list();
-		Collections.reverse(options);
-		session.setAttribute("options", options);
 	}
 
 	/**
 	 * 通过id查询文章
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void find(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("cid"));
-		String type = request.getParameter("type");
+	public String find() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		ContentsVO content = new ContentsVO();
-		content = cs.find(id);
+		content = cs.find(cid);
 		if (content != null) {
 			request.setAttribute("content", content);
 		}
 		if (type.equals("post")) {
-			request.getRequestDispatcher("../admin/edit-post.jsp").forward(
-					request, response);
+			return "findPostSuccess";
 		} else {
-			request.getRequestDispatcher("../admin/edit-page.jsp").forward(
-					request, response);
+			return "findPostSuccess";
 		}
 	}
 
 	/**
 	 * 批量删除
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @return
 	 */
-	public void multiDel(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public String multiDel() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
-		String cid[] = request.getParameterValues("cid");
-		String type = request.getParameter("type");
 		String op = request.getParameter("multiOption");
 		String opreator = request.getParameter("opreatorId");
 		if (opreator == null || "".equals(opreator))
@@ -575,8 +577,8 @@ public class ContentsServlet extends HttpServlet {
 		int uid = ((UsersVO) session.getAttribute("user")).getUid();
 
 		if (op.equals("multiDel")) {
-			for (int i = 0; i < cid.length; i++) {
-				int contentId = Integer.valueOf(cid[i]);
+			for (int i = 0; i < contentIdArray.length; i++) {
+				int contentId = Integer.valueOf(contentIdArray[i]);
 				List<RelationshipsVO> res = rs.findByCid(contentId);
 				for (RelationshipsVO re : res) {
 					ms.editCount(re.getMid(), "-");
@@ -617,33 +619,30 @@ public class ContentsServlet extends HttpServlet {
 				request.setAttribute("message", "删除成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts-visitor.jsp");
-				request.getRequestDispatcher("../admin/message.jsp").forward(
-						request, response);
+				return "visitorMultiDelSuccess";
 			} else {
 
 				if (type.equals("post")) {
 					request.setAttribute("message", "删除成功!");
 					request.setAttribute("returnURL", request.getContextPath()
 							+ "/admin/manage-posts.jsp");
-					request.getRequestDispatcher("../admin/message.jsp")
-							.forward(request, response);
+					return "adminMultiDelPostSuccess";
 				} else {
 					request.setAttribute("message", "删除成功!");
 					request.setAttribute("returnURL", request.getContextPath()
 							+ "/admin/manage-pages.jsp");
-					request.getRequestDispatcher("../admin/message.jsp")
-							.forward(request, response);
+					return "adminMultiDelPageSuccess";
 				}
 			}
 		} else {
 
 			if (opreatorId == uid) {
-				response.sendRedirect("../admin/manage-posts-visitor.jsp");
+				return "visitorDoNothing";
 			} else {
 				if (type.equals("post")) {
-					response.sendRedirect("../admin/manage-posts.jsp");
+					return "adminPostDoNothing";
 				} else {
-					response.sendRedirect("../admin/manage-pages.jsp");
+					return "adminPageDoNothing";
 				}
 			}
 		}

@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>Typeasy</display-name>
-	
 
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
@@ -38,16 +37,8 @@
 		<filter-name>EncodeFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
+
+
 	<filter>
 		<filter-name>FilterDispatcher</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
@@ -57,99 +48,19 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	
-	
-	
-
-
-	<servlet>
-		<description>UpLoad User Avatar</description>
-		<display-name>UpLoad User Avatar</display-name>
-		<servlet-name>AvatarServlet</servlet-name>
-		<servlet-class>me.llss.servlet.AvatarServlet</servlet-class>
-	</servlet>
-
-
-	<servlet>
-		<description>Comments Servlet</description>
-		<display-name>Comments Servlet</display-name>
-		<servlet-name>CommentsServlet</servlet-name>
-		<servlet-class>me.llss.servlet.CommentsServlet</servlet-class>
-	</servlet>
-<!-- 	<servlet> -->
-<!-- 		<description>User Login And Register Servlet</description> -->
-<!-- 		<display-name>User Login And Register Servlet</display-name> -->
-<!-- 		<servlet-name>LoginServlet</servlet-name> -->
-<!-- 		<servlet-class>me.llss.servlet.LoginServlet</servlet-class> -->
-<!-- 	</servlet> -->
-	<servlet>
-		<description>Users Servlet</description>
-		<display-name>Users Servlet</display-name>
-		<servlet-name>UsersServlet</servlet-name>
-		<servlet-class>me.llss.servlet.UsersServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<description>This is the description of my J2EE component</description>
-		<display-name>This is the display name of my J2EE component</display-name>
-		<servlet-name>OptionsServlet</servlet-name>
-		<servlet-class>me.llss.servlet.OptionsServlet</servlet-class>
-	</servlet>
-
-	<servlet>
-		<description>This is the description of my J2EE component</description>
-		<display-name>Contents Servlet</display-name>
-		<servlet-name>ContentsServlet</servlet-name>
-		<servlet-class>me.llss.servlet.ContentsServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<description>Index Servlet</description>
-		<display-name>Index Servlet</display-name>
-		<servlet-name>IndexServlet</servlet-name>
-		<servlet-class>me.llss.servlet.IndexServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet>
-		<description>Metas Servlet</description>
-		<display-name>Metas Servlet</display-name>
-		<servlet-name>MetasServlet</servlet-name>
-		<servlet-class>me.llss.servlet.MetasServlet</servlet-class>
-	</servlet>
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 
-	<servlet-mapping>
-		<servlet-name>AvatarServlet</servlet-name>
-		<url-pattern>/servlet/AvatarServlet</url-pattern>
-	</servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>CommentsServlet</servlet-name>
-		<url-pattern>/servlet/CommentsServlet</url-pattern>
-	</servlet-mapping>
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>LoginServlet</servlet-name> -->
-<!-- 		<url-pattern>/servlet/LoginServlet</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-	<servlet-mapping>
-		<servlet-name>UsersServlet</servlet-name>
-		<url-pattern>/servlet/UsersServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>OptionsServlet</servlet-name>
-		<url-pattern>/servlet/OptionsServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ContentsServlet</servlet-name>
-		<url-pattern>/servlet/ContentsServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/servlet/IndexServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>MetasServlet</servlet-name>
-		<url-pattern>/servlet/MetasServlet</url-pattern>
-	</servlet-mapping>
+
 
 
 	<error-page>

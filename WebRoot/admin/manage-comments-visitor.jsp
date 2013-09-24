@@ -5,7 +5,7 @@
 <%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
 <c:if test="${sessionScope.user.group == 'admin' }">
 	<script type="text/javascript">
-		window.location.href="manage-comments.jsp";
+		window.location.href = "manage-comments.jsp";
 	</script>
 </c:if>
 <c:set var="title" scope="request" value="管理评论"></c:set>
@@ -33,8 +33,7 @@
 	<pg:pager items="${countList }" export="currentPageNumber=pageNumber"
 		maxPageItems="10">
 
-		<form
-			action="servlet/CommentsServlet?action=multiDel&opreatorId=${sessionScope.user.uid }"
+		<form action="MultiDelComments?opreatorId=${sessionScope.user.uid }"
 			method="post">
 			<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 
@@ -93,7 +92,7 @@
 										<pg:item>
 
 											<tr>
-												<td><input type="checkbox" name="coid"
+												<td><input type="checkbox" name="commentIdArray"
 													value="${comment.coid }">${comment.author }</td>
 												<td><c:choose>
 														<c:when test="${fn:length(comment.text) > 15 }">${fn:substring(comment.text,0,15) } ...</c:when>
@@ -109,10 +108,10 @@
 													</c:forEach></td>
 												<td>${comment.created }</td>
 												<td><a
-													href="./servlet/CommentsServlet?action=find&coid=${comment.coid }&authorId=${comment.authorId }"><img
+													href="FindComments?coid=${comment.coid }&authorId=${comment.authorId }"><img
 														src="images/icn_edit.png" alt="编辑" style="border:0px;">
 												</a> <a
-													href="./servlet/CommentsServlet?action=del&coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }"
+													href="DelComments?coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }"
 													onclick="return confirm('确认删除吗？')"><img
 														src="images/icn_trash.png" alt="删除" style="border:0px;">
 												</a></td>

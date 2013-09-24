@@ -1,6 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:if test="${sessionScope.user.group != 'admin' }"><script type="text/javascript">alert('用户权限不够，非法操作！');history.back();</script> </c:if>
+<c:if test="${sessionScope.user.group != 'admin' }">
+	<script type="text/javascript">
+		alert('用户权限不够，非法操作！');
+		history.back();
+	</script>
+</c:if>
 <c:set var="title" scope="request" value="发布页面"></c:set>
 
 
@@ -11,7 +16,7 @@
 	<h4 class="alert_info">页面比文字更适合展示独立的信息。</h4>
 	<article class="module width_full">
 		<form id="add-page"
-			action="servlet/ContentsServlet?action=add&type=page&authorId=${user.uid }" method="post">
+			action="AddContents?type=page&authorId=${user.uid }" method="post">
 			<header>
 				<h3>发表页面</h3>
 			</header>

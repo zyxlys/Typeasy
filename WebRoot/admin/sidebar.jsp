@@ -79,8 +79,7 @@
 			<li class="icn_options"><a href="admin/options.jsp">基本设置</a></li>
 		</c:if>
 		<li class="icn_security"><a href="admin/security.jsp">安全设置</a></li>
-		<li class="icn_jump_back"><a class="logout_user"
-			href="Logout"
+		<li class="icn_jump_back"><a class="logout_user" href="Logout"
 			onclick="return confirm('确认要安全退出吗?')">安全退出</a></li>
 	</ul>
 

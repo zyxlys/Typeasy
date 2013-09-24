@@ -12,7 +12,7 @@
 
 	<article class="module width_full">
 		<form id="add-post"
-			action="servlet/ContentsServlet?action=add&type=post&authorId=${sessionScope.user.uid }"
+			action="AddContents?type=post&authorId=${sessionScope.user.uid }"
 			method="post">
 			<header>
 				<h3>发表文章</h3>

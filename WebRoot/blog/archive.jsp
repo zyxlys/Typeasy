@@ -52,10 +52,10 @@
 					<c:set scope="request" value="${archive.cid }" var="archiveCid"></c:set>
 					<%
 						String createdTime = (String) request
-														.getAttribute("createdTime");
-												String formatTime = SwitchDateFormat
-														.SwitchFormat(createdTime);
-												request.setAttribute("formatTime", formatTime);
+											.getAttribute("createdTime");
+									String formatTime = SwitchDateFormat
+											.SwitchFormat(createdTime);
+									request.setAttribute("formatTime", formatTime);
 					%>
 					<pg:item>
 						<div class="post clearfix">

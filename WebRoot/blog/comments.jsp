@@ -75,7 +75,7 @@
 									<c:when test="${sessionScope.user.group == 'admin' }">
 										<div class="comment-reply">
 											<a
-												href="servlet/CommentsServlet?action=del&coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }&fromPage=postPage"
+												href="DelComments?coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }&fromPage=postPage"
 												title="删除该评论" onclick="return confirm('确认要删除该评论吗？');">删除该评论</a>
 										</div>
 									</c:when>
@@ -83,7 +83,7 @@
 										<c:if test="${comment.authorId == sessionScope.user.uid }">
 											<div class="comment-reply">
 												<a
-													href="servlet/CommentsServlet?action=del&coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }&fromPage=postPage"
+													href="DelComments?coid=${comment.coid }&cid=${comment.cid }&authorId=${comment.authorId }&fromPage=postPage"
 													title="删除该评论" onclick="return confirm('确认要删除该评论吗？');">删除该评论</a>
 											</div>
 										</c:if>
@@ -109,8 +109,7 @@
 					<h4 id="response">发表评论 &raquo;</h4>
 
 
-					<form method="post" action="servlet/CommentsServlet?action=add"
-						id="comment_form">
+					<form method="post" action="AddComments" id="comment_form">
 						<input type="hidden" name="cid" value="${c.cid }" /> <input
 							type="hidden" name="ownerId" value="${c.authorId }" />
 						<c:choose>
@@ -121,7 +120,7 @@
 								<input type="hidden" name="url" value="${user.url }" />
 								<div class="m4rev">
 									当前登录用户 <a href="admin/my-profiles.jsp">${user.screenName }</a>.
-									<a href="servlet/LoginServlet?action=logout" title="Logout"
+									<a href="Logout" title="Logout"
 										onclick="return confirm('确认要退出吗？');">安全退出 &raquo;</a>
 								</div>
 							</c:when>
@@ -141,11 +140,10 @@
 							</c:otherwise>
 						</c:choose>
 						<div class="m4rev">
-							<textarea rows="5" cols="50" name="text" class="mitextarea"
-								required></textarea>
+							<textarea rows="5" cols="50" name="text" class="mitextarea" required></textarea>
 						</div>
 						<div class="m4rev">
-							<input name="submit" id="misubmit" type="image"
+							<input id="misubmit" type="image"
 								src="images/send.png" value="提交评论" />
 						</div>
 					</form>

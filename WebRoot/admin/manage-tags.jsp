@@ -33,8 +33,7 @@
 				}
 			};
 		</script>
-		<form action="servlet/MetasServlet?action=multiDel&type=tag"
-			method="post">
+		<form action="MultiDelMetas?type=tag" method="post">
 			<fieldset style="width: 95%;margin: 20px 3% 0 3%;">
 				<input type="checkbox" name="all" onclick="selectAll();" /> <select
 					style="width: 70%;" name="multiOption">
@@ -92,7 +91,7 @@
 									<c:if test="${meta.type == 'tag' }">
 										<pg:item>
 											<tr>
-												<td><input type="checkbox" name="mid"
+												<td><input type="checkbox" name="metaIdArray"
 													value="${meta.mid }"> <c:choose>
 														<c:when test="${fn:length(meta.name) > 15 }">${fn:substring(meta.name,0,15) } ...</c:when>
 														<c:otherwise>${meta.name}</c:otherwise>
@@ -106,11 +105,9 @@
 														<c:otherwise>${meta.description  }</c:otherwise>
 													</c:choose></td>
 												<td>${meta.count}</td>
-												<td><a
-													href="servlet/MetasServlet?action=find&type=tag&mid=${meta.mid}"><img
+												<td><a href="FindMetas?type=tag&mid=${meta.mid}"><img
 														src="images/icn_edit.png" title="编辑" style="border:0px;"></a>
-													<a
-													href="servlet/MetasServlet?action=del&type=tag&mid=${meta.mid}"
+													<a href="DelMetas?type=tag&mid=${meta.mid}"
 													onclick="return confirm('确认删除吗？')"><img
 														src="images/icn_trash.png" alt="删除" style="border:0px;" /></a></td>
 											</tr>
