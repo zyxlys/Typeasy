@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -38,11 +38,15 @@
 <%
 	if (("login").equals(action)) {
 %>
-<title>登录 - Typeasy</title>
+<title>登录 - <c:forEach var="option" items="${options }">
+		<c:if test="${option.name == 'title' }">${option.value }</c:if>
+	</c:forEach></title>
 <%
 	} else {
 %>
-<title>注册 - Typeasy</title>
+<title>注册 - <c:forEach var="option" items="${options }">
+		<c:if test="${option.name == 'title' }">${option.value }</c:if>
+	</c:forEach></title>
 <%
 	}
 %>
@@ -98,9 +102,6 @@
 
 		<p id="nav">
 			<a href="login.jsp?action=register" title="注册">注册一个新帐户</a>
-		</p>
-		<p id="backtoblog">
-			<a href="index.jsp" title="Home Page">&larr; 回到Typeasy</a>
 		</p>
 		<%
 			} else {
@@ -172,12 +173,12 @@
 		<p id="nav">
 			<a href="login.jsp" title="登录">已经有了一个帐号?点击登录</a>
 		</p>
-		<p id="backtoblog">
-			<a href="index.jsp" title="Home Page">&larr; 回到Typeasy</a>
-		</p>
 		<%
 			}
 		%>
+		<p id="backtoblog">
+			<a href="index.jsp" title="Home Page">&larr; 回到Typeasy</a>
+		</p>
 	</div>
 	<div class="clear"></div>
 </body>

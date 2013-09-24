@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<constant name="struts.devMode" value="true"/>  
+	<constant name="struts.multipart.maxSize" value="5120000000"></constant>
 	
 	<package name="me.llss.actions" extends="struts-default" namespace="/">
 
@@ -32,15 +32,15 @@
 		<action name="MultiDelComments" class="me.llss.actions.CommentsAction" method="multiDel">
 			<result name="visitorMultiDelSuccess">/admin/message.jsp</result>
 			<result name="adminMultiDelSuccess">/admin/message.jsp</result>
-			<result name="visitorDoNothing" type="redirect">/admin/manage-comments-visitor.jsp</result>
-			<result name="adminDoNothing" type="redirect">/admin/manage-comments.jsp</result>
+			<result name="visitorDoNothing">/admin/manage-comments-visitor.jsp</result>
+			<result name="adminDoNothing">/admin/manage-comments.jsp</result>
 		</action>
 		<action name="EditComments" class="me.llss.actions.CommentsAction" method="edit">
 			<result name="visitorEditSuccess">/admin/message.jsp</result>
 			<result name="adminEditSuccess">/admin/message.jsp</result>
 		</action>
 		<action name="FindComments" class="me.llss.actions.CommentsAction" method="find">
-			<result name="findSuccess" type="redirect">/admin/edit-comment.jsp</result>
+			<result name="findSuccess">/admin/edit-comment.jsp</result>
 		</action>
 
 
@@ -69,9 +69,9 @@
 			<result name="visitorMultiDelSuccess">/admin/message.jsp</result>
 			<result name="adminMultiDelPostSuccess">/admin/message.jsp</result>
 			<result name="adminMultiDelPageSuccess">/admin/message.jsp</result>
-			<result name="visitorDoNothing" type="redirect">/admin/manage-posts-visitor.jsp</result>
-			<result name="adminPostDoNothing" type="redirect">/admin/manage-posts.jsp</result>
-			<result name="adminPageDoNothing" type="redirect">/admin/manage-pages.jsp</result>
+			<result name="visitorDoNothing">/admin/manage-posts-visitor.jsp</result>
+			<result name="adminPostDoNothing">/admin/manage-posts.jsp</result>
+			<result name="adminPageDoNothing">/admin/manage-pages.jsp</result>
 		</action>
 		<action name="EditContents" class="me.llss.actions.ContentsAction" method="edit">
 			<result name="visitorEditPostSuccess">/admin/message.jsp</result>
@@ -79,8 +79,8 @@
 			<result name="editPageSuccess">/admin/message.jsp</result>
 		</action>
 		<action name="FindContents" class="me.llss.actions.ContentsAction" method="find">
-			<result name="findPostSuccess" type="redirect">/admin/edit-post.jsp</result>
-			<result name="findPageSuccess" type="redirect">/admin/edit-page.jsp</result>
+			<result name="findPostSuccess">/admin/edit-post.jsp</result>
+			<result name="findPageSuccess">/admin/edit-page.jsp</result>
 		</action>
 
 		<action name="Index" class="me.llss.actions.IndexAction" method="execute">
@@ -104,14 +104,14 @@
 			<result name="editTagSuccess">/admin/message.jsp</result>
 		</action>
 		<action name="FindMetas" class="me.llss.actions.MetasAction" method="find">
-			<result name="findCategorySuccess" type="redirect">/admin/edit-category.jsp</result>
-			<result name="findTagSuccess" type="redirect">/admin/edit-tag.jsp</result>
+			<result name="findCategorySuccess">/admin/edit-category.jsp</result>
+			<result name="findTagSuccess">/admin/edit-tag.jsp</result>
 		</action>
 		<action name="MultiDelMetas" class="me.llss.actions.MetasAction" method="multiDel">
 			<result name="MultiDelCategorySuccess">/admin/message.jsp</result>
 			<result name="MultiDelTagSuccess">/admin/message.jsp</result>
-			<result name="CategoryDoNothing" type="redirect">/admin/manage-categories.jsp</result>
-			<result name="TagDoNothing" type="redirect">/admin/manage-tags.jsp</result>
+			<result name="CategoryDoNothing">/admin/manage-categories.jsp</result>
+			<result name="TagDoNothing">/admin/manage-tags.jsp</result>
 		</action>
 
 
@@ -131,15 +131,15 @@
 			<result name="delUserSuccess">/admin/message.jsp</result>
 		</action>
 		<action name="FindUsers" class="me.llss.actions.UsersAction" method="find">
-			<result name="findUserSuccess" type="redirect">/admin/edit-user.jsp</result>
+			<result name="findUserSuccess">/admin/edit-user.jsp</result>
 		</action>
 		<action name="ModifyPwd" class="me.llss.actions.UsersAction" method="modifyPwd">
 			<result name="modifyPwdSuccess">/admin/message.jsp</result>
 			<result name="modifyPwdFail">/admin/message.jsp</result>
 		</action>
 		<action name="MultiDelUsers" class="me.llss.actions.UsersAction" method="multiDel">
-			<result name="multiDelUserSuccess" type="redirect">/admin/message.jsp</result>
-			<result name="doNothing" type="redirect">/admin/manage-users.jsp</result>
+			<result name="multiDelUserSuccess">/admin/message.jsp</result>
+			<result name="doNothing">/admin/manage-users.jsp</result>
 		</action>
 
 

@@ -90,8 +90,8 @@
 				href="http://acris.github.io/Typeasy/" target="_blank">Typeasy</a></strong>
 		</p>
 		<p>
-			Powered by <a href="http://imomo.me" target="_blank">Acris</a> |
-			version 1.0
+			Powered by <a href="http://llss.me" target="_blank">Acris</a> |
+			version 2.0
 		</p>
 	</footer>
 </aside>

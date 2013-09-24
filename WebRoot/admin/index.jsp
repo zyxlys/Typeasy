@@ -136,17 +136,17 @@
 		</header>
 		<div class="module_content">
 			<h1>欢迎使用Typeasy博客系统</h1>
-			<p>Typeasy是一个使用jsp+MVC框架编写的一个轻量级博客程序。</p>
+			<p>Typeasy是一个使用Struts2框架编写的轻量级博客程序。</p>
 
 			<p>
 				Typeasy名字源于英语单词type和easy的组合，寓意在于让你打字变得很简单。这里的打字就是代表这写博客。你能用它来部署属于你自己的Blog。
 				<br />
-				Typeasy拥有免费、开源、轻量、安全、人性化和操作简单等一系列的优点。它能让你记录下生活中的每一刻。当前发布的版本为1.0版本，由于时间和技术的问题，程序难免存在纰漏。如果您发现有任何的错误，或者有任何的意见和建议，欢迎您联系我们：
+				Typeasy拥有免费、开源、轻量、安全、人性化和操作简单等一系列的优点。它能让你记录下生活中的每一刻。当前版本为2.0版本，由于时间和技术的问题，程序难免存在纰漏。如果您发现有任何的错误，或者有任何的意见和建议，欢迎您联系我们：
 			</p>
 			<ul>
 				<li>E-Mail: shallowmo@outlook.com</li>
 				<li>Q Q: 2235515581</li>
-				<li>Github: http://github.com/Acris/Typeasy</li>
+				<li>Github: http://github.com/Acris/</li>
 			</ul>
 		</div>
 	</article>

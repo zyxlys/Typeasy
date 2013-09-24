@@ -81,8 +81,9 @@ public class IndexAction extends ActionSupport implements Action {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
+		
 		String name = null;
 		String pwd = null;
 		String cookieStr = null;

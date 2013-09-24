@@ -1,3 +1,4 @@
+<%@page import="org.apache.struts2.ServletActionContext"%>
 <%@ page language="java" import="java.util.*,me.llss.vo.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
