@@ -8,13 +8,13 @@
 <pg:pager items="${c.commentsNum }"
 	export="currentPageNumber=pageNumber" maxPageItems="10"
 	url="post-${c.cid }.htm">
+
 	<div id="comments">
 		<c:if test="${comments != null }">
-			<h4 class="m4ctt">${c.commentsNum }条评论 &raquo;</h4>
+			<h4>${c.commentsNum }条评论 &raquo;</h4>
+
 			<ol class="pages clearfix">
-				<pg:first>
-					<a href="${pageUrl}">首页</a>
-				</pg:first>
+
 				<pg:prev>
 					<a href="${pageUrl}"><<</a>
 				</pg:prev>
@@ -31,9 +31,7 @@
 				<pg:next>
 					<a href="${pageUrl}">>></a>
 				</pg:next>
-				<pg:last>
-					<a href="${pageUrl}">尾页</a>
-				</pg:last>
+
 			</ol>
 
 			<ol class="comment-list">
@@ -57,7 +55,7 @@
 										</c:when>
 										<c:otherwise><%=Gravatar.getAvatar(request
 												.getAttribute("gravatarMail")
-												.toString(), 50)%></c:otherwise>
+												.toString(), 40)%></c:otherwise>
 									</c:choose>
 									<cite class="fn"><c:choose>
 											<c:when test="${comment.url != null && comment.url != ''}">
@@ -94,9 +92,7 @@
 					</c:if>
 				</c:forEach>
 			</ol>
-
 		</c:if>
-
 		<c:choose>
 			<c:when test="${c.allowComment == 0 }">
 				<div id="respond-post-${comment.coid }" class="respond">
@@ -106,9 +102,7 @@
 							style="display:none">取消回复</a>
 					</div>
 
-					<h4 id="response">发表评论 &raquo;</h4>
-
-
+					<h4 id="response">添加新评论 &raquo;</h4>
 					<form method="post" action="AddComments" id="comment_form">
 						<input type="hidden" name="cid" value="${c.cid }" /> <input
 							type="hidden" name="ownerId" value="${c.authorId }" />
@@ -118,34 +112,39 @@
 								<input type="hidden" name="authorId" value="${user.uid }" />
 								<input type="hidden" name="mail" value="${user.mail }" />
 								<input type="hidden" name="url" value="${user.url }" />
-								<div class="m4rev">
-									当前登录用户 <a href="admin/my-profiles.jsp">${user.screenName }</a>.
-									<a href="Logout" title="Logout"
+								<p>
+									Logged in as <a href="admin/my-profiles.jsp"><c:choose>
+											<c:when test="${user.screenName == '' }">新用户${user.uid }</c:when>
+											<c:otherwise>${user.screenName }</c:otherwise>
+										</c:choose></a>. <a href="Logout" title="Logout"
 										onclick="return confirm('确认要退出吗？');">安全退出 &raquo;</a>
-								</div>
+								</p>
 							</c:when>
 							<c:otherwise>
-								<div class="m4rev">
-									<input type="text" name="author" id="author" class="miauthor"
-										size="15" value="${user.screenName }" required />
-								</div>
-								<div class="m4rev">
-									<input name="mail" id="mail" class="mimail" size="15"
+								<p>
+									<label for="author">称呼<span class="required">*</span></label> <input
+										type="text" name="author" id="author" class="text" size="15"
+										value="${user.screenName }" required />
+								</p>
+								<p>
+									<label for="mail">电子邮件<span class="required">*</span></label> <input
+										name="mail" id="mail" class="text" size="15"
 										value="${user.mail }" type="email" required />
-								</div>
-								<div class="m4rev">
-									<input type="url" name="url" id="url" class="miurl" size="15"
-										value="${user.url }" />
-								</div>
+								</p>
+								<p>
+									<label for="url">网站</label> <input type="url" name="url"
+										id="url" class="text" size="15" value="${user.url }" />
+								</p>
 							</c:otherwise>
 						</c:choose>
-						<div class="m4rev">
-							<textarea rows="5" cols="50" name="text" class="mitextarea" required></textarea>
-						</div>
-						<div class="m4rev">
-							<input id="misubmit" type="image"
-								src="images/send.png" value="提交评论" />
-						</div>
+						<p>
+							<textarea rows="5" cols="10" name="text" class="textarea"
+								required></textarea>
+						</p>
+						<p>
+							<input type="submit" value="提交评论" class="submit" />
+						</p>
+
 					</form>
 					<script>
 						$("#comment_form").validate();

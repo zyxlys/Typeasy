@@ -1,6 +1,8 @@
 package me.llss.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import me.llss.service.impl.OptionsServiceImpl;
 
@@ -33,5 +35,18 @@ public class SwitchDateFormat {
 		}
 
 		return time2;
+	}
+	
+	public static String SplitDate(String d,String format) {
+		
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		String rst = new SimpleDateFormat(format).format(date);
+		return rst;
 	}
 }

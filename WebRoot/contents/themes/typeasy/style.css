@@ -1,9 +1,10 @@
-/* ------------------------------------
- * Typeasy Default Theme
- *
- * @author	Acris
- * @date	2013-05-21
- * --------------------------------- */
+/*
+Name: Typeasy
+Version: 2.5
+Author: Acris
+URI: http://llss.me
+Description: &copy; 2013 Acris, All Rights Reserved.
+*/
 
 /* ------------------
  * gobal settings
@@ -14,7 +15,7 @@
 }
 
 body {
-	background: #edf1f4 url(../images/bg.png) repeat-x top;
+	background: #edf1f4 url(images/bg.png) repeat-x top;
 	color: #697989;
 	font-size: 14px;
 	line-height: 1.9;
@@ -159,7 +160,7 @@ ul {
 	margin-bottom: 0;
 	line-height: 107px;
 	padding-right: 45px;
-	background: url(../images/h1.gif) no-repeat right center;
+	background: url(images/h1.gif) no-repeat right center;
 }
 
 #logo h1 a {
@@ -184,7 +185,7 @@ p.description {
 	float: right;
 	width: 230px;
 	height: 44px;
-	background: url(../images/search.png) no-repeat left bottom;
+	background: url(images/search.png) no-repeat left bottom;
 }
 
 #search input {
@@ -217,14 +218,14 @@ ul#nav_menu {
 #nav_box li.current {
 	padding-right: 0px;
 	margin-right: 0px;
-	background: url(../images/menu.png);
+	background: url(images/menu.png);
 }
 
 li#menuli {
 	padding: 0px;
 	margin: 0px;
 	width: 20px;
-	background: url(../images/menu.png) no-repeat right;
+	background: url(images/menu.png) no-repeat right;
 	float: left;
 	overflow: hidden;
 	text-indent: -20000px;
@@ -237,7 +238,7 @@ li#tqq {
 	padding-left: 20px;
 	height: 71px;
 	margin: 0px;
-	background: url(../images/tqq.png);
+	background: url(images/tqq.png);
 }
 
 li#tqq a {
@@ -247,19 +248,19 @@ li#tqq a {
 #topper {
 	margin-top: 40px;
 	height: 23px;
-	background: url(../images/topper.png) no-repeat bottom;
+	background: url(images/topper.png) no-repeat bottom;
 }
 
 .m4pof {
 	height: 23px;
-	background: url(../images/foot.png) no-repeat top;
+	background: url(images/foot.png) no-repeat top;
 	overflow: hidden;
 }
 /* ------------------
  * content
  * --------------- */
 #m4out {
-	background: url(../images/center.png);
+	background: url(images/center.png);
 }
 
 #content {
@@ -280,7 +281,7 @@ li#tqq a {
 
 .m4gomore {
 	height: 42px;
-	background: url(../images/more.png);
+	background: url(images/more.png);
 	margin-left: 2px;
 	margin-bottom: 20px;
 }
@@ -295,7 +296,7 @@ a.m4pc {
 	color: #fff;
 	font-size: 12px;
 	font-weight: bold;
-	background: url(../images/m4pc.png);
+	background: url(images/m4pc.png);
 	line-height: 26px;
 	margin-left: 30px;
 	margin-top: 8px;
@@ -308,7 +309,7 @@ a.m4pr {
 	text-indent: -10000px;
 	width: 106px;
 	height: 26px;
-	background: url(../images/m4pr.png);
+	background: url(images/m4pr.png);
 }
 
 h2.entry_title {
@@ -339,6 +340,12 @@ h2.entry_title a {
 	font-weight: bold;
 }
 
+.container_16 img {
+	border: 1px solid #c2cfdf;
+	padding: 1px;
+	max-width: 650px;
+}
+
 .entry_data {
 	color: #8999a8;
 	font-size: 12px;
@@ -358,7 +365,7 @@ h2.entry_title a {
 .m4ip {
 	padding-top: 20px;
 	height: 65px;
-	background: url(../images/footpage.png) no-repeat bottom;
+	background: url(images/footpage.png) no-repeat bottom;
 }
 
 ol.m4ipol {
@@ -537,15 +544,15 @@ ol.comment-list li .respond {
 }
 
 input.miauthor {
-	background: #fff url(../images/name.png) no-repeat right center;
+	background: #fff url(images/name.png) no-repeat right center;
 }
 
 input.mimail {
-	background: #fff url(../images/email.png) no-repeat right center;
+	background: #fff url(images/email.png) no-repeat right center;
 }
 
 input.miurl {
-	background: #fff url(../images/url.png) no-repeat right center;
+	background: #fff url(images/url.png) no-repeat right center;
 }
 
 input#misubmit {
@@ -569,7 +576,7 @@ input#misubmit {
 .siderss {
 	height: 44px;
 	overflow: hidden;
-	background: url(../images/rss.png) no-repeat center center;
+	background: url(images/rss.png) no-repeat center center;
 	margin-bottom: 30px;
 }
 
@@ -589,7 +596,7 @@ a.radd {
 }
 
 .widget {
-	background: url(../images/widget.png) no-repeat;
+	background: url(images/widget.png) no-repeat;
 	padding-bottom: 44px;
 }
 
@@ -599,7 +606,7 @@ a.radd {
 	line-height: 46px;
 	color: #000;
 	padding-left: 20px;
-	background: url(../images/h3.png) no-repeat 210px 17px;
+	background: url(images/h3.png) no-repeat 210px 17px;
 }
 
 .widget ul {
@@ -611,7 +618,7 @@ a.radd {
 	padding-left: 20px;
 	height: 44px;
 	line-height: 44px;
-	background: url(../images/sideli.png);
+	background: url(images/sideli.png);
 }
 
 .widget ul li a {
@@ -658,20 +665,5 @@ a.radd {
 	margin: auto;
 	height: 70px;
 	line-height: 70px;
-	background: url(../images/m4.png) no-repeat right;
-}
-
-/* Scoll to top */
-#goTopBtn {
-	POSITION: fixed;
-	TEXT-ALIGN: center;
-	LINE-HEIGHT: 30px;
-	WIDTH: 30px;
-	BOTTOM: 80px;
-	HEIGHT: 33px;
-	FONT-SIZE: 12px;
-	CURSOR: pointer;
-	RIGHT: 20px;
-	_position: absolute;
-	_right: auto;
+	background: url(images/m4.png) no-repeat right;
 }

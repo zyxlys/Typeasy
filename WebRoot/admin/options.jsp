@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*,me.llss.vo.*,me.llss.dao.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:if test="${sessionScope.user.group != 'admin' }">
 	<script type="text/javascript">
 		alert('用户权限不够，非法操作！');
@@ -150,7 +151,7 @@
 						<td style="text-align:left"><input
 							<c:forEach var="option" items="${options }"></c:forEach>
 							type="text" name="count" id="blog_title"
-							value="<c:forEach var="option" items="${options }"><c:if test="${option.name == 'count' }">${option.value }</c:if></c:forEach>"
+							value="<c:forEach var="option" items="${options }"><c:if test="${option.name == 'count' }"><fmt:formatNumber type="number" value="${option.value/2 }" maxFractionDigits="0"/></c:if></c:forEach>"
 							class="regular-text" size=20 required /></td>
 					</tr>
 				</table>

@@ -164,7 +164,7 @@ public class LoginAction extends ActionSupport implements Action {
 		Collections.reverse(options);
 		session.setAttribute("options", options);
 		if (u.getUid() == null) {
-			this.addActionError("用户名或密码错误");
+			this.addActionError(this.getText("actions.loginAction.error"));
 			return "loginFail";
 		} else {
 			session.setAttribute("user", u);
@@ -232,7 +232,7 @@ public class LoginAction extends ActionSupport implements Action {
 			session.setAttribute("user", u);
 			return "regSuccess";
 		} else {
-			this.addActionError("用户名或邮箱已被注册,请重新输入.");
+			this.addActionError(this.getText("actions.LoginAction.reg_error"));
 			return "regFail";
 		}
 	}
@@ -248,7 +248,7 @@ public class LoginAction extends ActionSupport implements Action {
 		// 删除cookie中的值以及session中的值
 		CookieUtil.removeCookie("UserCookie", request, response);
 		request.getSession().removeAttribute("user");
-		this.addActionMessage("您已经安全退出.");
+		this.addActionMessage(this.getText("actions.logoutAction.logout"));
 
 		/* 获取相关session */
 		HttpSession session = request.getSession();

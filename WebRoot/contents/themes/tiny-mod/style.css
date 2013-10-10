@@ -1,0 +1,429 @@
+/*
+Name: Tiny Mod
+Version: 1.0
+Author: Acris
+URI: http://llss.me
+Description: Tiny Mod is a Typeasy theme for minimalists.
+*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,body {
+	background: #f5fafc;
+	color: #666;
+}
+
+body {
+	text-align: center; /* IE quirks auto margins workaround */
+	font-size: 11px;
+	font-family: 'Lucida Grande', Verdana, Lucida, Arial, Helvetica, 宋体,
+		sans-serif;
+	padding: 10px;
+	line-height: 1.6em;
+}
+
+html>body {
+	font-size: 11px;
+} /* for modern browsers that can resize px */
+#wrap {
+	width: 440px;
+	margin: 20px auto; /* auto centers the div */
+	background: #fff;
+	border: 1px solid #c2cfdf;
+}
+
+#header {
+	height: 160px;
+	margin: 20px;
+	overflow: hidden;
+	background: transparent url(tinyheader.jpg) no-repeat;
+	border: 1px solid #c2cfdf;
+}
+
+#menu {
+	background: #eef3fb;
+	margin: 20px;
+	border: 1px solid #cfe2e5;
+	color: #63b4cd;
+}
+
+#content {
+	text-align: left;
+	margin: 20px;
+	font-size: 12px;
+	font-family: 'Lucida Grande', Verdana, Lucida, Arial, Helvetica, 宋体,
+		sans-serif;
+	word-wrap: break-word;
+}
+
+#footer {
+	border-top: 1px solid #c2cfdf;
+	color: #888;
+	text-align: center;
+	margin: 20px;
+	font-size: 0.8em;
+	line-height: 1.5em;
+}
+/*	Header image and link	 */
+#header h1 {
+	font-size: 2.5em;
+	line-height: 1em;
+	margin: 0;
+}
+
+#header h1 a {
+	text-indent: -9999px;
+	display: block;
+	width: 400px;
+	height: 160px;
+}
+
+h1 a:link,h1 a:visited,h1 a:hover,h1 a:active {
+	text-decoration: none;
+	color: #63b4cd;
+}
+
+#sitemap {
+	float: left;
+	text-align: left;
+	margin: 5px 8px 5px 0px;
+	padding-left: 12px;
+}
+
+#menu ul.pagelinks {
+	list-style-type: none;
+	margin: 7px 8px 5px 5px;
+}
+
+#menu ul.pagelinks li {
+	float: left;
+	padding-left: 7px;
+}
+
+#searchform,#searchform p {
+	font-size: 1em;
+	text-align: right;
+	margin: 5px;
+}
+
+#searchform input {
+	width: 80px;
+	font-size: 1em;
+	background: #fff;
+	color: #666;
+	margin: 0;
+	border: 1px solid #c2cfdf;
+}
+/*	Giving block elements a default margin.	 */
+h2,h3,h4,h5,h6,p, /* ul, ol, dl, p - Stopped by Sparanoid */ re,fieldset,address,table
+	{
+	margin: 0.8em 0;
+}
+/* 	General styling		*/
+h2 {
+	font-size: 15px;
+	margin-bottom: .4em;
+	font-weight: bold;
+}
+
+h3 {
+	font: 1.1em/120% margin-bottom:  .3em;
+	font-weight: normal;
+}
+
+h4 {
+	font-size: 1.0em;
+}
+
+h5 {
+	font: normal 0.8em;
+}
+
+address {
+	font-style: italic;
+}
+
+blockquote {
+	margin: 1em 0;
+	padding: 0 0 0 1.2em;
+	border-left: 4px solid #c2cfdf;
+}
+
+dt {
+	margin: 1em 0 .5em 0;
+	font-weight: bold;
+}
+
+code,pre,var {
+	font-size: 1em;
+}
+
+dd {
+	margin: .5em 0 1em 1.5em;
+}
+
+img {
+	border: none;
+}
+
+#content p {
+	text-align: left;
+}
+
+#content form p {
+	text-align: left;
+}
+
+#content img {
+	border: 1px solid #c2cfdf;
+	padding: 3px;
+}
+
+.postinfo {
+	background: #f4fbfd;
+	padding-left: 10px;
+	border: 1px solid #eaf3fd;
+	color: #63b4cd;
+}
+
+.entry ul {
+	padding: 0 0 0 10px;
+}
+
+.entry li {
+	padding: 0;
+}
+
+.entry img {
+	max-width: 400px;
+}
+
+.center {
+	text-align: center;
+}
+
+ol {
+	margin-left: 3em;
+}
+
+ul {
+	list-style-type: disc;
+	margin-left: 1.5em;
+}
+
+a:link,a:visited {
+	color: #63b4cd;
+	text-decoration: none;
+}
+
+a:hover,a:active {
+	text-decoration: underline;
+}
+
+h2 a,h2 a:link,h2 a:visited,h2 a:hover,h2 a:active {
+	color: #63b4cd;
+	text-decoration: none;
+}
+
+.hilite {
+	background: #f5fafc;
+}
+
+#content .more {
+	margin-top: -1em;
+	text-align: right;
+}
+
+.posted {
+	color: #888;
+	margin-top: .3em;
+}
+
+.posted cite {
+	font-weight: bold;
+	font-style: normal;
+}
+
+ol.pages {
+	margin: 20px 0 10px 0;
+	color: #666;
+	list-style: none;
+	font-size: 12px;
+}
+
+ol.pages li {
+	margin: 0 5px 0 0;
+	display: inline;
+}
+
+ol.pages li a {
+	padding: 2px 4px;
+	border: 1px solid #eee;
+	text-decoration: none;
+}
+
+ol.pages li.current a {
+	background: #63b4cd;
+	border-color: #63b4cd;
+	color: #fff;
+}
+
+#comments {
+	margin-top: 20px;
+}
+
+#comments h4 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+ol#comment_list,ol#comment_list ol {
+	margin: 0;
+	list-style: none;
+}
+
+ol#comment_list ol {
+	padding-top: 10px;
+}
+
+ol#comment_list li {
+	margin: 0;
+	padding-bottom: 5px;
+}
+
+ol#comment_list li {
+	padding: 10px 5px 0 5px;
+	margin-top: 10px;
+	border: 1px solid #c2cfdf;
+	background: #fff;
+	overflow: hidden;
+}
+
+ol#comment_list li .comment_reply {
+	text-align: right;
+}
+
+ol#comment_list li .comment_reply a {
+	border: none;
+	color: #aaa;
+}
+
+ol#comment_list li .comment_reply a:hover {
+	color: #444;
+}
+
+.comment_data {
+	padding-bottom: 5px;
+	/*border-bottom: 1px dashed #eee;*/
+	color: #999;
+}
+
+.comment_data .author {
+	display: block;
+	color: #444;
+}
+
+.comment_data .count {
+	margin-left: 5px;
+}
+
+.comment_data .author a {
+	
+}
+
+.comment_body {
+	overflow: hidden;
+}
+
+img.avatar { /*display: none;*/
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#respond {
+	margin-top: 10px;
+}
+
+ol#comment_list li #respond {
+	border-top: 1px solid #ddd;
+	padding-top: 5px;
+}
+
+#comment_form {
+	padding-right: 8px;
+}
+
+#respond .cancle_comment_reply {
+	float: right;
+	font-size: 11px;
+	display: none
+}
+
+#respond .cancle_comment_reply a {
+	border: none;
+	color: #aaa;
+}
+
+#respond .cancle_comment_reply a:hover {
+	color: #444;
+}
+
+ol#comment_list li #respond .cancle_comment_reply {
+	display: inline;
+}
+
+#comment_form label {
+	font-size: 12px;
+	color: #555;
+	display: block;
+	font-weight: bold;
+}
+
+#comment_form label .required {
+	color: #C04E37;
+	padding-left: 5px;
+	font-size: 14px;
+}
+
+#comment_form .text {
+	width: 100%;
+	height: 14px;
+	padding: 2px 0 2px 2px;
+	border: 1px solid #c2cfdf;
+	background-color: #fff;
+	font: 12px/160% 'Lucida Grande', Verdana, Lucida, Arial, Helvetica, 宋体,
+		sans-serif;
+	color: #666;
+	line-height: 14px;
+}
+
+#comment_form textarea {
+	font: 12px/160% 'Lucida Grande', Verdana, Lucida, Arial, Helvetica, 宋体,
+		sans-serif;
+	color: #666;
+	width: 100%;
+	border: 1px solid #c2cfdf;
+	background-color: #fff;
+	word-wrap: break-word;
+}
+
+ol#comment_list li #respond .text {
+	_width: 400px;
+}
+
+ol#comment_list li #respond textarea {
+	_width: 400px;
+}
+
+.submit {
+	width: 100%;
+	height: 30px;
+	padding: 2px 4px;
+	border: 1px solid #c2cfdf;
+	background-color: #fff;
+	font: 12px/160% 'Lucida Grande', Verdana, Lucida, Arial, Helvetica, 宋体,
+		sans-serif;
+	color: #666;
+}

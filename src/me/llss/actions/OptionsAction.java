@@ -3,6 +3,7 @@ package me.llss.actions;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -38,7 +39,6 @@ public class OptionsAction extends ActionSupport implements Action {
 	private OptionsServiceImpl os = new OptionsServiceImpl();
 	private UsersServiceImpl us = new UsersServiceImpl();
 
-
 	private String title;
 	private String description;
 	private String date;
@@ -46,6 +46,7 @@ public class OptionsAction extends ActionSupport implements Action {
 	private String excerpt;
 	private String number;
 	private String count;
+	private String theme;
 
 	/*
 	 * Getters and setters
@@ -106,10 +107,18 @@ public class OptionsAction extends ActionSupport implements Action {
 		this.count = count;
 	}
 
-	@Override
-	public String execute() throws Exception {
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public String editOptions() throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletRequest request = ServletActionContext.getRequest();
+		ServletContext ctxt = request.getServletContext();
 		OptionsVO o1 = new OptionsVO();
 		OptionsVO o2 = new OptionsVO();
 		OptionsVO o3 = new OptionsVO();
@@ -117,6 +126,7 @@ public class OptionsAction extends ActionSupport implements Action {
 		OptionsVO o5 = new OptionsVO();
 		OptionsVO o6 = new OptionsVO();
 		OptionsVO o7 = new OptionsVO();
+		OptionsVO o8 = new OptionsVO();
 		o1.setValue(title);
 		o1.setName("title");
 		o2.setValue(description);
@@ -129,8 +139,10 @@ public class OptionsAction extends ActionSupport implements Action {
 		o5.setName("excerpt");
 		o6.setValue(number);
 		o6.setName("number");
-		o7.setValue(count);
+		o7.setValue(String.valueOf(((Integer.parseInt(count)) * 2)));
 		o7.setName("count");
+		o8.setValue((String) ctxt.getAttribute("themeType"));
+		o8.setName("theme");
 
 		os.edit(o1);
 		os.edit(o2);
@@ -139,6 +151,7 @@ public class OptionsAction extends ActionSupport implements Action {
 		os.edit(o5);
 		os.edit(o6);
 		os.edit(o7);
+		os.edit(o8);
 
 		/* 获取相关session */
 		HttpSession session = request.getSession();
@@ -172,6 +185,60 @@ public class OptionsAction extends ActionSupport implements Action {
 				+ "/admin/options.jsp");
 
 		return "success";
+	}
+
+	public String editTheme() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		OptionsVO o = new OptionsVO();
+
+		o.setValue(theme);
+		o.setName("theme");
+
+		os.edit(o);
+
+		/* 获取相关session */
+		HttpSession session = request.getSession();
+
+		List<RelationshipsVO> relationships = rs.list();
+		Collections.reverse(relationships);
+		session.setAttribute("relationships", relationships);
+
+		List<ContentsVO> contents = cs.list();
+		Collections.reverse(contents);
+		session.setAttribute("contents", contents);
+
+		List<CommentsVO> comments = cos.list();
+		Collections.reverse(comments);
+		session.setAttribute("comments", comments);
+
+		List<UsersVO> users = us.list();
+		Collections.reverse(users);
+		session.setAttribute("users", users);
+
+		List<MetasVO> metas = ms.listAll();
+		Collections.reverse(metas);
+		session.setAttribute("metas", metas);
+
+		List<OptionsVO> options = os.list();
+		Collections.reverse(options);
+		session.setAttribute("options", options);
+
+		String theme = "";
+		for (OptionsVO option : options) {
+			if ("theme".equals(option.getName()))
+				theme = option.getValue();
+		}
+		String themePath = "contents/themes/" + theme + "/";
+		ServletContext context = ServletActionContext.getServletContext();
+		context.setAttribute("themeType", theme);
+		context.setAttribute("themePath", themePath);
+
+		return "themeChanged";
+	}
+
+	@Override
+	public String execute() throws Exception {
+		return null;
 	}
 
 }

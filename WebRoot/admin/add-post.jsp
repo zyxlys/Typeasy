@@ -6,7 +6,6 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="sidebar.jsp"></jsp:include>
-
 <section id="main" class="column">
 	<h4 class="alert_info">记录下生活中的点点滴滴。</h4>
 
@@ -20,11 +19,11 @@
 			<div class="module_content">
 				<fieldset>
 					<label>文章标题</label> <input type="text" id="title" name="title"
-						value="">
+						value="" required>
 				</fieldset>
 				<fieldset>
 					<label>文章内容</label>
-					<textarea name="text" id="text"></textarea>
+					<textarea name="text" id="text" required></textarea>
 					<script>
 						KindEditor
 								.ready(function(K) {
@@ -34,9 +33,9 @@
 													{
 														width : '99.9%',
 														height : '450px',
-														cssPath : 'kindeditor/plugins/code/prettify.css',
-														uploadJson : 'kindeditor/jsp/upload_json.jsp',
-														fileManagerJson : 'kindeditor/jsp/file_manager_json.jsp',
+														cssPath : '${basePath }kindeditor/plugins/code/prettify.css',
+														uploadJson : '${basePath }kindeditor/jsp/upload_json.jsp',
+														fileManagerJson : '${basePath }kindeditor/jsp/file_manager_json.jsp',
 														allowFileManager : true,
 														resizeType : '0',
 													});
@@ -64,6 +63,9 @@
 				</div>
 			</footer>
 		</form>
+		<script>
+			$("#add-post").validate();
+		</script>
 	</article>
 
 	<div class="spacer"></div>

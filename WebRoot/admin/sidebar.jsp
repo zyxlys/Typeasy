@@ -77,6 +77,7 @@
 	<ul class="toggle">
 		<c:if test="${user.group == 'admin' }">
 			<li class="icn_options"><a href="admin/options.jsp">基本设置</a></li>
+			<li class="icn_theme_manager"><a href="admin/themes.jsp">主题设置</a></li>
 		</c:if>
 		<li class="icn_security"><a href="admin/security.jsp">安全设置</a></li>
 		<li class="icn_jump_back"><a class="logout_user" href="Logout"
@@ -91,7 +92,7 @@
 		</p>
 		<p>
 			Powered by <a href="http://llss.me" target="_blank">Acris</a> |
-			version 2.0
+			version 2.5
 		</p>
 	</footer>
 </aside>

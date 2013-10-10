@@ -49,8 +49,6 @@ public class ContentsAction extends ActionSupport implements Action {
 	private UsersServiceImpl us = new UsersServiceImpl();
 	private RelationshipsServiceImpl rs = new RelationshipsServiceImpl();
 
-	
-
 	private String type;
 	private Integer authorId;
 	private String title;
@@ -62,7 +60,7 @@ public class ContentsAction extends ActionSupport implements Action {
 	private Integer cid;
 	private Integer oldCMid;
 	private Integer[] contentIdArray;
-	
+
 	/*
 	 * Getters and setters
 	 */
@@ -264,25 +262,24 @@ public class ContentsAction extends ActionSupport implements Action {
 		Collections.reverse(options);
 		session.setAttribute("options", options);
 
-		if (authorId == uid) {
-			request.setAttribute("message", "发表成功!");
-			request.setAttribute("returnURL", request.getContextPath()
-					+ "/admin/manage-posts-visitor.jsp");
-			return "visitorAddSuccess";
-		} else {
-			if (type.equals("post")) {
+		if (type.equals("post")) {
+			if (authorId == uid) {
+				request.setAttribute("message", "发表成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-posts-visitor.jsp");
+				return "visitorAddSuccess";
+			} else {
 				request.setAttribute("message", "发表成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts.jsp");
 				return "addPostSuccess";
-			} else {
-				request.setAttribute("message", "发表成功!");
-				request.setAttribute("returnURL", request.getContextPath()
-						+ "/admin/manage-pages.jsp");
-				return "addPageSuccess";
 			}
+		} else {
+			request.setAttribute("message", "发表成功!");
+			request.setAttribute("returnURL", request.getContextPath()
+					+ "/admin/manage-pages.jsp");
+			return "addPageSuccess";
 		}
-
 	}
 
 	/**
@@ -382,26 +379,24 @@ public class ContentsAction extends ActionSupport implements Action {
 		Collections.reverse(options);
 		session.setAttribute("options", options);
 
-		if (authorId == uid) {
-			request.setAttribute("message", "删除成功!");
-			request.setAttribute("returnURL", request.getContextPath()
-					+ "/admin/manage-posts-visitor.jsp");
-			return "visitorDelSuccess";
-		} else {
-
-			if (type.equals("post")) {
+		if (type.equals("post")) {
+			if (authorId == uid) {
+				request.setAttribute("message", "删除成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-posts-visitor.jsp");
+				return "visitorDelSuccess";
+			} else {
 				request.setAttribute("message", "删除成功!");
 				request.setAttribute("returnURL", request.getContextPath()
 						+ "/admin/manage-posts.jsp");
 				return "delPostSuccess";
-			} else {
-				request.setAttribute("message", "删除成功!");
-				request.setAttribute("returnURL", request.getContextPath()
-						+ "/admin/manage-pages.jsp");
-				return "delPostSuccess";
 			}
+		} else {
+			request.setAttribute("message", "删除成功!");
+			request.setAttribute("returnURL", request.getContextPath()
+					+ "/admin/manage-pages.jsp");
+			return "delPageSuccess";
 		}
-
 	}
 
 	/**
@@ -557,7 +552,7 @@ public class ContentsAction extends ActionSupport implements Action {
 		if (type.equals("post")) {
 			return "findPostSuccess";
 		} else {
-			return "findPostSuccess";
+			return "findPageSuccess";
 		}
 	}
 
@@ -615,24 +610,23 @@ public class ContentsAction extends ActionSupport implements Action {
 			Collections.reverse(options);
 			session.setAttribute("options", options);
 
-			if (opreatorId == uid) {
-				request.setAttribute("message", "删除成功!");
-				request.setAttribute("returnURL", request.getContextPath()
-						+ "/admin/manage-posts-visitor.jsp");
-				return "visitorMultiDelSuccess";
-			} else {
-
-				if (type.equals("post")) {
+			if (type.equals("post")) {
+				if (opreatorId == uid) {
+					request.setAttribute("message", "删除成功!");
+					request.setAttribute("returnURL", request.getContextPath()
+							+ "/admin/manage-posts-visitor.jsp");
+					return "visitorMultiDelSuccess";
+				} else {
 					request.setAttribute("message", "删除成功!");
 					request.setAttribute("returnURL", request.getContextPath()
 							+ "/admin/manage-posts.jsp");
 					return "adminMultiDelPostSuccess";
-				} else {
-					request.setAttribute("message", "删除成功!");
-					request.setAttribute("returnURL", request.getContextPath()
-							+ "/admin/manage-pages.jsp");
-					return "adminMultiDelPageSuccess";
 				}
+			} else {
+				request.setAttribute("message", "删除成功!");
+				request.setAttribute("returnURL", request.getContextPath()
+						+ "/admin/manage-pages.jsp");
+				return "adminMultiDelPageSuccess";
 			}
 		} else {
 

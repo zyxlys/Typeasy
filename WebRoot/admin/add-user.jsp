@@ -64,6 +64,9 @@
 					<input name="submit" type="submit" value="添加用户" />
 				</p>
 			</form>
+			<script>
+			$("#add-user").validate();
+		</script>
 		</div>
 	</article>
 

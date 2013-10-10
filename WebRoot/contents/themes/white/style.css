@@ -1,0 +1,500 @@
+/*
+Name: White
+Version: 1.0
+Author: Acris
+URI: http://llss.me
+Description: 白色宽版简洁主题
+*/
+@charset "utf-8";
+
+body,h1,h2,h3,h4,h5,p,pre,blockquote,dl,dt,dd,ul,ol,li,form,fieldset,legend,input,textarea,button,th,td
+	{
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+header,hgroup,nav,article,footer,figure,section,figcaption {
+	display: block;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+fieldset,img {
+	border: none;
+}
+
+caption,th {
+	font-weight: normal;
+}
+
+address,cite,dfn,em,var {
+	font-style: normal;
+}
+
+code,kbd,pre,samp,tt {
+	font-family: "Courier New", Courier, monospace;
+} /* 使用等宽字体 */
+ul,ol {
+	list-style: none outside;
+} /* outside重置IE6,7缩进 */
+caption,th {
+	text-align: left;
+}
+
+q:before,q:after {
+	content: '';
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+select,input,button,textarea {
+	font-size: 100%;
+} /* 使表单元素能继承父级字体大小 */
+/*修复IE6连续英文不折行导致页面布局崩溃*/
+body {
+	_word-break: break-all;
+}
+/* 专有属性修复IE7，IE8浏览器强制缩放图片失真 */
+img {
+	-ms-interpolation-mode: bicubic;
+}
+/* 默认样式 "Microsoft YaHei" */
+body {
+	font: 14px/1.5 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode',
+		'Lucida Grande', 'Lucida Sans', Arial, "Microsoft JhengHei", "微軟正黑體",
+		"Microsoft YaHei", "微软雅黑";
+	background: #FFF;
+}
+
+html,legend {
+	color: #333;
+}
+
+a {
+	color: #0088D1;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #F66535;
+}
+
+.fuck {
+	padding-top: 40px;
+	margin: 0px auto;
+	width: 1130px;
+}
+
+.head {
+	height: 90px;
+	border-bottom: #EFEFEF 1px solid;
+}
+
+.logo {
+	padding: 0px 10px;
+	width: 300px;
+	float: left;
+}
+
+.logo a {
+	color: #666;
+	line-height: 90px;
+	height: 90px;
+	display: block;
+	font-size: 28px;
+}
+
+.logo a:hover {
+	color: #000;
+}
+
+.nav {
+	float: right;
+}
+
+.nav li {
+	float: left;
+	font-size: 16px;
+	display: inline;
+}
+
+.nav li a {
+	display: inline-block;
+	padding: 0px 30px;
+	height: 80px;
+	line-height: 80px;
+	margin-top: 10px;
+	color: #555;
+}
+
+.nav li a:hover {
+	margin-top: 0px;
+}
+
+.main {
+	padding-top: 12px;
+	zoom: 1;
+	overflow: hidden;
+}
+
+.left {
+	float: left;
+	width: 795px;
+	padding: 15px;
+}
+
+.cont {
+	margin-bottom: 25px;
+	border-bottom: #EFEFEF 1px solid;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
+
+.cont h2 {
+	line-height: 36px;
+	font-size: 26px;
+}
+
+.cont h2 a {
+	color: #333;
+}
+
+.cont h2 a:hover {
+	color: #000;
+}
+
+.cont img {
+	border: 1px solid #c2cfdf;
+	padding: 1px;
+	max-width: 750px;
+}
+
+.entry_data {
+	color: 222;
+	padding: 10px 0px;
+}
+
+.content p {
+	line-height: 24px;
+	margin-bottom: 14px;
+}
+
+.more a {
+	width: 116px;
+	display: block;
+	background: #0088CC;
+	color: #fff;
+	text-align: center;
+	line-height: 30px;
+}
+
+.tag a {
+	margin: 0px 5px;
+}
+
+.page-navigator {
+	height: 30px;
+	padding: 10px 0px;
+}
+
+.page-navigator li {
+	float: left;
+	width: 50px;
+	height: 28px;
+	line-height: 28px;
+	margin-right: 14px;
+	text-align: center;
+}
+
+.page-navigator li a {
+	display: block;
+}
+
+.page-navigator li.current a {
+	display: block;
+	background: #08C;
+	color: #fff;
+}
+
+.page-navigator li a:hover {
+	background: #08C;
+	color: #fff;
+}
+
+.right {
+	width: 260px;
+	float: right;
+	padding-right: 10px;
+}
+
+.right .text {
+	border: #999 1px solid;
+	padding: 10px 8px;
+	width: 242px;
+	color: #a9a9a9;
+	margin: 10px 0px 20px 0px;
+}
+
+.right h5 {
+	font-size: 22px;
+}
+
+.right ul {
+	padding: 10px 0px 15px 0px;
+}
+
+.right ul li {
+	line-height: 30px;
+}
+
+.right ul li a {
+	color: #666;
+}
+
+.right ul li a:hover {
+	color: #F66535;
+}
+
+.shit li {
+	background: url(ico.png) 0px 11px no-repeat;
+	padding-left: 14px;
+}
+
+.foot {
+	height: 40px;
+	line-height: 40px;
+	padding: 0px 5px 20px 5px;
+}
+
+.copy {
+	float: left;
+}
+
+.copy ul li {
+	float: left;
+	margin-left: 10px;
+	color: #000;
+}
+
+.weibo {
+	float: right;
+	height: 32px;
+}
+
+.weibo a {
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	margin-left: 10px;
+	opacity: 0.45;
+}
+
+.weibo a:hover {
+	opacity: 1;
+}
+
+.weibo a.sina {
+	background: url(weibo.png) 0px 0px no-repeat;
+}
+
+.weibo a.qq {
+	background: url(weibo.png) 0px -32px no-repeat;
+}
+
+/* ------------------
+ * comment list ps 懒省事...直接改的官方默认样式 = =
+ * --------------- */
+#comments {
+	margin-top: 20px;
+}
+
+#comments h3 {
+	font-size: 22px;
+	padding-bottom: 10px;
+}
+
+#response {
+	font-size: 22px;
+	padding: 10px 0px;
+}
+
+ol.comment-list,ol.comment-list ol {
+	margin: 0;
+	list-style: none;
+}
+
+ol.comment-list ol {
+	padding-top: 10px;
+}
+
+ol.comment-list li {
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+ol.comment-list li {
+	padding: 10px 15px;
+	margin-top: 10px;
+	background: #FAFAFA;
+	overflow: hidden;
+}
+
+ol.comment-list li.comment-level-odd {
+	background: #fff;
+}
+
+ol.comment-list li.comment-level-even {
+	background: #FAFAFA;
+}
+
+ol.comment-list li .comment-reply {
+	text-align: right;
+	padding-top: 10px;
+}
+
+ol.comment-list li .comment-reply a {
+	font-size: 12px;
+	border: none;
+	color: #ADB2B7;
+}
+
+.comment-meta {
+	padding: 8px 0px;
+	margin-bottom: 5px; /*border-bottom: 1px dashed #eee;*/
+	color: #999;
+	font-size: 11px;
+}
+
+.comment-meta a {
+	color: #666;
+}
+
+.comment-author {
+	display: block;
+	font-size: 15px;
+	color: #444;
+}
+
+.comment-author a {
+	color: #111;
+}
+
+.comment-author cite.fn {
+	font-style: normal;
+}
+
+.comment-body {
+	overflow: hidden;
+}
+
+img.avatar { /*display: none;*/
+	float: left;
+	margin: 6px 10px 0 0;
+}
+
+.respond {
+	margin-top: 20px;
+	width: 795px;
+	overflow: hidden;
+}
+
+ol.comment-list li .respond {
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
+}
+
+#comment_form {
+	padding-right: 8px;
+}
+
+.respond .cancel-comment-reply {
+	float: right;
+	font-size: 11px;
+}
+
+.respond .cancel-comment-reply a {
+	border: none;
+	color: #aaa;
+}
+
+.respond .cancel-comment-reply a:hover {
+	color: #444;
+}
+
+#comment_form label {
+	color: #555;
+	display: block;
+}
+
+#comment_form label .required {
+	color: #C04E37;
+	padding-left: 5px;
+	font-size: 14px;
+}
+
+#comment_form .text {
+	border: #ABADB3 1px solid;
+}
+
+#comment_form textarea {
+	height: 80px;
+	border: #ABADB3 1px solid;
+	padding: 10px;
+	width: 765px;
+	overflow-x: hidden;
+	overflow-y: hidden
+}
+
+.bd {
+	overflow: hidden;
+	width: 850px;
+	padding-bottom: 15px;
+}
+
+.fieldset {
+	float: left;
+	width: 248px;
+	margin-right: 20px;
+	font-size: 14px;
+}
+
+.fieldset input {
+	padding: 8px;
+	width: 232px;
+}
+
+.fieldset label {
+	padding-bottom: 10px;
+	font-size: 14px;
+}
+
+.submit {
+	padding-top: 15px;
+}
+
+.submit input {
+	padding: 12px 20px;
+	border: 0px;
+	color: #555;
+}
+
+.err {
+	padding: 100px 0px 100px 400px;
+}
+
+.err h4 {
+	font-size: 32px;
+}
+
+.err p {
+	line-height: 30px;
+	margin-bottom: 10px;
+}

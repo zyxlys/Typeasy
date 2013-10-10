@@ -25,7 +25,7 @@
 					<tr>
 						<th><label for="name">目录名 <span class="description">(必填)</span></label></th>
 						<td><input type="text" name="name" id="name" value=""
-							class="regular-text" /></td>
+							class="regular-text" required /></td>
 					</tr>
 					<tr>
 						<th><label for="slug">缩略名 <span class="description">(缩略名可以为目录名的英文名或缩写)</span></label></th>
@@ -42,6 +42,9 @@
 					<input name="submit" type="submit" value="添加分类目录" />
 				</p>
 			</form>
+			<script>
+				$("#add-category").validate();
+			</script>
 		</div>
 	</article>
 

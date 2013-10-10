@@ -13,7 +13,7 @@
 				${message } <br /> <br />
 			</div>
 			<input type="button" value="确定"
-				onclick="javascript:location.href='${returnURL}'">
+				onclick="location.href='${returnURL}';">
 		</div>
 	</div>
 	<div class="spacer"></div>

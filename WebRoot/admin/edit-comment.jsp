@@ -22,12 +22,12 @@
 					<tr>
 						<th><label for="author">作者<span class="description">(必填)</span></label></th>
 						<td><input type="text" name="author" id="author"
-							value="${comment.author }" class="regular-text" /></td>
+							value="${comment.author }" class="regular-text" required/></td>
 					</tr>
 					<tr>
 						<th><label for="mail">邮箱 <span class="description">(必填)</span></label></th>
 						<td><input type="text" name="mail" id="mail"
-							value="${comment.mail }" class="regular-text" /></td>
+							value="${comment.mail }" class="regular-text" required/></td>
 					</tr>
 					<tr>
 						<th><label for="url">主页</label></th>
@@ -36,7 +36,7 @@
 					</tr>
 					<tr>
 						<th><label for="text">评论</label></th>
-						<td><textarea name="text" id="text" cols="20" rows="5">${comment.text }</textarea></td>
+						<td><textarea name="text" id="text" cols="20" rows="5" required>${comment.text }</textarea></td>
 					</tr>
 				</table>
 
@@ -44,6 +44,9 @@
 					<input name="submit" type="submit" value="修改评论" />
 				</p>
 			</form>
+			<script>
+			$("#edit-comment").validate();
+		</script>
 		</div>
 	</article>
 

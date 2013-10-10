@@ -75,11 +75,11 @@
 			<div class="module_content">
 				<fieldset>
 					<label>文章标题</label> <input type="text" id="title" name="title"
-						value="">
+						value="" required>
 				</fieldset>
 				<fieldset>
 					<label>文章内容</label>
-					<textarea rows="12" name="text" id="text"></textarea>
+					<textarea rows="12" name="text" id="text" required></textarea>
 				</fieldset>
 				<fieldset style="width:48%; float:left; margin-right: 3%;">
 					<!-- to make two field float next to one another, adjust values accordingly -->
@@ -104,6 +104,9 @@
 				</div>
 			</footer>
 		</form>
+		<script>
+			$("#add-post").validate();
+		</script>
 
 	</article>
 	<!-- end of content manager article -->
@@ -116,9 +119,9 @@
 			<div class="module_content">
 				<c:forEach items="${comments }" begin="0" end="20" var="comment">
 					<div class="message">
-						<p>${comment.text }</p>
+						<p>内容：${comment.text }</p>
 						<p>
-							<strong>${comment.author }</strong>
+							<strong>作者：${comment.author }</strong>
 						</p>
 					</div>
 				</c:forEach>
@@ -141,7 +144,7 @@
 			<p>
 				Typeasy名字源于英语单词type和easy的组合，寓意在于让你打字变得很简单。这里的打字就是代表这写博客。你能用它来部署属于你自己的Blog。
 				<br />
-				Typeasy拥有免费、开源、轻量、安全、人性化和操作简单等一系列的优点。它能让你记录下生活中的每一刻。当前版本为2.0版本，由于时间和技术的问题，程序难免存在纰漏。如果您发现有任何的错误，或者有任何的意见和建议，欢迎您联系我们：
+				Typeasy拥有免费、开源、轻量、安全、人性化和操作简单等一系列的优点。它能让你记录下生活中的每一刻。当前版本为2.5版本，由于时间和技术的问题，程序难免存在纰漏。如果您发现有任何的错误，或者有任何的意见和建议，欢迎您联系我们：
 			</p>
 			<ul>
 				<li>E-Mail: shallowmo@outlook.com</li>

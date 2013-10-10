@@ -23,7 +23,7 @@
 		<script type="text/javascript">
 			var selectAll = function() {
 				var all = document.getElementsByName("all")[0];
-				var ids = document.getElementsByName("cid");
+				var ids = document.getElementsByName("contentIdArray");
 
 				if (all.checked) {
 					for ( var i = 0; i < ids.length; i++) {
@@ -94,10 +94,12 @@
 										<pg:item>
 											<tr>
 												<td><input type="checkbox" name="contentIdArray"
-													value="${content.cid }"> <c:choose>
-														<c:when test="${fn:length(content.title) > 15 }">${fn:substring(content.title,0,15) } ...</c:when>
-														<c:otherwise>${content.title }</c:otherwise>
-													</c:choose></td>
+													value="${content.cid }"><a
+													href="page-${content.cid }.htm" target="_blank"
+													style="text-decoration: none;color: #000;"> <c:choose>
+															<c:when test="${fn:length(content.title) > 15 }">${fn:substring(content.title,0,15) } ...</c:when>
+															<c:otherwise>${content.title }</c:otherwise>
+														</c:choose></a></td>
 												<td><c:forEach items="${sessionScope.users }"
 														var="user">
 														<c:if test="${content.authorId == user.uid }">${user.screenName }</c:if>
@@ -117,9 +119,7 @@
 					</tbody>
 				</table>
 				<div style="text-align: center;padding:10px;">
-					<pg:first>
-						<a href="${pageUrl}">首页</a>
-					</pg:first>
+					页数：
 					<pg:prev>
 						<a href="${pageUrl}">上页</a>
 					</pg:prev>
@@ -136,9 +136,6 @@
 					<pg:next>
 						<a href="${pageUrl}">下页</a>
 					</pg:next>
-					<pg:last>
-						<a href="${pageUrl}">尾页</a>
-					</pg:last>
 				</div>
 			</article>
 		</form>

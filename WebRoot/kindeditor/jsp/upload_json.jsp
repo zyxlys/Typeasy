@@ -1,5 +1,3 @@
-<%@page
-	import="org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,java.io.*"%>
@@ -8,15 +6,15 @@
 <%@ page import="org.apache.commons.fileupload.disk.*"%>
 <%@ page import="org.apache.commons.fileupload.servlet.*"%>
 <%@ page import="org.json.simple.*"%>
+<%@ page
+	import="org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper"%>
+
 <%
 	//文件保存目录路径    
 	String savePath = request.getSession().getServletContext()
 			.getRealPath("/")
 			+ "uploads/";
-	//文件保存目录URL
 	String saveUrl = request.getContextPath() + "/uploads/";
-	//定义允许上传的文件扩展名
-	//定义允许上传的文件扩展名
 	HashMap<String, String> extMap = new HashMap<String, String>();
 	extMap.put("image", "gif,jpg,jpeg,png,bmp");
 	extMap.put("flash", "swf,flv");
@@ -25,7 +23,6 @@
 	extMap.put("file",
 			"doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
 
-	//允许最大上传文件大小 struts.xml struts.multipart.maxSize=3G
 	long maxSize = 5120000000l;
 
 	response.setContentType("text/html; charset=UTF-8");
@@ -82,7 +79,7 @@
 	//Struts2 请求 包装过滤器
 	MultiPartRequestWrapper wrapper = (MultiPartRequestWrapper) request;
 	//获得上传的文件名
-	String fileName = wrapper.getFileNames("imgFile")[0];//imgFile,imgFile,imgFile
+	String fileName = wrapper.getFileNames("imgFile")[0];
 	//获得文件过滤器
 	File file = wrapper.getFiles("imgFile")[0];
 

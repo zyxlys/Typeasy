@@ -21,7 +21,7 @@
 		<script type="text/javascript">
 			var selectAll = function() {
 				var all = document.getElementsByName("all")[0];
-				var ids = document.getElementsByName("mid");
+				var ids = document.getElementsByName("metaIdArray");
 				if (all.checked) {
 					for ( var i = 0; i < ids.length; i++) {
 						ids[i].checked = true;
@@ -116,9 +116,7 @@
 					</tbody>
 				</table>
 				<div style="text-align: center;padding:10px;">
-					<pg:first>
-						<a href="${pageUrl}">首页</a>
-					</pg:first>
+					页数：
 					<pg:prev>
 						<a href="${pageUrl}">上页</a>
 					</pg:prev>
@@ -135,9 +133,6 @@
 					<pg:next>
 						<a href="${pageUrl}">下页</a>
 					</pg:next>
-					<pg:last>
-						<a href="${pageUrl}">尾页</a>
-					</pg:last>
 				</div>
 			</article>
 

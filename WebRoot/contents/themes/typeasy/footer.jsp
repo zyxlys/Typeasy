@@ -3,7 +3,11 @@
 
 <div class="clearfix" id="footer">
 	<p align="center">
-		Copyright &copy; 2013 Typeasy , All right reserved. | Follow me on <a
+		Copyright &copy; 2013
+		<c:forEach var="option" items="${options }">
+			<c:if test="${option.name == 'title' }">${option.value }</c:if>
+		</c:forEach>
+		, All right reserved. | Follow me on <a
 			href="https://twitter.com/acrisliu" target="_blank">Twitter</a> • <a
 			href="https://www.facebook.com/acrisliu" target="_blank">Facebook</a>
 		• <a href="http://weibo.com/acris" target="_blank">Sina Weibo</a> • <a

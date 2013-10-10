@@ -16,7 +16,7 @@ import javax.servlet.ServletResponse;
  *
  */
 public class EncodeFilter implements Filter {
-	protected String encoding = null;// ///要制定的编码，在web.xml中配置
+	protected String encoding = null;	//要制定的编码，在web.xml中配置
 
 	protected FilterConfig filterConfig = null;
 

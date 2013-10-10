@@ -3,6 +3,7 @@ package me.llss.actions;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -141,6 +142,16 @@ public class IndexAction extends ActionSupport implements Action {
 		List<OptionsVO> options = os.list();
 		Collections.reverse(options);
 		session.setAttribute("options", options);
+		
+		String theme = "";
+		for (OptionsVO option : options) {
+			if ("theme".equals(option.getName()))
+				theme = option.getValue();
+		}
+		String themePath = "contents/themes/" + theme + "/";
+		ServletContext context = ServletActionContext.getServletContext();
+		context.setAttribute("themeType", theme);
+		context.setAttribute("themePath", themePath);
 
 		String code = error;
 		if (code != null) {

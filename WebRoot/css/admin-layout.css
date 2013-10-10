@@ -300,6 +300,9 @@ aside#sidebar {
 #sidebar li.icn_jump_back a {
 	background: url(../images/icn_jump_back.png) no-repeat center left;
 }
+#sidebar li.icn_theme_manager a {
+	background: url(../images/icn_theme_manager.png) no-repeat center left;
+}
 #sidebar p {
 	color: #666666;
 	padding-left: 6%;
@@ -848,4 +851,14 @@ fieldset textarea:focus {
 	color:#666;
 }
 
-
+/*themes setting*/
+.theme-display {
+	margin: 0 auto;
+	text-align:center;
+}
+.theme-display img{
+	max-width:300px;
+	background: #fff;
+	border: 1px solid #e7e7e7;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

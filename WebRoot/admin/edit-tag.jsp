@@ -25,7 +25,7 @@
 					<tr>
 						<th><label for="name">标签名 <span class="description">(必填)</span></label></th>
 						<td><input type="text" name="name" id="name"
-							value="${meta.name }" class="regular-text" /></td>
+							value="${meta.name }" class="regular-text" required/></td>
 					</tr>
 					<tr>
 						<th><label for="slug">缩略名 <span class="description">(缩略名可以为标签名的英文名或缩写)</span></label></th>
@@ -42,6 +42,9 @@
 					<input name="submit" type="submit" value="修改标签" />
 				</p>
 			</form>
+			<script>
+			$("#edit-tag").validate();
+		</script>
 		</div>
 	</article>
 

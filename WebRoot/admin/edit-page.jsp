@@ -23,11 +23,11 @@
 			<div class="module_content">
 				<fieldset>
 					<label>页面标题</label> <input type="text" value="${content.title }"
-						id="title" name="title">
+						id="title" name="title" required>
 				</fieldset>
 				<fieldset>
 					<label>页面内容</label>
-					<textarea name="text" id="text">${content.text }</textarea>
+					<textarea name="text" id="text" required>${content.text }</textarea>
 					<script>
 						KindEditor
 								.ready(function(K) {
@@ -37,9 +37,9 @@
 													{
 														width : '99.9%',
 														height : '450px',
-														cssPath : 'kindeditor/plugins/code/prettify.css',
-														uploadJson : 'kindeditor/jsp/upload_json.jsp',
-														fileManagerJson : 'kindeditor/jsp/file_manager_json.jsp',
+														cssPath : '${basePath }kindeditor/plugins/code/prettify.css',
+														uploadJson : '${basePath }kindeditor/jsp/upload_json.jsp',
+														fileManagerJson : '${basePath }kindeditor/jsp/file_manager_json.jsp',
 														allowFileManager : true,
 														resizeType : '0',
 													});
@@ -53,6 +53,9 @@
 				</div>
 			</footer>
 		</form>
+		<script>
+			$("#edit-page").validate();
+		</script>
 	</article>
 
 	<div class="spacer"></div>

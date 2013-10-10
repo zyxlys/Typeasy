@@ -1,28 +1,23 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
-	isErrorPage="true"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="title" scope="request" value="404 Error"></c:set>
+<%@page import="me.llss.vo.OptionsVO"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 
-<jsp:include page="header.jsp"></jsp:include>
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="<%=basePath%>">
 
-<div id="m4out" class="container_16 clearfix">
-	<div class="grid_10" id="content">
-		<div class="post">
-			<h2 class="entry_title">404 - 页面不存在</h2>
-			<p>您要访问的页面不存在，请检查您输入的网址，然后重新再试。</p>
-			<h3>详细信息</h3>
-			<h4>
-				请求的URL:
-				<%=request.getHeader("Referer")%></h4>
+<title>Just one moment...</title>
 
-			<br>
 
-		</div>
+</head>
 
-	</div>
-	<!-- end #content-->
-	<jsp:include page="sidebar.jsp"></jsp:include>
-	<div class="clearfix m4pof"></div>
-</div>
-<!-- end m4out -->
-<jsp:include page="footer.jsp"></jsp:include>
+<body>
+	<jsp:forward page="/${applicationScope.themePath }404.jsp"></jsp:forward>
+</body>
+</html>
